@@ -1,8 +1,6 @@
 <?php
-// Author: Joshua Dickerson
-// Developed 2012 at The University of Vermont
-//
-// the router object parses URL's to identify the client's intent 
+//$routerObj = new Router($_SERVER);
+// var_dump($routerObj);
  class Router{
  	private $requestURL;
  	private $userAgent;
@@ -37,15 +35,17 @@
 			}
 		}
 
+		// logThis($requestArr['path']);
+
+
 		// // the following trims the leading and following "/" off of the path
 		$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
-		$dirTrim = substr_replace($dirTrim ,"",-1);
-		// we want the data following our BASEDIR
+		
 		if(isset($urlPath[1+array_search($dirTrim, $urlPath)])){
 			$ControllerQuery = $dirTrim;
 			$this->controller = ucfirst(strtolower($ControllerQuery));
 		}
-
+				
 		$this->action = $actionQueried;
 	} // end parseURL
 

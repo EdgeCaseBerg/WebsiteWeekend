@@ -6,12 +6,7 @@ abstract class AbstractController{
 	private $view;
 
 
-	private abstract function parseAction($actions){
-	}
-
-	public abstract function getView(){
-	}
-
-	public abstract function getVars(){
-	}
+	abstract function parseAction($actions);
+	abstract function getView();
+	abstract function getVars();
 }

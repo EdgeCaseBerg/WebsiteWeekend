@@ -45,6 +45,8 @@ class UserController extends AbstractController{
 					    	exit;
 					    }
 				    break;
+				    case "newUser":
+				    break;
 
 				    case "logOut":
 				    	$_SESSION['user']->logout();

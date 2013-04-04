@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Welcome to JoshFrame**
 =========
 ----
@@ -45,3 +46,9 @@ Creating a new module is easy. First, create a new controller that is a sub-clas
 Assuming you need access to the data-store, make a model in Models/ folder. 
 Implement the parseAction($actions) function, and use the controller to interact with the model you created. 
 
+=======
+WebsiteWeekend
+==============
+
+Repository to hold the Events of 4/6 and 4/7 as CS Crew created the new CS Crew Website
+>>>>>>> 8ad96e4acc76a55b06817236687f296d777144f7

@@ -1,0 +1,3 @@
+#Ignore the things that shouldn't be viewed publically
+Configuration/config.php
+Configuration/log.txt

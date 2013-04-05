@@ -36,7 +36,6 @@ class RoomSignInController extends AbstractController{
 					default:
 						//Default catchs a regular GET request to this page:
 						$this->view = "RoomSignIn";
-						$this->buildView()
 						break;
 				}
 			}

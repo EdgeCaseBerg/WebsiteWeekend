@@ -2,20 +2,20 @@
 logThis("included");	
 require_once "AbstractController.php";
 
-class RoomsigninController extends AbstractController{
+class RoomSignInController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view;
 
-	function __construct($actions, $POST){
+	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
 	}
 
 	public function parseAction($actions){
-		// takes the actions to be performed on the 
-		// controller and perfomrs them if they exist
+// 		// takes the actions to be performed on the 
+// 		// controller and perfomrs them if they exist
 		logThis("ASDSA");
 		$children = array_keys($actions);
 		$methods = array_values($actions);
@@ -26,8 +26,8 @@ class RoomsigninController extends AbstractController{
 		}
 		else{
 			foreach($children as $value){
-				// as long as there are an equal number of methods and variables
-				// do --> for every action perform the switch statement
+// 				// as long as there are an equal number of methods and variables
+// 				// do --> for every action perform the switch statement
 				switch ($value){
 					case "login":
 						$this->vars['thing'] = $value;
@@ -36,7 +36,7 @@ class RoomsigninController extends AbstractController{
 					default:
 						//Default catchs a regular GET request to this page:
 						$this->view = "RoomSignIn";
-						$this->buildView()
+						// $this->buildView()
 						break;
 				}
 			}

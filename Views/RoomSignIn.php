@@ -12,14 +12,17 @@
 			<!--Main Content for Signup-->
 			<fieldset>
 				<legend>Sign in to use this Room!</legend>
-					<form>
+					<form action=POST>
 						UVM Username: <input name="uvm_id" type="text" maxlength="8"/> 
 						Why are you here? 
 						<select>
+							<option value="-1">Please Select One</option>
 							<?php
 								//Vars will contain the list of purpose's here and this will be sent out
 								foreach ($this->vars['purposes'] as $purpose) {
-									print_r($purpose,true);
+									echo "<option value=\"". $purpose['pkId'] ."\">";
+									echo $purpose['purpose'];
+									echo "</option>";
 								}
 							?>
 						</select>

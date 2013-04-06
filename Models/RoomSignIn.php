@@ -3,15 +3,17 @@
 class RoomSignIn{
 	// if we ended up here it is because we called a page with no associated model. 
 	public $view;
+	public $vars;
 
 	function __construct($query){
 		$this->view = $query;
+
 	}
 
-	public getPurpose(){
-		$dbWrapper = new InteractDB('select',array('tablename'=>'tblPurpose'));
-		$this->vars['purpose'] =  $dbWrapper->returnedRows;
-		
+	public function getPurpose(){
+		$dbWrapper = new InteractDB('select',array('tableName'=>'tblPurpose'));
+		$this->vars['purposes'] =  $dbWrapper->returnedRows;
+		return $this->vars['purposes'];
 	}
 
 	public function getView(){

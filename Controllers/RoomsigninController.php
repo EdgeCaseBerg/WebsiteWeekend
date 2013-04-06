@@ -1,22 +1,25 @@
 <?php
-logThis("included");	
 require_once "AbstractController.php";
+require_once "Models/RoomSignIn.php";
 
 class RoomSignInController extends AbstractController{
 	private $POST;
 	private $actions;
-	private $view;
+	private $view = 'RoomSignIn';
+	private $modelObj;
+
 
 	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
+	 	$this->modelObj = new RoomSignIn($this->view);
 	 	$this->parseAction($this->actions);
+
 	}
 
 	public function parseAction($actions){
 // 		// takes the actions to be performed on the 
 // 		// controller and perfomrs them if they exist
-		logThis("ASDSA");
 		$children = array_keys($actions);
 		$methods = array_values($actions);
 		if(count($children) != count($methods)){
@@ -25,18 +28,23 @@ class RoomSignInController extends AbstractController{
 			// please add my functionality
 		}
 		else{
+			//This does not handle no arguments.
 			foreach($children as $value){
 // 				// as long as there are an equal number of methods and variables
 // 				// do --> for every action perform the switch statement
 				switch ($value){
 					case "login":
-						$this->vars['thing'] = $value;
+						//Attempt to do the login
 						$this->view = "RoomSignIn";
-					break;
+						break;
+					case "fail":
+						//We failed to login display an error message
+						break;
 					default:
-						//Default catchs a regular GET request to this page:
+						//Display the sign in page
 						$this->view = "RoomSignIn";
-						// $this->buildView()
+						$this->vars['purposes'] = $this->modelObj->getPurpose();
+						logThis($this->vars);
 						break;
 				}
 			}

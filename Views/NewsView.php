@@ -8,19 +8,26 @@
 		<hr>
 
 
-		<!-- for each of the items in $this->vars render it -->
+		<!-- Render each of the news items, as needed -->
 		<?
 			// logThis($this->vars);
 			if($this->vars['singleStory']){
 				// logThis("we have a single story to render");
-				logThis($this->vars);
+				// logThis($this->vars);
 				$post = file_get_contents('Views/Stories/Content/' . $this->vars['path'] .'.php');
+				echo "<div class='newsPost'>";
+				echo '<img src="Views/Stories/Content/'. $this->vars['image'].'.jpg"/>';
 				echo $post;
+				echo '</div> <!-- end newsPost -->';
 			}
 			else{
 				foreach($this->vars as $newsPost){
 					$post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
+					echo "<div class='newsPost'>";
+					echo '<img src="Views/Stories/Content/'. $newsPost->getImage().'.jpg"/>';
 					echo $post;
+					echo '<span class="readMore"><a href="/WebsiteWeekend/News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
+					echo '</div> <!-- end newsPost -->';
 				} 
 			}
 			

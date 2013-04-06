@@ -51,7 +51,6 @@ class Controller{
 		// get array of model and action from the routerObj
 		// if the router has created a controller instance, and that instance isn't empty?
 		$controller = $this->routerObj->getController();
-		// logThis($controller);
 		if(isset($controller) && $controller != ""){
 			$controller = $controller."Controller";
 			

@@ -4,7 +4,6 @@ class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view = "defaultView";
-	private $vars;
 
 	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;

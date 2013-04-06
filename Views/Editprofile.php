@@ -114,18 +114,6 @@ $(document).ready(function(){
 								<div class="socialUrl">URL: <input type="text" name="facebook"></div>
 							</li>
 							<li>
-								<input type="checkbox" class="socialCheckbox" id="tumblr">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/tumblr.png">
-								Tumblr
-								<div class="socialUrl">URL: <input type="text" name="tumblr"></div>
-							</li>
-							<li>
-								<input type="checkbox" class="socialCheckbox" id="blogger">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/blogger.png">
-								Blogger
-								<div class="socialUrl">URL: <input type="text" name="blogger"></div>
-							</li>
-							<li>
 								<input type="checkbox" class="socialCheckbox" id="linkedin">
 								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png">
 								Linkedin
@@ -137,21 +125,14 @@ $(document).ready(function(){
 								Google +
 								<div class="socialUrl">URL: <input type="text" name="google"></div>
 							</li>
-							<li>
-								<input type="checkbox" class="socialCheckbox" id="rss">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/rss.png">
-								RSS Feed
-								<div class="socialUrl">URL: <input type="text" name="rss"></div>
-							</li>
 						</ul>
 					</div>
 				
 
 					<div class="rightNest nest">
 						<div class="inputTitle">Profile image</div>
-						<div class="imageDialog" id="PhotoPrevs">
-						</div>
-						<input type="file" name="userIMG">
+						<div class="imageDialog" id="PhotoPrevs"></div>
+						<input type="file" class="fileInput" name="userIMG">
 					</div>
 
 				</div>

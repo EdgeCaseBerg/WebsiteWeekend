@@ -72,7 +72,7 @@
                 <b class="caret"></b>
             </a>
               <ul class="dropdown-menu">
-                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "login/'>Log in</a></li>";}?>
+                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "Default/?page=login'>Log in</a></li>";}?>
                   <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "signup/'>Sign Up</a></li>";}?>
                   <? if($_SESSION['priv_level']>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
                   <? if($_SESSION['priv_level']>=1){echo "<li class='divider'></li>";}?>

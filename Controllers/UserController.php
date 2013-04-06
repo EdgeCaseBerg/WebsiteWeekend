@@ -31,15 +31,18 @@ class UserController extends AbstractController{
 				// do --> for every action perform the switch statement
 				switch ($value) {
 					case "home":
-					$this->view = 'userHome';
+						$this->view = 'userHome';
 				    break;
 				    case "doLogin":
+				    logThis("in dologin");
 					    $loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
 					    if($loginResult){
 					    	// if login worked redirect the user to his home page
+					    	logThis("login good");
 					    	header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID()); 
 					    	exit;
 					    }else{
+					    	logThis("login bad");
 					    	// $_SESSION['notifications'] = "login Failed";
 					    	header("location: ".BASEDIR."Default/"); 
 					    	exit;

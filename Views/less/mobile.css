@@ -1,0 +1,91 @@
+#topBar{
+	width:100%;
+	height:30px;
+	margin-top:40px;
+	border-bottom:solid 2px #00774B;
+	border-top:solid 2px #00774B;
+	clear:both;
+	background-color: @navbar_bgColor;
+
+
+	.uvmLogo{
+		display:none;
+		height:100px;
+		float:left;
+		margin-top:-40px;
+		margin-left:20px;
+		margin-right:40px;
+	}
+
+	.mainNav{
+		width:80%;
+		min-width:963px;
+		font-weight:400;
+
+		a{
+			font-family: 'Quantico', sans-serif; 
+			text-decoration:none;
+			color:#222;
+			text-shadow: 0px 1px 0px #eee;
+			font-size:1.4em;
+			display:inline-block;
+			padding:5px 0px 0px 0px;
+		}
+		a:hover{
+			color:#00774B;
+		}
+
+		a:first-child{
+			margin-left:10px;
+		}
+
+		.active{
+		}
+
+		li{
+			cursor:pointer;
+			display:inline;
+			margin-left:-20px;
+		}
+
+	}
+
+
+	.account{
+
+		float:right;
+		margin-right:20px;
+		margin-top:-25px;
+	}
+
+	a:hover{
+		text-decoration:none;
+	}
+
+		.accountManage{
+			margin-top:-5px;
+			.dropdown-toggle:hover{
+				background:none;
+				color:red;
+
+			}
+
+			.dropdown-menu{
+				margin-left:-120px;
+				padding:10px 10px 10px 0px;
+				li{
+					margin-left:10px;
+				}
+
+				/*.logout{display:none;} */
+				li:hover{
+					cursor:pointer;
+					background-color:'white';
+					color:@dropdown_color_hover;
+
+				}
+
+			}
+
+		}
+}

@@ -29,6 +29,9 @@ class RoomSignInController extends AbstractController{
 		}
 		else{
 			//This does not handle no arguments.
+			if(count($children)==0){
+				$children = array('default' => '');
+			}
 			foreach($children as $value){
 // 				// as long as there are an equal number of methods and variables
 // 				// do --> for every action perform the switch statement
@@ -36,6 +39,8 @@ class RoomSignInController extends AbstractController{
 					case "login":
 						//Attempt to do the login
 						$this->view = "RoomSignIn";
+						logThis("Hey I'm here!");
+						logThis($_POST);
 						break;
 					case "fail":
 						//We failed to login display an error message

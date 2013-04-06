@@ -12,7 +12,7 @@
 			<!--Main Content for Signup-->
 			<fieldset>
 				<legend>Sign in to use this Room!</legend>
-					<form action=POST>
+					<form action="/RoomSignIn/login=true" method="POST">
 						UVM Username: <input name="uvm_id" type="text" maxlength="8"/> 
 						Why are you here? 
 						<select>
@@ -26,6 +26,9 @@
 								}
 							?>
 						</select>
+						<textarea type="text" name="description">
+						</textarea>
+						<input type="submit" value="Sign In">
 					</form>
 			</fieldset>
 		</div>

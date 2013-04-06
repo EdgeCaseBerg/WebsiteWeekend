@@ -26,6 +26,9 @@ class UserController extends AbstractController{
 			// please add my functionality
 		}
 		else{
+			if(count($children)==0){
+				logThis("GET");
+			}
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement

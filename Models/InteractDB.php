@@ -48,10 +48,6 @@ class InteractDB{
 			case "update":
 			$this->updateStatement();
 			break;
-
-			case "custom":
-			$this->customStatement();
-			break;
 		}
 
 	} // end parseActions

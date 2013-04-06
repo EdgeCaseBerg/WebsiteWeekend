@@ -1,5 +1,8 @@
 <?php
 require_once "AbstractController.php";
+require_once "Models/News.php";
+require_once "Models/NewsBundle.php";
+
 class AdminController extends AbstractController{
 	private $POST;
 	private $actions;
@@ -24,7 +27,6 @@ class AdminController extends AbstractController{
 			// please add my functionality
 		}
 		else{
-			logThis($methods);
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement
@@ -32,6 +34,12 @@ class AdminController extends AbstractController{
 					case "news":
 						switch($actions['news']){
 							case "new":
+								$this->view = "AdminViews/newStory";
+								$newsBundle = new NewsBundle();
+								$news = $newsBundle->retrieveAll();
+								foreach($news as $story){
+									error_log(print_r($story->toArray(),true));
+								}
 								break;
 							case  "edit";
 
@@ -39,7 +47,7 @@ class AdminController extends AbstractController{
 							default:
 								break;
 						}
-						$this->view = "defaultView";
+						
 					break;
 
 					case "users":

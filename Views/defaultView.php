@@ -1,122 +1,180 @@
 <?php
-?>
-<div id="topBar">
-    <!-- this is where all of our top-level nav goes, along with logo and title --> 
-  <a href=<? echo "'".BASEDIR."'";?>><img alt="logo" src="<? echo BASEDIR; ?>Views/images/logo.png" class="uvmLogo"></a>
-    <!--  the navbar at the top/middle of the screen -->
-    <!--  Currently set to use ajax loads, but will be replaced w/ -->
-    <!--  PHP loads once URL resolution is built --> 
-  <ul class="mainNav">
-      <li class="homeLink">
-        <a class="navLinks homeLink" href=<? echo "'".BASEDIR."/'";?>>
-          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Home
-          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>             
-      <li>
-        <a class="navLinks projectsLink" href=<? echo "'".BASEDIR."projects/'";?>>
-          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Projects
-          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>
-      <li id="calendarLink">
-        <a class="navLinks calendarLink" href=<? echo "'".BASEDIR."calendar/'";?>>
-          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Calendar
-          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>
-      <li>
-        <a class="navLinks membersLink" href=<? echo "'".BASEDIR."members/'";?>>
-          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Members
-          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>
-      <li>
-        <a class="navLinks contactLink" href=<? echo "'".BASEDIR."contact/'";?>>
-          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Contact
-          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>
-    <? 
-  if (isset($_SESSION['priv_level']) && $_SESSION['priv_level'] > 0){ 
-  echo   "<li>
-        <a class='navLinks forumLink' href='".BASEDIR."Forum/?getPosts=yes'>
-          <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Forum
-          <div class='utf8 right'><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>"; 
-    }else{
-      echo "<li>
-        <a class='navLinks helpLink' href='".BASEDIR."help/'>
-          <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
-          Get Help
-          <div class='utf8 right'><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-        </a>
-      </li>";}
-      ?>
-  </ul>
+include "topBar.php";
 
-  <!-- account management dropdown, styled with bootstrap -->
-  <div class="account">
-          <ul class="accountManage">
-        <!-- account dropdown -->
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="path/to/page.html">
-              Account 
-                <b class="caret"></b>
-            </a>
-              <ul class="dropdown-menu">
-                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "login/'>Log in</a></li>";}?>
-                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "signup/'>Sign Up</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='divider'></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."'>Profile <i class='icon-user'></i></a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."&page=Editprofile'>Settings</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='divider'>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href='".BASEDIR."messages/'>Messages</a></li>";}?>
-                 
-              </ul>
-          </li>
-        </ul>
-  </div>
-</div>  <!-- end topbar -->
+// this is a main content page. this page sits inside, and is included by
+// home.php (currently)
 
-
-
-
-<div id="mainContain">
-     <!--this is where we load all of our main modules. Think forums, calendars, forms, blog posts, about us etc 
-   -->
-   <?  
-   include $path; 
-   if (isset($debug)){
-    echo $debug;
+// each li.row is a row... duhh
+// inside each li we have divs that are the cells, they are 
+// styled display:inline-block with css, and are lengthened to be of
+// equal height, in javascript below
+echo $_SESSION['priv_level'];
+function is_admin(){
+  if ($_SESSION['priv_level'] == 1){
+    return true;
+  }else{ 
+    return false;
   }
-  ?>
+}
+?>
+
+<div class='aboutContain'>
+
+<ul>
+  <li class="containRow row1">
+    <div class="containCell leftCell">
+      <ul>
+        <li class="social">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/tumblr.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/reddit.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/rss.png">
+          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/youtube.png">
+        </li>
+        <li class="tools">
+          <ul>
+            <li><span class="shiftArrow">&#8674;</span>Tutorials</li>
+            <li><span class="shiftArrow">&#8674;</span>Code</li>
+            <li><span class="shiftArrow">&#8674;</span>Books</li>
+            <li><span class="shiftArrow">&#8674;</span>Articles</li>
+            <li><span class="shiftArrow">&#8674;</span>GitHub</li>
+          </ul>
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <div class="containCell midCell">
+      <? if(is_admin()){ echo $adminBlock; } ?>
+      <p>
+        &nbsp; &nbsp; &nbsp;<span class="firstLetter">W</span>e need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.<img alt="img" src="<? echo BASEDIR; ?>Views/images/photos/test1.jpg">
+        <br/><br />
+        &nbsp; &nbsp; &nbsp;We need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.
+      </p>
+    </div>
+    <div class="containCell rightCell">
+      <?php if ($_SESSION['auth']==2){echo $admin;} ?>
+      <h2>News</h2>
+      <p class="newsItem">
+        <span>Peer To Peer Advising Night</span><br />
+        The UVM Computer Science Crew (CS Crew) held its 4th semesterly peer 
+        advising night on April 4th.
+
+        <a class="newsLink">FULL STORY >></a>
+      </p>
+
+      <p class="newsItem">
+        <span>CS Crew holds Spring Course Overview</span><br />
+        At the behest of the new Interim Chair of the Computer Science 
+        department, Professor Jeff Dinitz, and the Computer Science Faculty, 
+
+        <a class="newsLink">FULL STORY >></a>
+      </p>
+    </div>
+  </li>
+
+  <li class="containRow row2">
+    <div class="containCell">
+
+      <div id="galleria">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/1.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/2.jpg" data-title="Another title" data-description="My <em>HTML</em> description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/3.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/4.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/5.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/6.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/7.jpg" data-title="My title" data-description="My description">
+        <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/8.jpg" data-title="My title" data-description="My description">
+      </div>
+    </div>
+    <img src="<? echo BASEDIR; ?>Views/images/wiring.png" class="wiringImg" height="300" alt="wiring" style="float:right">
+  </li>
+
+  <li class="containRow row3">
+    <div class="containCell leftCell">
+      <h2>News</h2>
+      <p class="newsItem">
+        <span>Peer To Peer Advising Night</span><br />
+        The UVM Computer Science Crew (CS Crew) held its 4th semesterly peer 
+        advising night on April 4th.
+
+        <a class="newsLink">FULL STORY >></a>
+      </p>
+
+      <p class="newsItem">
+        <span>CS Crew holds Spring Course Overview</span><br />
+        At the behest of the new Interim Chair of the Computer Science 
+        department, Professor Jeff Dinitz, and the Computer Science Faculty, 
+
+        <a class="newsLink">FULL STORY >></a>
+      </p>
+    </div>
+    <div class="containCell rightCell">
+      <p>
+        &nbsp; &nbsp; &nbsp;We need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.
+        <br/><br />
+        &nbsp; &nbsp; &nbsp;We need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.
+      </p>
+    </div>
+  </li>
+
+
+</ul>
 </div>
 
 <script type="text/javascript">
-// for highlighting the navbar for the apporpriate page
+// make the cells equal length
 $(document).ready(function(){
-var path = <?php echo "'".$path."'"; ?>;
-if(path.toLowerCase().indexOf("projects") > 0){$('.projectsLink').css({'color' : '#00774B'}); }
-if(path.toLowerCase().indexOf("calendar") > 0){$('.calendarLink').css({'color' : '#00774B'}); }
-if(path.toLowerCase().indexOf("members") > 0){$('.membersLink').css({'color' : '#00774B'}); }
-if(path.toLowerCase().indexOf("contact") > 0){$('.contactLink').css({'color' : '#00774B'}); }
-if(path.toLowerCase().indexOf("help") > 0){$('.helpLink').css({'color' : '#00774B'}); }
-if(path.toLowerCase().indexOf("thread") > 0){$('.forumLink').css({'color' : '#00774B'}); }
+  var r1h1 = $('.row1 .leftCell').height();
+  var r1h2 = $('.row1 .midCell').height();
+  var r1h3 = $('.row1 .rightCell').height();
+  var maxR1Height = Math.max(r1h1, r1h2, r1h3);
+  if($(window).width()>480){
+    $('.row1 .containCell').css({'height' : maxR1Height+40});
+  }
+
+  // fire up the gallery plugin
+  var basedir = <? echo BASEDIR; ?>;
+  Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
+  Galleria.run('#galleria');
 });
-
 </script>
-
-
-<!-- </body> -->
-</html>
-
-

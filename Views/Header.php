@@ -25,8 +25,7 @@
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/less.js"></script> <!-- less css framework -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/bootstrap-dropdown.js"></script> <!-- twitter bootstrap -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/bootstrap-collapse.js"></script>
+  <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/galleria/galleria-1.2.7.min.js"></script><!-- photo gallery plugin -->
 <!-- heres our custom JS file  -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/index.js"></script>
-  <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/amcharts/amcharts.js"></script>
-
 </head>

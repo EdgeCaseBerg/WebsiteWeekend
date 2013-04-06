@@ -23,6 +23,7 @@ class View{
             if(file_exists('Views' . '/' . $this->view . '.php')){
                 include_once 'Views/Header.php';
                 include_once 'Views' . '/' . $this->view . '.php';
+                include_once 'Views/footer.php';
             }
             else{
                 include_once('Views/Home.php');

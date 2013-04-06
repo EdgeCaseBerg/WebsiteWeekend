@@ -51,7 +51,7 @@ class Controller{
 		// get array of model and action from the routerObj
 		// if the router has created a controller instance, and that instance isn't empty?
 		$controller = $this->routerObj->getController();
-		logThis($controller);
+		// logThis($controller);
 		if(isset($controller) && $controller != ""){
 			$controller = $controller."Controller";
 			
@@ -60,13 +60,13 @@ class Controller{
 				$controller = str_replace("/", "", $controller);
 			}
 
-			logThis($controller);
+			// logThis($controller);
 			// if there is an associated controller, make an instance of that object
 			// perform the requested action, and return the data, otherwise drop into 
 			// the default model. 
 			
 			if(file_exists("Controllers/".$controller.".php")){ // check if a file exists in the controller dir
-				logThis("******** Found sub-controller ********");
+				// logThis("******** Found sub-controller ********");
 				include "Controllers/".$controller.".php";
 				$controllerObj = new $controller($this->routerObj->getActions(), $this->POST);
 				$this->view = $controllerObj->getView();

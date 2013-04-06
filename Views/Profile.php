@@ -1,5 +1,8 @@
 <?php
  // var_dump($vars);
+if($_SESSION['user']->getUserAuth() < 1){
+	header("location: ".BASEDIR."Default/"); 
+}
 
 function checkSet($var){
 	// don't want to do a hundred isset's 

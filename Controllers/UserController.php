@@ -6,6 +6,7 @@ class UserController extends AbstractController{
  	private $actions = array();
  	private $view;
  	public $modelObj;
+ 	public $vars;
 
  	function __construct($actions, $POST){
 		$this->POST = $POST;
@@ -32,9 +33,19 @@ class UserController extends AbstractController{
 				switch ($value) {
 					case "home":
 						$this->view = 'Profile';
-				    break;
-				    case "doLogin":
-				    logThis("in dologin");
+					break;
+					case "settings":
+						$this->view = 'Editprofile';
+					break;
+					case "updateProfile":
+						$_SESSION['user']->updateProfile($this->POST);
+					break;
+					case "getProfile":
+						$this->vars = $_SESSION['user']->getProfile();
+						// logThis($this->vars);
+					break; 
+					case "doLogin":
+						logThis("in dologin");
 					    $loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
 					    if($loginResult){
 					    	// if login worked redirect the user to his home page
@@ -50,9 +61,15 @@ class UserController extends AbstractController{
 				    break;
 				    case "newUser":
 				    break;
-
+				    case "output":
+				    	if($actions['output'] = "json"){
+				    		$this->view = "json";
+				    	}
+				    break;
 				    case "logOut":
 				    	$_SESSION['user']->logout();
+				    	header("location: ".BASEDIR."Default/"); 
+					    exit;
 				    break;
 				    default:
 				       // echo "i is not equal to 0, 1 or 2";
@@ -67,7 +84,7 @@ class UserController extends AbstractController{
 	}
 
 	public function getVars(){
-
+		return $this->vars;
 	}
 
 } // end User class

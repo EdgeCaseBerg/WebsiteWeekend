@@ -1,5 +1,7 @@
 <?php
+echo "<div class='debug' style='background:white; padding:5px'>";
 var_dump($_SESSION['user']->getUserAuth());
+echo "</div>";
 ?>
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
@@ -77,8 +79,8 @@ var_dump($_SESSION['user']->getUserAuth());
                   <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "signup/'>Sign Up</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'></li>";}?>
-                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."'>Profile <i class='icon-user'></i></a></li>";}?>
-                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."&page=Editprofile'>Settings</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?home=".$_SESSION['user']->getUserID()."'>Profile <i class='icon-user'></i></a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?settings=".$_SESSION['user']->getUserID()."'>Settings</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href='".BASEDIR."messages/'>Messages</a></li>";}?>
                  

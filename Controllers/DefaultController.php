@@ -29,6 +29,9 @@ class DefaultController extends AbstractController{
 				switch ($value){
 					case "page":
 						switch($actions['page']){
+							case "login":
+								$this->view = "Login";
+							break; 
 							case "calendar":
 								$this->view = "Calendar";
 							break;

@@ -41,8 +41,30 @@ class AdminController extends AbstractController{
 									error_log(print_r($story->toArray(),true));
 								}
 								break;
-							case  "edit";
-
+							case  "edit":
+								if(isset($_GET['id'])){
+									$news = new News();
+									$news->initById($_GET['id']);
+									$this->vars['news'] = $news->toArray();
+									$this->vars['file_text'] = file_get_contents('Views/Stories/Content/' . $this->vars['news']['path'] .'.php');
+									$this->view= 'AdminViews/editStory';
+								}
+								break;
+							case "save":
+								error_log(print_r($_POST,true));
+								logThis($_FILES);
+								if(isset($_POST['id'])){
+									$news = new News();
+									$news->initById($_POST['id']);
+									//$news->saveHtml($_POST['html']);
+								}else{
+									$news = new News();
+									$news->setTitle($_POST['title']);
+									$news->setImage($_POST['image']);
+									//$news->saveHtml($_POST['html']);
+									//$news->save();
+								}
+								
 								break;
 							default:
 								break;
@@ -50,11 +72,17 @@ class AdminController extends AbstractController{
 						
 					break;
 
+					case "id":
+						break;
+
 					case "users":
 						break;
 
 					case "resources":
 						break;
+
+					case "output":
+						$this->view = 'json';
 
 					default;
 						break;

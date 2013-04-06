@@ -11,3 +11,6 @@ if(isset($_SESSION['notifications'])){
 		<li><input type="submit" value="submit"></li>
 	</ul>
 </form>
+
+
+</html>

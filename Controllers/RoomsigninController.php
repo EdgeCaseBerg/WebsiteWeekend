@@ -38,9 +38,18 @@ class RoomSignInController extends AbstractController{
 				switch ($value){
 					case "login":
 						//Attempt to do the login
+						//Are they a uvm student?
+						$uvmInfo = $this->getUVMUserInfo($this->POST['uvm_id']);
+						if($uvmInfo){
+							logThis($uvmInfo);
+						}else{
+							//Not a valid uvm if
+							logThis("not valif");
+						}
+
+						//Redirect to sign in page if there's no errors and give them a nice good job
 						$this->view = "RoomSignIn";
-						$this->vars['purposes'] = $this->modelObj->getPurpose();
-						logThis($_POST);
+						$this->vars['purposes'] = $this->modelObj->getPurpose();	
 						break;
 					default:
 						//Display the sign in page
@@ -50,6 +59,52 @@ class RoomSignInController extends AbstractController{
 				}
 			}
 		}
+	}
+
+	public function getUVMUserInfo( $userName ) {
+		$info = $this->useLDAP( $userName ); 
+		
+		if( is_array($info) ) {
+			$first = $info[0]["givenname"][0] ;
+			$last =  $info[0]["sn"][0];
+			$email =  $info[0]["mail"][0];
+			$class =  $info[0]["ou"][0];
+			
+			$output = array( "uid"=>$userName, "fname"=>$first, "lname"=>$last, "email"=>$email, "class"=>$class );
+			
+			return $output;
+		}
+		
+		//If we get here then we got nothing back and they're not a student
+		return false;
+	}
+	
+	private function useLDAP( $uvmID ) {	
+		//Connects to the ldap server
+		$ds = ldap_connect( "ldap.uvm.edu" );
+
+		//if connection is successful
+		if( $ds ) {               
+			$r=ldap_bind( $ds );
+			$dn = "uid=$uvmID,ou=People,dc=uvm,dc=edu";
+			$filter="( | ( netid=$uvmID ) )";
+
+			$findthese = array( "sn", "givenname", "mail", "ou" );
+//			$findthese = array();
+
+			if( $searchResults = @ldap_search( $ds, $dn, $filter, $findthese ) ) {
+				// if there are more than 0 results
+				if( ldap_count_entries( $ds, $searchResults ) > 0 ) {
+					$info = ldap_get_entries( $ds, $searchResults );				
+					ldap_close( $ds );				
+					return $info;
+				} else {
+					return "Invalid UVM Net Id.";
+				}
+			}
+		}
+		ldap_close( $ds );
+		return "Invalid UVM Net Id.";
 	}
 
 	public function getView(){

@@ -13,11 +13,11 @@
 			<!--Main Content for Signup-->
 			<fieldset>
 				<legend>Sign in to use this Room!</legend>
-					<form action="/RoomSignIn/login=true" method="POST">
+					<form action="/RoomSignIn/?login=true" method="POST">
 						<span>UVM Username:</span> <input name="uvm_id" type="text" maxlength="8"/> <br />
 
 						<span>Why are you here?</span>
-						<select>
+						<select name="purpose">
 							<option value="-1">Please Select One</option>
 							<?php
 								//Vars will contain the list of purpose's here and this will be sent out

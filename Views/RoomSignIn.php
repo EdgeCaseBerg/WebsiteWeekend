@@ -3,7 +3,9 @@
 if(isset($this->vars['success'])){
 	//We logged the usage.
 	unset($this->vars['errors']);
-	unset($_POST);
+	$_POST['purpose'] = -1;
+	$_POST['description'] = "";
+	unset($_POST['uvm_id']);
 	echo "
 		<script>
 			alert('Thanks for signing in!');

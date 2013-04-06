@@ -21,7 +21,7 @@ $controllerObj = new Controller($_SERVER, $_POST);
 class Controller{
 	private $routerObj;
 	private $modelObj;
- 	private $view ='Home';
+ 	private $view ='defaultView';
  	private $vars = null;
  	private $POST;
  	private $SERVER;

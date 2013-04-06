@@ -1202,7 +1202,13 @@ table{
 /* -------------- Room Sign in Page ------------- */
 
 .roomSignIn{
-	
+	table{
+		width: 100%;
+		border: none;
+	}
+	.error{
+		color: #FF0000;		
+	}
 	div{
 		text-align: center;
 		margin-left: 35%;
@@ -1239,6 +1245,12 @@ table{
 			}
 
 		}
+	}
+	#errors{
+		z-index: 10;
+		color: #FF0000;
+		position: absolute;
+		top: 0;
 	}
 
 

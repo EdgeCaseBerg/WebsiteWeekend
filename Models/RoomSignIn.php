@@ -16,6 +16,16 @@ class RoomSignIn{
 		return $this->vars['purposes'];
 	}
 
+	public function logUsage($info){
+		$toDb = array('tableName' => 'tblRoomUsage', 
+				'uvmID' => $info['uvm_id'],
+				'fkPurpose' => $info['purpose'],
+				'description' => $info['description'],
+				'classYear' => $info['class']
+			);
+		$dbWrapper = new InteractDB('insert',$toDb);
+	}
+
 	public function getView(){
 		if($this->view){
 			return $this->view;

@@ -40,14 +40,23 @@ class RoomSignInController extends AbstractController{
 						//Attempt to do the login
 						//Are they a uvm student?
 						$uvmInfo = $this->getUVMUserInfo($this->POST['uvm_id']);
-						if($uvmInfo){
-							logThis($uvmInfo);
+						if(is_array($uvmInfo)){
+							$this->POST['class'] = $uvmInfo['class'];
+							logThis($this->POST);
 						}else{
 							//Not a valid uvm if
-							logThis("not valif");
+							$this->vars['errors']['uvm'] = "Not a valid UVM Id";
 						}
-
+						if($this->POST['purpose'] == -1){
+							//Invalid purpose
+							$this->vars['errors']['purpose'] = "Please select your purpose";
+						}
 						//Redirect to sign in page if there's no errors and give them a nice good job
+						if(!isset($this->vars['errors'])){
+							//Log the usage of the room.
+							$this->modelObj->logUsage($this->POST);
+							$this->vars['success'] = 'yes';
+						}
 						$this->view = "RoomSignIn";
 						$this->vars['purposes'] = $this->modelObj->getPurpose();	
 						break;

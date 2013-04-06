@@ -31,22 +31,26 @@ class DefaultController extends AbstractController{
 						switch($actions['page']){
 							case "login":
 								$this->view = "Login";
-							break; 
+								break; 
 							case "calendar":
 								$this->view = "Calendar";
-							break;
+								break;
 							case "projects":
 								$this->view = "Projects";
-							break;
+								break;
 							case "members":
 								$this->view = "Members";
-							break;
+								break;
 							case "contact":
 								//Grab the list of emails of who to talk to
 								$dbWrapper = new InteractDB('select',array('tableName'=>'tblContactEmails'));
 								$this->vars['emails'] = $dbWrapper->returnedRows;
 								$this->view = "Contact";
-							break;
+								break;
+							case "help":
+								//Send em to the hours page
+								header('/Hours/');
+								break;
 						}
 					break;
 					} // end switch

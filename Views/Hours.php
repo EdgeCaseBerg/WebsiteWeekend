@@ -68,9 +68,22 @@ require_once "topBar.php";
 					}
 				}
 				for ($i=0; $i < $maxDepth; $i++) { 
-					echo "<tr class=\"" . $i%2==0 ? 'alt' : '' ."\">";
+					echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
 					foreach ($hours as $day => $hoursOnDay) {
+						if(isset($hoursOnDay[$i])){
+							logThis($hoursOnDay[$i]['day'] . ' HEEEY ' . $day);
+							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
+								echo '<td>';
+								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
+								echo $hoursOnDay[$i]['hour'];
+								echo '</td>';
+							}else{
+								echo '<td></td>';
+							}
 						
+						}else{
+							echo '<td></td>';
+						}
 					}
 					echo '</tr>';
 				}

@@ -1172,6 +1172,8 @@ table{
 		}	
 	}
 }
+
+
 /* ------------- New User page ----------- */
 
 .signUp{
@@ -1197,4 +1199,60 @@ table{
 	}
 }
 
+/* -------------- Room Sign in Page ------------- */
+
+.roomSignIn{
+	table{
+		width: 100%;
+		border: none;
+	}
+	.error{
+		color: #FF0000;		
+	}
+	div{
+		text-align: center;
+		margin-left: 35%;
+		margin-right: auto;
+		margin-top: 10%;
+		color: #00FF00;	
+		width: 30%;
+	}
+	fieldset{
+		legend{
+			color: #00FF00;
+			padding-bottom: 1%;
+			font-weight: bolder;
+			font-size: 200%;
+		}
+		form{
+			padding-top: 2%;
+			textarea{
+				width: 100%;
+			}
+			select,input{
+				float: right;
+			}
+			span{
+				padding-top: 3%;
+				float: left;
+				font-weight: bold;
+			}
+			#desc{
+				clear: both;
+				text-weight: italic;
+				font-size: 90%;
+				margin-left: 20%;
+			}
+
+		}
+	}
+	#errors{
+		z-index: 10;
+		color: #FF0000;
+		position: absolute;
+		top: 0;
+	}
+
+
+}
 

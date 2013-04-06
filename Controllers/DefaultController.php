@@ -4,9 +4,9 @@ class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view = "defaultView";
+	private $vars;
 
 	function __construct($actions = null, $POST = null){
-		logThis("inside Default");
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
@@ -26,8 +26,24 @@ class DefaultController extends AbstractController{
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement
-				// switch ($value){
-				// 	} // end switch
+				switch ($value){
+					case "page":
+						switch($actions['page']){
+							case "calendar":
+								$this->view = "Calendar";
+							break;
+							case "projects":
+								$this->view = "Projects";
+							break;
+							case "members":
+								$this->view = "Members";
+							break;
+							case "contact":
+								$this->view = "Contact";
+							break;
+						}
+					break;
+					} // end switch
 			} // end foreach
 		} // end else
 

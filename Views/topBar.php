@@ -15,28 +15,28 @@
         </a>
       </li>             
       <li>
-        <a class="navLinks projectsLink" href=<? echo "'".BASEDIR."projects/'";?>>
+        <a class="navLinks projectsLink" href=<? echo "'".BASEDIR."Default/?page=projects'";?>>
           <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Projects
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
         </a>
       </li>
       <li id="calendarLink">
-        <a class="navLinks calendarLink" href=<? echo "'".BASEDIR."calendar/'";?>>
+        <a class="navLinks calendarLink" href=<? echo "'".BASEDIR."Default/?page=calendar'";?>>
           <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Calendar
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
         </a>
       </li>
       <li>
-        <a class="navLinks membersLink" href=<? echo "'".BASEDIR."members/'";?>>
+        <a class="navLinks membersLink" href=<? echo "'".BASEDIR."Default/?page=members'";?>>
           <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Members
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
         </a>
       </li>
       <li>
-        <a class="navLinks contactLink" href=<? echo "'".BASEDIR."contact/'";?>>
+        <a class="navLinks contactLink" href=<? echo "'".BASEDIR."Default/?page=contact'";?>>
           <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Contact
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>

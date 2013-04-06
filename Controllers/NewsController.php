@@ -1,6 +1,8 @@
 <?php
 require_once "AbstractController.php";
-require_once "Models/NewsModel.php";
+// require_once "Models/NewsModel.php";
+require_once "Models/News.php";
+require_once "Models/NewsBundle.php";
 
 class NewsController extends AbstractController{
 	/*
@@ -45,14 +47,23 @@ class NewsController extends AbstractController{
 					// if the request is for the main page, then render all of the news stories regularly
 					case "allStories":
 						// calls to the database to get all of the stories
-						// $this->vars['helloObj'] = "Hello there";
-						$modelObject = new NewsModel;
-						$this->vars = $modelObject->retrieveAllStories();
-						logThis($this->vars);
+						$modelObject = new NewsBundle;
+						$this->vars = $modelObject->RetrieveAll();
+						// logThis($this->vars);
+						// logThis($methods[0]);
+
 						$this->view = "NewsView";
 						break;
+
 					case "singleStory":
-					// handle if it is a specific story requested, which means they've clicked on a 'full story' link
+					// handle if it is a specific story requested, which means they've clicked on a 'full story' link;
+						$modelObject = new News;
+						// logThis($methods[0]);
+						$modelObject->initById($methods[0]);
+						$this->vars = $modelObject->toArray();
+						$this->vars['singleStory'] = true;
+						// logThis($this->vars);
+
 						$this->view = "NewsView";
 						break;
 					default;

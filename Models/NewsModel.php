@@ -1,6 +1,6 @@
 <?php
 class NewsModel{
-	/*
+	/*	DEPRICATED, USE NEWS AND NEWSBUNDLE INSTEAD
 		NewsModel class
 		Used to interact with the database on behalf of the NewsController. 
 		Provided methods to retrieve all news stories from the database, or specific ones based on their

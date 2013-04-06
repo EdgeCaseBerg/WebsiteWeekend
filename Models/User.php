@@ -44,13 +44,14 @@ class UserModel{
 	} // end getProfile
 
 	public function updateProfile($POST){
-		// logThis($POST);
-		// get the old snapshot from the db
+		// get our current row
 		$array = array(
 			'tableName'=>'tblUserProfile',
 			'fkUserID'=>$_SESSION['user']->getUserID()
 		);
 		$dbWrapper = new InteractDB('select', $array);
+
+		// begin prepping our new entry
 		$array = array(
 			'tableName'=>'tblUserProfile',
 			'fldFirstName'=>$POST['first_name'],
@@ -64,6 +65,16 @@ class UserModel{
 			'fldLinkedinURL'=>$POST['linkedin'],
 			'fldGoogleURL'=>$POST['google']
 		);
+
+		// if we uploaded a user image
+		logThis($_FILES);
+		if($_FILES["userIMG"]["tmp_name"] != "" && $_FILES["userIMG"]["tmp_name"] != null){
+			if($_FILES["userIMG"]["type"] == "image/jpeg"){$ext = ".jpg";}
+			if($_FILES["userIMG"]["type"] == "image/png"){$ext = ".png";}
+			if($_FILES["userIMG"]["type"] == "image/gif"){$ext = ".gif";}
+			move_uploaded_file($_FILES["userIMG"]["tmp_name"], "Views/images/profile_images/" ."user_id_".$_SESSION['user']->getUserID().$ext);
+			$array['fldProfileImage'] = "user_id_".$_SESSION['user']->getUserID().$ext;
+		}
 		if(count($dbWrapper->returnedRows)<1){
 		// a row doesn't exist for this person, make a new one
 			$array['fkUserID'] = $_SESSION['user']->getUserID();

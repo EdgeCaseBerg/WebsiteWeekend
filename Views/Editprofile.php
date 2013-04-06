@@ -23,6 +23,11 @@ $(document).ready(function(){
 		if(data['fldPersonalURL']!= ""){
 			$("input[name='personal_url']").val(data['fldPersonalURL']);
 		}
+		if(data['fldProfileImage']!= ""){
+			var basedir = <? echo "'".BASEDIR."'"; ?>;
+			var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+data['fldProfileImage']+"'>"
+			$('.imageDialog').html(imgStr);
+		}
 		// social shit
 		if(data['fldGitURL']!= ""){
 			$("input[name='git']").val(data['fldGitURL']);
@@ -32,6 +37,7 @@ $(document).ready(function(){
 		if(data['fldTwitterURL']!= ""){
 			$("input[name='twitter']").val(data['fldTwitterURL']);
 			$("input[name='twitter']").parent().parent().find('.socialUrl').slideDown().addClass('active');
+			$("input[name='twitter']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 		if(data['fldFacebookURL']!= ""){
 			$("input[name='facebook']").val(data['fldFacebookURL']);
@@ -41,10 +47,12 @@ $(document).ready(function(){
 		if(data['fldLinkedinURL']!= ""){
 			$("input[name='linkedin']").val(data['fldLinkedinURL']);
 			$("input[name='linkedin']").parent().parent().find('.socialUrl').slideDown().addClass('active');
+			$("input[name='linkedin']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 		if(data['fldGoogleURL']!= ""){
 			$("input[name='google']").val(data['fldGoogleURL']);
 			$("input[name='google']").parent().parent().find('.socialUrl').slideDown().addClass('active');
+			$("input[name='google']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 
 		// slidedowns for social checkboxes
@@ -68,7 +76,7 @@ $(document).ready(function(){
 	</div> 
 	<ul>
 		<li class="containRow">
-			<form method="post" action="<? echo BASEDIR; ?>User/?updateProfile=profile" id="editProf" name="form1">
+			<form method="post" action="<? echo BASEDIR; ?>User/?updateProfile=profile" id="editProf" name="form1" enctype="multipart/form-data">
 				<div class="leftCell containCell">
 					<ul>
 						<li><span class="inputTitle">First Name</span></li>
@@ -137,22 +145,17 @@ $(document).ready(function(){
 							</li>
 						</ul>
 					</div>
-				</form>
+				
 
 					<div class="rightNest nest">
 						<div class="inputTitle">Profile image</div>
 						<div class="imageDialog" id="PhotoPrevs">
 						</div>
-						<div class="fileInput">
-							<div id="UploadImages">
-								<noscript>Please enable javascript to upload and crop images.</noscript>
-							</div>
-							<!-- <input type="file" name="profile_image"> -->
-						</div>
-						<input type="hidden" id="imgUpload" name="img_url" value="null">
+						<input type="file" name="userIMG">
 					</div>
 
 				</div>
+			</form>
 		</li>
 
 		<li class="buttonRow">

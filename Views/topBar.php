@@ -42,6 +42,13 @@
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
         </a>
       </li>
+      <li>
+        <a class="navLinks newsLink" href=<? echo "'".BASEDIR."News/?allStories=true'";?>>
+          <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
+          News
+          <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
+        </a>
+      </li>
     <? 
   if (isset($_SESSION['priv_level']) && $_SESSION['priv_level'] > 0){ 
   echo   "<li>

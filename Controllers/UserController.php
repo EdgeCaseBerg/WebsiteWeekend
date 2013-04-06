@@ -31,7 +31,7 @@ class UserController extends AbstractController{
 				// do --> for every action perform the switch statement
 				switch ($value) {
 					case "home":
-						$this->view = 'userHome';
+						$this->view = 'Profile';
 				    break;
 				    case "doLogin":
 				    logThis("in dologin");

@@ -1,12 +1,12 @@
 <?php
 require_once "AbstractController.php";
-class TestController extends AbstractController{
+class AdminController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view;
+	public $vars;
 
-	function __construct($actions, $POST){
-logThis("inside TestController");
+	public function __construct($actions, $POST){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
@@ -24,16 +24,32 @@ logThis("inside TestController");
 			// please add my functionality
 		}
 		else{
+			logThis($methods);
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement
 				switch ($value){
-					case "database":
-						$dbWrapper = new InteractDB();
-						$this->vars['dbObj'] = $dbWrapper;
-						$this->view = "Systemtest";
+					case "news":
+						switch($actions['news']){
+							case "new":
+								break;
+							case  "edit";
+
+								break;
+							default:
+								break;
+						}
+						$this->view = "defaultView";
 					break;
+
+					case "users":
+						break;
+
+					case "resources":
+						break;
+
 					default;
+						break;
 				}
 			}
 		}
@@ -47,3 +63,6 @@ logThis("inside TestController");
 		return $this->vars;
 	}
 }
+
+?>
+

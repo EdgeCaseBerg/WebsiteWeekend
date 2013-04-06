@@ -41,8 +41,12 @@
 		// // the following trims the leading and following "/" off of the path
 		$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
 		
+		
 		if(isset($urlPath[1+array_search($dirTrim, $urlPath)])){
 			$ControllerQuery = $dirTrim;
+			if(substr($ControllerQuery, -1) == "/"){
+				substr_replace($dirTrim ,"",-1);
+			}
 			$this->controller = ucfirst(strtolower($ControllerQuery));
 		}
 				

@@ -39,17 +39,13 @@ class RoomSignInController extends AbstractController{
 					case "login":
 						//Attempt to do the login
 						$this->view = "RoomSignIn";
-						logThis("Hey I'm here!");
+						$this->vars['purposes'] = $this->modelObj->getPurpose();
 						logThis($_POST);
-						break;
-					case "fail":
-						//We failed to login display an error message
 						break;
 					default:
 						//Display the sign in page
 						$this->view = "RoomSignIn";
 						$this->vars['purposes'] = $this->modelObj->getPurpose();
-						logThis($this->vars);
 						break;
 				}
 			}

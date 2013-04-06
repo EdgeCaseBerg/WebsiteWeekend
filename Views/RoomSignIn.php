@@ -2,7 +2,8 @@
 //The Header include done by the controller will give us the openning tags and such
 
 ?>
-	<body>
+	<!--Content -->
+	<div class="roomSignIn">
 
 		<div>
 			<!-- Throw UVM Pictures and such here -->
@@ -13,8 +14,9 @@
 			<fieldset>
 				<legend>Sign in to use this Room!</legend>
 					<form action="/RoomSignIn/login=true" method="POST">
-						UVM Username: <input name="uvm_id" type="text" maxlength="8"/> 
-						Why are you here? 
+						<span>UVM Username:</span> <input name="uvm_id" type="text" maxlength="8"/> <br />
+
+						<span>Why are you here?</span>
 						<select>
 							<option value="-1">Please Select One</option>
 							<?php
@@ -25,9 +27,9 @@
 									echo "</option>";
 								}
 							?>
-						</select>
-						<textarea type="text" name="description">
-						</textarea>
+						</select><br />
+						<span id="desc">Brief Description of what you're working on</span>
+						<textarea type="text" name="description" cols="60"></textarea><br />
 						<input type="submit" value="Sign In">
 					</form>
 			</fieldset>

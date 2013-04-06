@@ -1,0 +1,28 @@
+img{
+	display:none;
+}
+
+#topBar{
+	display:none;
+}
+
+.social{
+	display:none;
+}
+
+.tools{
+	display:none;
+}
+
+ul{
+	list-style-type:none;
+}
+
+.row2{
+	display:none;
+}
+
+#mainContain{
+position:absolute; 
+top:-10px;
+}

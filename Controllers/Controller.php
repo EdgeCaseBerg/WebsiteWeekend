@@ -21,7 +21,7 @@ $controllerObj = new Controller($_SERVER, $_POST);
 class Controller{
 	private $routerObj;
 	private $modelObj;
- 	private $view ='Home';
+ 	private $view ='defaultView';
  	private $vars = null;
  	private $POST;
  	private $SERVER;
@@ -66,8 +66,7 @@ class Controller{
 			// the default model. 
 			
 			if(file_exists("Controllers/".$controller.".php")){ // check if a file exists in the controller dir
-				logThis("********");
-				logThis($controller);
+				logThis("******** Found sub-controller ********");
 				include "Controllers/".$controller.".php";
 				$controllerObj = new $controller($this->routerObj->getActions(), $this->POST);
 				$this->view = $controllerObj->getView();

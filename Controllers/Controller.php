@@ -1,4 +1,3 @@
-
 <?php
 
 // Author: Joshua Dickerson
@@ -14,6 +13,7 @@
 
 require_once "Configuration/config.php";
 require_once "Models/InteractDB.php";
+
 
 // recieves the url, instanciates the appropriate controller -->
 $controllerObj = new Controller($_SERVER, $_POST);

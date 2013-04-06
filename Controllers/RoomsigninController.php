@@ -51,7 +51,7 @@ class RoomSignInController extends AbstractController{
 							//Invalid purpose
 							$this->vars['errors']['purpose'] = "Please select your purpose";
 						}
-						//Redirect to sign in page if there's no errors and give them a nice good job
+						//if there's no errors and give them a nice good job message
 						if(!isset($this->vars['errors'])){
 							//Log the usage of the room.
 							$this->modelObj->logUsage($this->POST);

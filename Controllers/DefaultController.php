@@ -4,12 +4,12 @@ class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view = "defaultView";
-	private $vars;
 
 	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
+
 	 }
 
 	function parseAction($actions){
@@ -42,6 +42,9 @@ class DefaultController extends AbstractController{
 								$this->view = "Members";
 							break;
 							case "contact":
+								//Grab the list of emails of who to talk to
+								$dbWrapper = new InteractDB('select',array('tableName'=>'tblContactEmails'));
+								$this->vars['emails'] = $dbWrapper->returnedRows;
 								$this->view = "Contact";
 							break;
 						}

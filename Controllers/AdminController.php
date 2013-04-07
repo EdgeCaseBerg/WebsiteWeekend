@@ -145,6 +145,17 @@ class AdminController extends AbstractController{
 								$this->vars['members'] = $modelObj->getActiveMembers();
 								$this->view = 'AdminHours';
 								break;
+							case 'delete':
+								//Json only.
+								$info = explode('|',$_POST['id']);
+								$modelObj = new Hours('json');
+								if($modelObj->deleteHours($info)){
+									$this->vars['success'] = true;
+								}else{
+									$this->vars['success'] = false;
+								}
+								$this->view = 'json';
+								break;
 							default:
 								//Display the very ajax riffic table
 								$modelObj = new Hours('AdminHours');

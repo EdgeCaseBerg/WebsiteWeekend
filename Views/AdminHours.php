@@ -112,7 +112,8 @@ function milToAMPM($hour){
 								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
 								echo '<span class = "edit" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour'].'" >';
 								echo milToAMPM($hoursOnDay[$i]['hour']);
-								echo '</span>';
+								echo '</span><br />';
+								echo '<a href="" onclick="return false;" class="remove" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour'].'">Delete</a>';
 								echo '</td>';
 							}else{
 								echo '<td></td>';
@@ -184,6 +185,26 @@ function milToAMPM($hour){
 		var contents = $(this).find('input').val();
 		if(contents.length == 1){
 			$(this).find('input').val('0' + contents);
+		}
+	});
+
+	//Delete an hour
+	$('.remove').bind('click',function(){
+		if(confirm('Are you sure you want to remove this help hour?')){
+			$.ajax({    type: "POST",  
+      					url:"/Admin/?hours=delete",  
+      					data: "id="+$(this).attr('id'),
+      					success: function(data){
+      						if(data.success){
+      							alert('Help hour deleted!');
+      							window.location = '/Admin/?hours=display';
+      						}else{
+      							alert('There was a problem removing the help hour');
+      						}
+      					}
+      				});
+		}else{
+			//Do Nothing
 		}
 	});
 

@@ -53,6 +53,22 @@ class Hours{
 		return $this->vars['success'];	
 	}
 
+	public function deleteHours($info){
+		//info is an array with pkid in 0, day in 1, hour in 2
+		$query = "DELETE FROM tblHours WHERE fkCrewID='$info[0]' AND day='$info[1]' AND hour='$info[2]'; ";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+			//A 2053 means it worked... weird but true
+			$this->vars['success'] = true;
+		}else{
+			$this->vars['success'] = false;
+			return false;
+		}
+		return $this->vars['success'];
+
+	}
+
 	public function getLanguages(){
 		$dbWrapper = new InteractDB('select',array('tableName'=>'tblLanguages'));
 		$this->vars['languages'] =  $dbWrapper->returnedRows;

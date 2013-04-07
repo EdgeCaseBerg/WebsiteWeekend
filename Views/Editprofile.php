@@ -10,6 +10,7 @@ $(document).ready(function(){
 	// grab our profile data from DB
 	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
 	$.getJSON(query, function(data) {
+		console.log(data);
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
 			$('.about_me').val(data['fldAboutMe']);
@@ -87,6 +88,15 @@ $(document).ready(function(){
 						<li><input type="text" name="personal_url" value=""></li>
 						<li><span>About Me</span></li>
 						<li><textarea name="about_me" class="about_me" rows="6"></textarea></li>
+						<li><span class="inputTitle">Expertise</span></li>
+						<li>
+							<div class="expertiseCheckboxNest">
+								<ul>
+									<li class="expertiseInputItem"><input type="checkbox"></li>
+									<li class="expertiseInputItem"><input type="checkbox"></li>
+								</ul>
+							</div>
+						</li>
 					</ul>
 				</div>
 

@@ -21,6 +21,7 @@
     </p>
     <table>
       <thead>
+        <th>Account</th>
         <th colspan="2">Name</th>
         <th>Email</th>
         <th>Active</th>
@@ -31,7 +32,8 @@
       $i=1;
       foreach ($this->vars['members'] as $member) {
         echo '<tr ' . ($i % 2==0 ? 'class="alt"' : '') . '>';
-        echo '<td>' . $member['fname'] . '</td>' . '<td>' . $member['lname'] . '</td>';
+        echo '<td>' . $member['username'] . '</td>';
+        echo '<td>' . $member['fname'] . '</td>' . '<td class="noline">' . $member['lname'] . '</td>';
         echo '<td>' . $member['email'] . '</td>';
         echo '<td rel="'.$member['pkUserID'].'">' . '<input type="checkbox" class="activeMem" rel="'.$member['pkUserID'].'" ' . ($member['active'] == 1 ? 'checked' : '') . '/>' . '</td>';
         ?>
@@ -62,16 +64,16 @@
 
   <?php
     if($this->vars['startLimit'] > 14){?>
-    <form action="<?= BASEDIR . 'Admin/?members=display' ?>" method="POST" >
+    <form id="prev" action="<?= BASEDIR . 'Admin/?members=display' ?>" method="POST" >
         <input type="hidden" name="startLimit" value="<?= $this->vars['startLimit'] - 15?>" />
         <input type="submit" value="Previous Page" />
     </form>
     <?
     }
-  
-    if($this->vars['memberCount'] < $this->vars['startLimit']){
+    logThis($this->vars['startLimit']);
+    if($this->vars['memberCount'] -15 > $this->vars['startLimit']){
   ?>
-    <form action="<?= BASEDIR . 'Admin/?members=display' ?>" method="POST" >
+    <form id="next" action="<?= BASEDIR . 'Admin/?members=display' ?>" method="POST" >
         <input type="hidden" name="startLimit" value="<?= $this->vars['startLimit'] + 15?>" />
         <input type="submit" value="Next Page" />
     </form>

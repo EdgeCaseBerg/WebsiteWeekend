@@ -39,6 +39,10 @@ class AdminController extends AbstractController{
 			// please add my functionality
 		}
 		else{
+			if(count($children)==0){
+				//If it's just a request to the admin page then get the landing
+				$children = array('default' => 'display');
+			}
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement
@@ -279,8 +283,9 @@ class AdminController extends AbstractController{
 
 					case "output":
 						$this->view = 'json';
-
-					default;
+						break;
+					default:
+						$this->view = 'AdminViews/landing';
 						break;
 				}
 			}

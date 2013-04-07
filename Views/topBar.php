@@ -1,7 +1,5 @@
 <?php
-echo "<div class='debug' style='background:white; padding:5px'>";
-var_dump($_SESSION['user']->getUserAuth());
-echo "</div>";
+
 ?>
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
@@ -76,7 +74,7 @@ echo "</div>";
             </a>
               <ul class="dropdown-menu">
                   <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "Default/?page=login'>Log in</a></li>";}?>
-                  <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "signup/'>Sign Up</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "Default/?page=signup'>Sign Up</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?home=".$_SESSION['user']->getUserID()."'>Profile <i class='icon-user'></i></a></li>";}?>

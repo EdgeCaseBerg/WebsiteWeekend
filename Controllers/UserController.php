@@ -43,6 +43,13 @@ class UserController extends AbstractController{
 					case "updateProfile":
 						$_SESSION['user']->updateProfile($this->POST);
 					break;
+					case "showUserProfile":
+						// for outsiders seeing a user's profile
+						require_once "Models/User.php";
+						$user = new UserModel();
+						$this->vars = $user->getProfile($actions['showUserProfile']);
+						$this->view = "Profile";
+					break;
 					case "getProfile":
 						$this->vars = $_SESSION['user']->getProfile();
 						// logThis($this->vars);
@@ -63,6 +70,13 @@ class UserController extends AbstractController{
 					    }
 				    break;
 				    case "newUser":
+				    	if($_SESSION['user']->newUser($this->POST)){
+				    		$this->view = "Login";
+				    		$this->vars['notifications'] = "Please log into your new account";
+				    	}else{
+				    		$this->view = "Signup";
+				    		$this->vars['notifications'] = "That username is already in use";
+				    	}
 				    break;
 				    case "output":
 				    	if($actions['output'] = "json"){

@@ -456,6 +456,11 @@ table{
 		min-width:155px;
 	}
 
+	li.error{
+		margin-bottom:10px;
+		color:red;
+	}
+
 	.textInput{
 		min-width:300px;
 	}
@@ -790,7 +795,7 @@ table{
 		height:200px;
 
 			.profilePicNest{
-				height:200px;
+				min-height:200px;
 				width:200px;
 				border:0px;
 				padding:0px;
@@ -920,6 +925,7 @@ table{
 	text-align:left;
 	border:@nestBorder;
 	background:@nestBG;
+	padding-bottom:20px;
 
 	ul{
 		margin:0px;
@@ -1024,9 +1030,11 @@ table{
         	filter: dropshadow(color=#383838, offx=1, offy=1);
 		}
 		.imageDialog{
-			height:200px;
 			width:200px;
+			min-height:200px;
 			border:solid 1px #999;
+			margin:0px;
+			padding:0px;
 			display:inline-block;
 			background:url('../images/noprofile.png');
 		}
@@ -1327,4 +1335,41 @@ table{
 				width: auto;
 		}
 	}
+}
+
+
+/* ----------------- Contact Admin ------------ */
+
+.contactAdmin{
+	h3{
+		margin-left: 10%;
+		margin-right: auto;
+		text-align: center;
+		font-family: @headerFont;
+	}
+	p{
+		text-align: left;
+	}
+	div{
+		width: 40%;
+		margin-left: 35%;
+		text-align: center;
+	}
+	fieldset{
+		p{
+			text-align: center;
+		}
+		a{
+			font-size: 140%;
+		}
+	}
+	ul{
+		li{
+			padding-bottom: 2%; 
+		}
+		.delete{
+			float: right;
+		}
+	}
+
 }

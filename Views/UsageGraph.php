@@ -1,6 +1,6 @@
 <?php
-	$purpose = "<option id='gpd'>Games Per Day</option>";
-	$useOverTime = "<option id='hs'>High Scores</option>";
+	$purpose = "<option id='purpose' value='purpose'>Students by Purpose</option>";
+	$useOverTime = "<option id='usage' value='spd'>Students per Day</option>";
 	require_once "Views/topBar.php";
 ?>
 <script type="text/javascript" src=<?= "\"".BASEDIR."Views/js/amcharts/amcharts.js"."\""; ?>></script>
@@ -16,8 +16,18 @@
 		echo $chartJS;
 	}
 ?>
-</script>
 
+$(document).ready(function(){
+	$('#chartOptions').change(function(){
+    	var val = $('#chartOptions option:selected').text();
+    	if(val == "Students per Day"){
+    		window.location.replace(<?= "\"".BASEDIR."Usagedata/?data=visitsOverTime\"";?>);
+    	}else if(val == "Students by Purpose"){
+    		window.location.replace(<?= "\"".BASEDIR."Usagedata/?data=purposeBar\"";?>);
+    	}
+    });
+});
+</script>
 <div class="statsContainer">
 	<li class="dataControl">
 		<ul>
@@ -26,6 +36,13 @@
 			</li>
 			<li>
 				<select id="chartOptions">
+					<? 
+						if($this->vars['graphType'] == "line"){
+							echo $useOverTime.$purpose;
+						}else{
+							echo $purpose.$useOverTime;
+						}
+					?>
 					<option></option>
 					<option></option>
 					<option></option>

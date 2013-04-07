@@ -20,6 +20,18 @@ class Hours{
 		return $this->vars['hours'];
 	}
 
+	public function getAllHoursByExpertise($expertise=0){
+		if($expertise=="Show+all"){
+			return $this->getAllHours();
+		}
+		$query= "SELECT tbp.fkUserID, fldFirstName, fldLastName, day , hour FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu,tblExpertise tl WHERE tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 AND tl.fkLangID=".$expertise." AND tl.fkUserID = tbp.fkUserID ORDER BY hour;";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		$this->vars['hours'] =  $dbWrapper->returnedRows;
+		logThis($this->vars['hours']);
+		return $this->vars['hours'];	
+	}
+
 	public function getLanguages(){
 		$dbWrapper = new InteractDB('select',array('tableName'=>'tblLanguages'));
 		$this->vars['languages'] =  $dbWrapper->returnedRows;

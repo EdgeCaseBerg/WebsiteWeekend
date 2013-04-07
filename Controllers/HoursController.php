@@ -41,8 +41,8 @@ class HoursController extends AbstractController{
 							$this->vars['hours'] = $this->modelObj->getAllHours();
 						}else{
 							//Do a search by the expertise
+							$this->vars['hours'] = $this->modelObj->getAllHoursByExpertise($actions['expertise']);
 						}
-						$this->vars['hours'] = $this->modelObj->getAllHours();
 						$this->vars['languages'] = $this->modelObj->getLanguages();
 						$this->view = "Hours";
 					break;

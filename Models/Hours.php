@@ -19,6 +19,13 @@ class Hours{
 		return $this->vars['hours'];
 	}
 
+	public function addHours($id,$hour,$day){
+		$dbWrapper = new InteractDB();
+		$query = "INSERT INTO `CSCREW_Website`.`tblHours` (`fkCrewID`, `day`, `hour`) VALUES ('$id', '$day', '$hour');";
+		$dbWrapper->customStatement($query);
+
+	}
+
 	public function getActiveMembers(){
 		$query = "SELECT fkUserID, fldFirstName, fldLastName FROM tblUserProfile tbp, tblUserAccount tbu WHERE tbp.fkUserID = tbu.pkUserID AND tbu.active=1";
 		$dbWrapper = new InteractDB();
@@ -43,7 +50,6 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['success'] =  $dbWrapper->returnedRows;
-		logThis($this->vars['success']);
 		return $this->vars['success'];	
 	}
 

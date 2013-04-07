@@ -27,8 +27,18 @@ function milToAMPM($hour){
 	</p>
 
 	<div class="adminHours">
-		<form action="/Admin/hours=new" method="POST">
-			<select>
+		<ul>
+		<?php
+			if(isset($this->vars['errors'])){
+				foreach ($this->vars['errors'] as $key => $error) {
+					echo "<li>" . $error . '</li>';
+				}
+				
+			}
+		?>
+		</ul>
+		<form action="/Admin/?hours=new" method="POST">
+			<select name="memberID">
 				<option value="-1" >Select Crew Member</option>
 				<?php
 					//Get the active crew members and their ids'
@@ -39,26 +49,25 @@ function milToAMPM($hour){
 					}
 				?>
 			</select>
+			<select name="day">
+				<option value="Mon">Monday</option>
+				<option value="Tues">Tuesday</option>
+				<option value="Wednes">Wednesday</option>
+				<option value="Thurs">Thursday</option>
+				<option value="Fri">Friday</option>
+			</select>
 			<br />
 			<table>
 				<tr>
 					<td colspan="2">Enter Hours in military time:</td>
 				</tr>
 				<tr>
-					<td class="left">
-						Hour:
-					</td>
-					<td class="right"> 
-						<input type="text" size="2" width="2em" maxlength="2" name="bigHand" />
-					</td>
+					<td class="left">Hour:</td>
+					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="bigHand" /></td>
 				</tr>
 				<tr>
-					<td class="left">
-						Minutes:
-					</td>
-					<td class="right">
-						<input type="text" size="2" width="2em" maxlength="2" name="littleHand" />
-					</td>
+					<td class="left">Minutes:</td>
+					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="littleHand" /></td>
 				</tr>
 
 			</table>
@@ -141,11 +150,11 @@ function milToAMPM($hour){
       					data: "id="+$('.ajax').attr('id')+"&new=" +$('.ajax input').val(),
       					success: function(data){  
       						var oldid = $('.ajax').attr('id').split("|");
-      						var tmpTime = $('.ajax input').val().split("|");
+      						var tmpTime = $('.ajax input').val().split(":");
       						//convert it to military time
       						var bigHand = parseInt(tmpTime[0]);
       						var littleHand = parseInt(tmpTime[1].substr(0,2));
-      						var ampm = $tmpTime[1].substr(2,2);
+      						var ampm = tmpTime[1].substr(2,2);
       						if(ampm == 'am'){
       							if(bigHand==12){
       								bigHand = '00';
@@ -155,9 +164,9 @@ function milToAMPM($hour){
       								bigHand = bigHand + 12;
       							}
       						}
-      						var newTime = bigHand.toString() + littleHand.toString();
-      						console.log(newTime);
-
+      						var newTime = '00:' + bigHand.toString() + ':' + littleHand.toString();
+      						
+      						//Update the id so we can edit more than once
       						$('.ajax').attr('id',oldid[0]+"|"+oldid[1]+"|"+newTime);
        						$('.ajax').html($('.ajax input').val());  
         					$('.ajax').removeClass('ajax');  

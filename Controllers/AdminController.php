@@ -123,11 +123,28 @@ class AdminController extends AbstractController{
 
 
 								$modelObj = new Hours('AdminHours');
-								$success = $modelObj->updateHours($oldID,$newTime);
-								logThis($success);
-								
+								$success = $modelObj->updateHours($oldID,$newTime);							
 								break;
-							
+							case 'new':
+								$id = $_POST['memberID'];
+								if(strval($id)==-1){
+									$this->vars['errors']['id'] = 'You must select a Crew Member';
+								}
+								$hour=$_POST['bigHand'] . $_POST['littleHand'];
+								if(strlen($hour)==4){
+
+								}else{
+									$this->vars['errors']['time'] = 'Invalid Time -Please use military';
+								}
+								$day = $_POST['day'];
+								$modelObj = new Hours('AdminHours');
+								if(!isset($this->vars['errors'])){
+									$modelObj->addHours($id,$hour,$day);	
+								}
+								$this->vars['hours'] = $modelObj->getAllHours();
+								$this->vars['members'] = $modelObj->getActiveMembers();
+								$this->view = 'AdminHours';
+								break;
 							default:
 								//Display the very ajax riffic table
 								$modelObj = new Hours('AdminHours');

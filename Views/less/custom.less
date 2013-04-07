@@ -1229,14 +1229,17 @@ table{
 .hoursPage{
 	div.adminHours{
 		display: inline-block;
-		margin-left: 35%;
+		margin-left: 40%;
 	}
 	.adminHours{
 		color: #009999;
+		ul{
+			color: #FF0000;
+			display: block;
+			text-align: center;
+		}
 		form{
 			clear:both;
-			margin-left: 35%;
-			margin-right: 55%;
 			width: 100%;
 			padding: 2%;
 			p{
@@ -1246,7 +1249,16 @@ table{
 			table{
 				width: 100%;
 				border: none;
-				
+				.left{
+					float: left;
+				}
+				.right{
+					float: right;
+				}
+			}
+			select{
+				width: 100%;
+
 			}
 			input{
 				margin-left: 30%;
@@ -1255,9 +1267,7 @@ table{
 			}
 			#submit{
 				float: right;
-				margin-left: 30%;
-				margin-right: 30%;
-				width: 40%;
+				width: 100%;
 				padding: 2%;
 			}
 		}
@@ -1311,6 +1321,10 @@ table{
 		}
 		.alt{
 			background-color: #aaf;
+		}
+		#editbox{
+			display:inline-block;
+				width: auto;
 		}
 	}
 }

@@ -93,7 +93,7 @@ class AdminController extends AbstractController{
 									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
 										$imageName = end(explode('/', $_FILES['story-image']['tmp_name']))."_tmp.".$ext;
 										move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName);
-										$this->vars['imagePath'] = 'Views/Stories/Images/'.$imageName;
+										$this->vars['imagePath'] = $imageName;
 									}
 								}
 								$this->view = 'json';
@@ -117,10 +117,10 @@ class AdminController extends AbstractController{
 											$news->setImage($imageName);
 											$news->save();
 											$this->vars['imagePath']=$news->getImage();
-											$this->view='json';
 										}
 									}
 								}
+								$this->view='json';
 								break;
 
 							//AJAX endpoint for saving text
@@ -155,11 +155,11 @@ class AdminController extends AbstractController{
 								if($path!==null){
 									$exists = file_exists($path);
 									if($exists){
-										unlink($this->NEWS_IMAGE_PATH.$news->getImage());
+										unlink($path);
 										$return = true;
 									}
 								}
-								$this->vars['sucess']=$return;
+								$this->vars['success']=$return;
 								$this->view = 'json';
 								break;
 
@@ -283,6 +283,9 @@ class AdminController extends AbstractController{
 
 					case "output":
 						$this->view = 'json';
+						break;
+
+					case "id":
 						break;
 					default:
 						$this->view = 'AdminViews/landing';

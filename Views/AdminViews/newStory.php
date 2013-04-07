@@ -54,14 +54,17 @@
 		});
 
 		
-		$('#story-image-path').hide();
+		$('#story-image-container').hide();
 
 		//AJAX call for tempory load of file
 		$('#story-image').live('change',function(){
 			var replace = true;
 			$("#upload-story-picture").vPB({
-				url:"<?php echo BASEDIR.'Admin/?news=uploadImg&output=json';?>",
-				data:{replace:replace},
+				//
+				url:"<?php echo BASEDIR.'Admin/?news=uploadImg';?>",
+				//need the output: json in the data otherwise the post variables that get added to the url by the plugin will be
+				//hit the default case in the controller for each variable, need the last switch to hit hte output case in the controller 
+				data:{replace:replace, output:'json'},
 				success: function(response){
 					console.log('Picture update was a sucess');
 					//This is all for splitting off a random pre-tag that is attached to the json
@@ -74,15 +77,36 @@
 					}
 					response = $.parseJSON(response);
 					$('#upload-story-picture').hide();
+					$('#story-image').val('');
 					var path = $('#story-image-path').attr('src');
 					path += response['imagePath'];
 					$('#story-image-path').attr('src',path);
-					$('#story-image-path').fadeIn();
+					$('#story-image-container').fadeIn();
 				},
 				error: function(){
 					console.log('there was an error');
 				}
 			}).submit();
+		});
+
+		$('#remove-image').click(function(){
+			//get the path to the image from image source
+			var imagePath = $('#story-image-path').attr('src');
+			$.ajax({
+				type:"POST",
+				url: basePath+"Admin/?news=removePicture&output=json",
+				data: {imagePath: imagePath},
+				success: function(response){
+					if(response['success']){
+						//hide the image container and reset the image source
+						$('#story-image-container').hide();
+						$('#story-image-path').attr('src', basePath+'Views/Stories/Images/');
+						//show the upload form
+						$('#upload-story-picture').show();
+					}
+				}
+			});
+
 		});
 
 
@@ -120,8 +144,10 @@
 				<form  enctype="multipart/form-data" id="upload-story-picture" action="javascript:void(0)">
 					<input type="file" class ="span8" name="story-image" id="story-image" accept="image/*"></input>
 				</form>
-
-				<img src = "<?php echo BASEDIR;?>" id="story-image-path" class="span4"></img><br />
+				<div id="story-image-container">
+					<img src = "<?php echo BASEDIR.'Views/Stories/Images/';?>" id="story-image-path" class="span4"></img><br />
+					<button id ="remove-image" class = "span1">Remove</button>
+				</div>
 			<div>
 
 			<div class ="span10">

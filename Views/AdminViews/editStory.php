@@ -44,7 +44,13 @@
 				url: basePath+"Admin/?news=removePicture&output=json",
 				data: {id:id},
 				success: function(response){
-					console.log('success');
+					if(response['success']){
+						//hide the image container and reset the image source
+						$('#news-image-container').hide();
+						$('#news-image').attr('src', basePath+'Views/Stories/Images/');
+						//show the upload form
+						$('#upload-image-form').show();
+					}
 				},
 
 			});
@@ -56,13 +62,13 @@
 		$('#story-image').live('change',function(){
 			var replace = true;
 			$("#upload-story-picture").vPB({
-				url:"<?php echo BASEDIR.'Admin/?news=updateImg&output=json';?>",
-				data:{replace:replace},
+				url:"<?php echo BASEDIR.'Admin/?news=updateImg';?>",
+				//need the output: json in the data otherwise the post variables that get added to the url by the plugin will be
+				//hit the default case in the controller for each variable, need the last switch to hit hte output case in the controller 
+				data:{replace:replace, output: 'json'},
 				success: function(response){
 					console.log('Picture update was a sucess');
-					console.log(response);
 					response = response.split('>');
-					console.log(response);
 					if(response.length>1){
 						response = response[1].split('</pre');
 						response = response[0];
@@ -71,10 +77,11 @@
 					}
 					response = $.parseJSON(response);
 					$('#upload-image-form').hide();
+					$('#story-image').val('');
 					var path = $('#news-image').attr('src');
 					path += response['imagePath'];
 					$('#news-image').attr('src', path);
-					$('#news-image').fadeIn();
+					$('#news-image-container').fadeIn();
 				},
 				error: function(){
 					console.log('there was an error');
@@ -95,7 +102,7 @@
 
 		<?php
 			if($this->vars['news']['image'] === ''){
-				echo "$('#news-image').hide();";
+				echo "$('#news-image-container').hide();";
 			}else{
 				echo "$('#upload-image-form').hide();";
 			}

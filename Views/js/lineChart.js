@@ -4,7 +4,7 @@
                 var chart = new AmCharts.AmSerialChart();
                 chart.dataProvider = chartData;
                 chart.pathToImages = "js/amcharts/images/";
-                chart.categoryField = "day";
+                chart.categoryField = "date";
 
                 // sometimes we need to set margins manually
                 // autoMargins should be set to false in order chart to use custom margin values
@@ -17,8 +17,9 @@
                 // AXES
                 // category                
                 var categoryAxis = chart.categoryAxis;
-                categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-                categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
+                // categoryAxis.dateFormats = [{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM'},{period:'YYYY',format:'YYYY'}]
+                // categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+                // categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
                 categoryAxis.inside = true;
                 categoryAxis.gridAlpha = 0;
                 categoryAxis.tickLength = 0;

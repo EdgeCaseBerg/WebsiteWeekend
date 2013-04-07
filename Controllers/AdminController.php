@@ -3,6 +3,7 @@ require_once "AbstractController.php";
 require_once "Models/News.php";
 require_once "Models/NewsBundle.php";
 require_once "Models/Hours.php";
+require_once "Models/Contact.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -162,6 +163,23 @@ class AdminController extends AbstractController{
 								$this->vars['hours'] = $modelObj->getAllHours();
 								$this->vars['members'] = $modelObj->getActiveMembers();
 								$this->view = 'AdminHours';
+								break;
+						}
+						break;
+					case "contact":
+						switch ($actions['contact']) {
+							case 'add':
+								//Adding a new email via ajax post
+								$this->view = 'json';
+								break;
+							case 'delete':
+								//Remove an email via ajax
+								$this->view = 'json';
+							default:
+								//Default view of the admin for contact administration
+								$this->view = 'AdminViews/contact';
+								$modelObj = new Contact($this->view);
+								$this->vars['emails'] = $modelObj->getContacts();
 								break;
 						}
 						break;

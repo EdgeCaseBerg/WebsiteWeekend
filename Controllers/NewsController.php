@@ -52,7 +52,7 @@ class NewsController extends AbstractController{
 						// logThis($this->vars);
 						// logThis($methods[0]);
 
-						$this->view = "NewsView";
+						$this->view = "NewsAll";
 						break;
 
 					case "singleStory":
@@ -61,10 +61,7 @@ class NewsController extends AbstractController{
 						// logThis($methods[0]);
 						$modelObject->initById($methods[0]);
 						$this->vars = $modelObject->toArray();
-						$this->vars['singleStory'] = true;
-						// logThis($this->vars);
-
-						$this->view = "NewsView";
+						$this->view = "NewsSingle";
 						break;
 					default;
 				}

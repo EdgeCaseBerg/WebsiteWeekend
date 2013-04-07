@@ -29,7 +29,7 @@ if(isset($this->vars['success'])){
 			<!--Main Content for Signup-->
 			<fieldset>
 				<legend>Sign in to use this Room!</legend>
-					<form action="/RoomSignIn/?login=true" method="POST">
+					<form action=<?= "\"".BASEDIR . "RoomSignIn/?login=true\"";?> method='POST'>
 						<table>
 							<tr>
 								<td>

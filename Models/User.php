@@ -100,6 +100,8 @@ class UserModel{
 		$dbWrapper = new InteractDB('select', $array);
 
 		// update our user expertise (langs)
+		$qry = "DELETE FROM tblExpertise WHERE fkUserID = ".$this->userID.";";
+		$dbWrapper->customStatement($qry);
 		if(isset($POST['langs'])){
 			$langsArr = $POST['langs'];
 			for($ii=0; $ii<count($langsArr); $ii++){

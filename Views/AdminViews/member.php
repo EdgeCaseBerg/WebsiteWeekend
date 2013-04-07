@@ -17,6 +17,13 @@
       set permissions for administration, and ban users.
 		</p>
     <p>
+      <ul>
+        <li>To activate a member as a CS Crew Member simply check the Active checkbox</li>
+        <li>To change a user to be an administrator give them an Auth Level of 3</li>
+        <li>To ban a user set their Auth Level to Banned</li>
+      </ul>
+    </p>
+    <p>
         <div id="message"><br/></div>
     </p>
     <table>
@@ -26,7 +33,7 @@
         <th>Email</th>
         <th>Active</th>
         <th>Auth Level</th>
-        <th>Ban Hammer</th>
+        <th>Banned</th>
       </thead>
     <?php
       $i=1;
@@ -52,7 +59,7 @@
           </select>
         </td>
         <?
-        echo '<td rel="'.$member['pkUserID'].'">' . ($member['auth'] < 0 ? '1' : '0') . '</td>'; 
+        echo '<td name="ban" rel="'.$member['pkUserID'].'">' . ($member['auth'] < 0 ? 'Yes' : 'No') . '</td>'; 
         echo '</tr>';
         $i=$i+1;
       }
@@ -110,6 +117,12 @@
           success: function(){
               //This will succeed. Guarantee.
               $('#message').html('Set Member with ID ' + id + " to Auth Level=" + auth);
+              if(auth < 0){
+                //Set ban text
+                $('td[name=ban][rel='+id+']').html('Yes');
+              }else{
+                $('td[name=ban][rel='+id+']').html('No');
+              }
           }
       });
   });

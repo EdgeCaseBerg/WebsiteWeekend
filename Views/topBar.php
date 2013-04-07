@@ -1,7 +1,5 @@
 <?php
-echo "<div class='debug' style='background:white; padding:5px'>";
-var_dump($_SESSION['user']->getUserAuth());
-echo "</div>";
+
 ?>
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 

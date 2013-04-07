@@ -54,7 +54,7 @@ var_dump($_SESSION['user']->getUserAuth());
       </li>"; 
     }else{
       echo "<li>
-        <a class='navLinks helpLink' href='".BASEDIR."help/'>
+        <a class='navLinks helpLink' href='".BASEDIR."Default/?page=help'>
           <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Get Help
           <div class='utf8 right'><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>

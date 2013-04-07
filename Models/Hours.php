@@ -19,6 +19,21 @@ class Hours{
 		return $this->vars['hours'];
 	}
 
+	public function addHours($id,$hour,$day){
+		$dbWrapper = new InteractDB();
+		$query = "INSERT INTO `CSCREW_Website`.`tblHours` (`fkCrewID`, `day`, `hour`) VALUES ('$id', '$day', '$hour');";
+		$dbWrapper->customStatement($query);
+
+	}
+
+	public function getActiveMembers(){
+		$query = "SELECT fkUserID, fldFirstName, fldLastName FROM tblUserProfile tbp, tblUserAccount tbu WHERE tbp.fkUserID = tbu.pkUserID AND tbu.active=1";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		$this->vars['members'] =  $dbWrapper->returnedRows;
+		return $this->vars['members'];	
+	}
+
 	public function getAllHoursByExpertise($expertise=0){
 		if($expertise=="Show+all"){
 			return $this->getAllHours();
@@ -28,6 +43,30 @@ class Hours{
 		$dbWrapper->customStatement($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
 		return $this->vars['hours'];	
+	}
+
+	public function updateHours($id,$newHour){
+		$query = "UPDATE tblHours SET `hour` = $newHour WHERE fkCrewID = ".$id[0]." AND day = '".$id[1]."' AND hour = '".$id[2]."' LIMIT 1;";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		$this->vars['success'] =  $dbWrapper->returnedRows;
+		return $this->vars['success'];	
+	}
+
+	public function deleteHours($info){
+		//info is an array with pkid in 0, day in 1, hour in 2
+		$query = "DELETE FROM tblHours WHERE fkCrewID='$info[0]' AND day='$info[1]' AND hour='$info[2]'; ";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+			//A 2053 means it worked... weird but true
+			$this->vars['success'] = true;
+		}else{
+			$this->vars['success'] = false;
+			return false;
+		}
+		return $this->vars['success'];
+
 	}
 
 	public function getLanguages(){

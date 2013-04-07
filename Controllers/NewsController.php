@@ -13,7 +13,7 @@ class NewsController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view;
-	private $vars;
+
 
 	function __construct($actions =null, $POST=null){
 		/*

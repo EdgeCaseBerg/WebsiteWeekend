@@ -84,8 +84,6 @@
     			success: function(data){
     				if(!data.success){
     					alert('Not able to update for some reason. Check the logs');
-    				}else{
-    					console.log('updated');
     				}
     			}
     		});

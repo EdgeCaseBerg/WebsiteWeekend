@@ -82,7 +82,9 @@ class UserModel{
 			);
 		}
 		$dbWrapper = new InteractDB('select', $array);
-		return $dbWrapper->returnedRows[0];
+		$returnArr = $dbWrapper->returnedRows[0];
+		$returnArr['langs'] = $this->getUserLangs(12);
+		return $returnArr;
 	} // end getProfile
 
 	// called when a user updates their profile
@@ -202,6 +204,26 @@ class UserModel{
 
 	public function setUserAuth($int){
 		$this->userAuth = $int;
+	} // end setUserLoggedIn
+
+	public function getUserLangs($userID = null){
+		// ned a join between tblExpertise and tblLanguages
+		$qryID = $userID != null ? $userID : $this->userID;
+		$query = "SELECT tblLanguages.language FROM tblLanguages LEFT";
+		$query .= " JOIN tblExpertise ON tblLanguages.pkID = ";
+		$query .= "tblExpertise.fkLangID WHERE tblExpertise.fkUserID = '".$qryID."';";
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		// logThis($dbWrapper->returnedRows);
+		$langs = array();
+		for($ii=0; $ii<count($dbWrapper->returnedRows); $ii++){
+			$langs[$ii] = $dbWrapper->returnedRows[$ii];
+		}
+		return $langs;
+	} // end getUserLangs()
+
+	public function setUserLangs($LangsArray){
+		// $this->userLangs; 
 	} // end setUserLoggedIn
 
 } // end class User

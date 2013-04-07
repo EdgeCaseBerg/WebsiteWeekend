@@ -1,5 +1,10 @@
 <?php
-
+/**
+* @author Joshua Dickerson at The University of Vermont
+* The UserModel class represents the attributes and 
+* methods associated with user
+**/
+require_once "Views/lib/CleanIn.php";
 class UserModel{
 	private $userName = null;
 	private $userID = null;
@@ -8,13 +13,14 @@ class UserModel{
 	private $userLastLogin;
 	private $userLoggedIn = false;
 	private $view;
-	// desktop = 1, phone = 2, tablet = 3;
 	private $currentDevice = 1;
+	private $cleaner; // holds the sanitizer object
 
+	function __construct(){
+		$this->cleaner = new CleanIn();
+	}
 
-	// login(username, password) sets this userLoggedIn property to true 
-	// if credentials are matched, and then returns true. 
-	// returns false if credentials don't match
+	// perform a login, return a boolean
 	public function login($username, $password){
 		$salt = time()*0.118321;
 	 	// $password = md5($password, $salt);
@@ -31,9 +37,33 @@ class UserModel{
 		}else{
 			return false;
 		}
-
 	} // end logIn
 
+	public function newUser($POST){
+		$username = $POST['fldUsername'];
+		$password = $POST['fldPassword'];
+		$cleanUsername = $this->cleaner->clean($username);
+		$cleanPassword = $this->cleaner->clean($password);
+		$array = array(
+			'tableName'=>'tblUserAccount',
+			'fldUsername'=>$cleanUsername
+		);
+		$dbWrapper = new InteractDB('select', $array);
+		if(count($dbWrapper->returnedRows) == 0){
+			$array = array(
+				'tableName'=>'tblUserAccount',
+				'fldPassword'=>$cleanPassword,
+				'fldAuth'=>1,
+				'fldUsername'=>$cleanUsername
+			);
+			$dbWrapper = new InteractDB('insert', $array);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	// retrieves user data from the database, returns it as an array
 	public function getProfile(){
 		$array = array(
 			'tableName'=>'tblUserProfile',
@@ -43,8 +73,11 @@ class UserModel{
 		return $dbWrapper->returnedRows[0];
 	} // end getProfile
 
+	// called when a user updates their profile
 	public function updateProfile($POST){
-		// get our current row
+		// initialize the input sanitizer
+		$this->cleaner = new CleanIn();
+		// get the current user profile
 		$array = array(
 			'tableName'=>'tblUserProfile',
 			'fkUserID'=>$_SESSION['user']->getUserID()
@@ -52,42 +85,51 @@ class UserModel{
 		$dbWrapper = new InteractDB('select', $array);
 
 		// begin prepping our new entry
+		// because we fill all the inputs with data from
+		// the database, we can use the POSTed values to overwrite existing
+		// values. if the user changed nothing, the value will be overwritten with the
+		// previous value
 		$array = array(
 			'tableName'=>'tblUserProfile',
-			'fldFirstName'=>$POST['first_name'],
-			'fldLastName'=>$POST['last_name'],
-			'fldPersonalURL'=>$POST['personal_url'],
-			'fldAboutMe'=>$POST['about_me'],
-			'fldGitURL'=>$POST['git'],
-			'fldTwitterURL'=>$POST['twitter'],
-			'fldFacebookURL'=>$POST['facebook'],
-			'fldTumblrURL'=>$POST['tumblr'],
-			'fldLinkedinURL'=>$POST['linkedin'],
-			'fldGoogleURL'=>$POST['google']
+			'fldFirstName'=>$this->cleaner->clean($POST['first_name']),
+			'fldLastName'=>$this->cleaner->clean($POST['last_name']),
+			'fldPersonalURL'=>$this->cleaner->clean($POST['personal_url']),
+			'fldAboutMe'=>$this->cleaner->clean($POST['about_me']),
+			'fldGitURL'=>$this->cleaner->clean($POST['git']),
+			'fldTwitterURL'=>$this->cleaner->clean($POST['twitter']),
+			'fldFacebookURL'=>$this->cleaner->clean($POST['facebook']),
+			'fldTumblrURL'=>$this->cleaner->clean($POST['tumblr']),
+			'fldLinkedinURL'=>$this->cleaner->clean($POST['linkedin']),
+			'fldGoogleURL'=>$this->cleaner->clean($POST['google'])
 		);
 
 		// if we uploaded a user image
-		logThis($_FILES);
 		if($_FILES["userIMG"]["tmp_name"] != "" && $_FILES["userIMG"]["tmp_name"] != null){
+			// set our extension for building our file name
 			if($_FILES["userIMG"]["type"] == "image/jpeg"){$ext = ".jpg";}
 			if($_FILES["userIMG"]["type"] == "image/png"){$ext = ".png";}
 			if($_FILES["userIMG"]["type"] == "image/gif"){$ext = ".gif";}
-			move_uploaded_file($_FILES["userIMG"]["tmp_name"], "Views/images/profile_images/" ."user_id_".$_SESSION['user']->getUserID().$ext);
-			$array['fldProfileImage'] = "user_id_".$_SESSION['user']->getUserID().$ext;
+			// sanitize that fucker
+			if($this->cleaner->validateImage($_FILES["userIMG"]["tmp_name"])){
+				move_uploaded_file($_FILES["userIMG"]["tmp_name"], "Views/images/profile_images/" ."user_id_".$_SESSION['user']->getUserID().$ext);
+				$array['fldProfileImage'] = "user_id_".$_SESSION['user']->getUserID().$ext;
+			}
 		}
 		if(count($dbWrapper->returnedRows)<1){
 		// a row doesn't exist for this person, make a new one
 			$array['fkUserID'] = $_SESSION['user']->getUserID();
 			$dbWrapper = new InteractDB('insert', $array);
 		}else{
-		// update the existing row
+			// update the existing row
 			$array['tableKeyName'] ='fkUserID';
 			$array['tableKey'] = $_SESSION['user']->getUserID();
 			$dbWrapper = new InteractDB('update', $array);
 		}
+		// send the user back to his/her profile page
 		header('location: '.BASEDIR.'User/?settings='.$_SESSION['user']->getUserID()); 
 	} // end updateProfile()
 
+	// kill our user object
 	public function logout(){
 		unset($_SESSION);
 		session_destroy();

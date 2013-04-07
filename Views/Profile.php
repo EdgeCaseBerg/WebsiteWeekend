@@ -1,22 +1,25 @@
 <?php
+/**
+* @author Joshua Dickerson at The University of Vermont
+*  Profile.php displays the user's profile
+**/
 require_once "topBar.php";
 ?>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	// grab our profile data from DB
+	// grab our profile data from our model object via AJAX
 	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
 	$.getJSON(query, function(data) {
 		// set our inputs full of data from the DB
-		console.log(data);
 		if(data['fldAboutMe']!= ""){
 			$('.descripText').text(data['fldAboutMe']);
 		}
+		// if there is a loaded image, show it, otherwise show the default
 		if(data['fldProfileImage'] != ""){
 			var basedir = <? echo "'".BASEDIR."'"; ?>;
 			var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+data['fldProfileImage']+"'>"
 			$('.profilePicNest').html(imgStr);
-
 		}else{
 			$('.profilePicNest').html("<img class='avatar'>");
 		}
@@ -24,6 +27,7 @@ $(document).ready(function(){
 		}
 		if(data['fldLastName']!= ""){
 		}
+		// for our profile title
 		if(data['fldLastName']!= "" && data['fldFirstName']!= ""){
 			$('.contentHeader').text(data['fldFirstName']+" "+data['fldLastName']);
 		}
@@ -63,7 +67,6 @@ $(document).ready(function(){
 				<div class="nest">
 					<div class="profilePicNest">
 					</div>
-
 					<div class="profileDescrip">
 						<b>About Me</b><br />
 						<span class="descripText"></span>
@@ -75,14 +78,5 @@ $(document).ready(function(){
 			
 		</li>
 	</ul>
-
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.projectRow').click(function(){
-			var url = $(this).find("input[type='hidden']").val();
-			window.open(url);
-		});
-	});
-</script>

@@ -41,6 +41,9 @@ class DefaultController extends AbstractController{
 							case "members":
 								$this->view = "Members";
 								break;
+							case "signup":
+								$this->view = "Signup";
+								break;
 							case "contact":
 								//Grab the list of emails of who to talk to
 								$dbWrapper = new InteractDB('select',array('tableName'=>'tblContactEmails'));

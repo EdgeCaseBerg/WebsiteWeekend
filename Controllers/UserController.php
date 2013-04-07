@@ -63,6 +63,12 @@ class UserController extends AbstractController{
 					    }
 				    break;
 				    case "newUser":
+				    	if($_SESSION['user']->newUser($this->POST)){
+				    		$this->view = "Editprofile";
+				    	}else{
+				    		$this->view = "Signup";
+				    		$this->vars['notifications'] = "That username is already in use";
+				    	}
 				    break;
 				    case "output":
 				    	if($actions['output'] = "json"){

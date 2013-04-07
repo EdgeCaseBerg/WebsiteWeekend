@@ -21,7 +21,7 @@ class Member{
 	}
 
 	public function getMembersAdmin($start=0,$limit=10){
-		$query = "SELECT pkUserID, fldFirstName as fname,fldLastName as lname, fldEmail as email, active, fldAuth as auth  FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID ORDER BY fname,lname LIMIT $start , $limit;";		
+		$query = "SELECT pkUserID,fldUsername as username, fldFirstName as fname,fldLastName as lname, fldEmail as email, active, fldAuth as auth  FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID ORDER BY ISNULL(tp.fldFirstName), ISNULL(tp.fldLastName),username ASC LIMIT $start , $limit;";		
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['info'] = $dbWrapper->returnedRows;

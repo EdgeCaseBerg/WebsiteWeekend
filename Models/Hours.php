@@ -16,7 +16,6 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
-		logThis($this->vars['hours']);
 		return $this->vars['hours'];
 	}
 
@@ -28,7 +27,6 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
-		logThis($this->vars['hours']);
 		return $this->vars['hours'];	
 	}
 

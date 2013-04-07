@@ -47,7 +47,6 @@ class HoursController extends AbstractController{
 						$this->view = "Hours";
 					break;
 					default:
-						logThis($this->vars);
 						$this->vars['hours'] = $this->modelObj->getAllHours();
 						$this->vars['languages'] = $this->modelObj->getLanguages();
 						$this->view = "Hours";

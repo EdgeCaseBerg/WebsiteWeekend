@@ -4,6 +4,7 @@ require_once "Models/News.php";
 require_once "Models/NewsBundle.php";
 require_once "Models/Hours.php";
 require_once "Models/Contact.php";
+require_once "Models/Member.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -203,7 +204,42 @@ class AdminController extends AbstractController{
 						}
 						break;
 
-					case "users":
+					case "members":
+						switch ($actions['members']) {
+							case 'active':
+								//ajax handler
+								$this->view = 'json';
+								$id = $_POST['id'];
+								$active = $_POST['active'];
+								$modelObj = new Member('AdminViews/member');
+								$this->vars['success']=$modelObj->setMemberActive($id,$active);
+								break;
+							case 'delete':
+								//ajax handler
+								break;
+							case 'changeAuth':
+								//ajax handler
+								$this->view = 'json';
+								$id = $_POST['id'];
+								$auth = $_POST['auth'];
+								$modelObj = new Member('AdminViews/member');
+								$this->vars['success']=$modelObj->setMemberAuth($id,$auth);
+								break;
+							case 'ban':
+								//ajax endpoint
+								break;
+							case 'startLimit':
+								$action[] = 'default';
+							default:
+								//Show default members admin console
+								$start = isset($_POST['startLimit']) ? $_POST['startLimit'] : 0;
+								$modelObj = new Member('AdminViews/member');
+								$this->vars['memberCount'] = count($modelObj->getMembersAdmin(0,1000));
+								$this->vars['members'] = $modelObj->getMembersAdmin($start,15);
+								$this->vars['startLimit'] = $start;
+								$this->view = 'AdminViews/member';
+								break;
+						}
 						break;
 
 					case "resources":

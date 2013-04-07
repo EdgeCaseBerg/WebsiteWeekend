@@ -90,6 +90,7 @@ class UserModel{
 	// called when a user updates their profile
 	public function updateProfile($POST){
 		// initialize the input sanitizer
+		logThis($POST);
 		$this->cleaner = new CleanIn();
 		// get the current user profile
 		$array = array(
@@ -98,6 +99,16 @@ class UserModel{
 		);
 		$dbWrapper = new InteractDB('select', $array);
 
+		// update our user expertise (langs)
+		if(isset($POST['langs'])){
+			$langsArr = $POST['langs'];
+			for($ii=0; $ii<count($langsArr); $ii++){
+				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (";
+				$query .= $this->userID.", ".$langsArr[$ii].");";
+				// $dbWrapper = new InteractDB();
+				$dbWrapper->customStatement($query);
+			}
+		}
 		// begin prepping our new entry
 		// because we fill all the inputs with data from
 		// the database, we can use the POSTed values to overwrite existing

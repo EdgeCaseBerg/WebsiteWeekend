@@ -8,6 +8,13 @@ $profilePic = "noprofile";
 <script type="text/javascript">
 $(document).ready(function(){
 	// grab our profile data from DB
+	var query2 = <? echo BASEDIR; ?>+"Jack/?getMemberLangs=true&output=json";
+	$.getJSON(query2, function(data2) {
+		console.log(data2);
+		for(var ii =0; ii<data2.length; ii++){
+			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+data2[ii]['language']+"' name='langs[]' value='"+data2[ii]['pkID']+"' class='langCheck'>"+data2[ii]['language']+"</li>");
+		}
+	});
 	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
 	$.getJSON(query, function(data) {
 		console.log(data);
@@ -56,6 +63,10 @@ $(document).ready(function(){
 			$("input[name='google']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 
+		for(var ii=0; ii< data['langs'].length; ii++){
+			alert($('.expertiseCheckboxNest').find("input[lang='"+data['langs']['language']+"']"));
+		}
+
 		// slidedowns for social checkboxes
 		$('.socialCheckbox').click(function(){
 			if($(this).parent().find('.socialUrl').hasClass('active')){
@@ -91,9 +102,7 @@ $(document).ready(function(){
 						<li><span class="inputTitle">Expertise</span></li>
 						<li>
 							<div class="expertiseCheckboxNest">
-								<ul>
-									<li class="expertiseInputItem"><input type="checkbox"></li>
-									<li class="expertiseInputItem"><input type="checkbox"></li>
+								<ul id="languagesList">
 								</ul>
 							</div>
 						</li>

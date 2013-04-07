@@ -44,6 +44,7 @@ private $POST;
 						}else if($actions['data'] == "purposeBar"){
 							$this->view = "UsageGraph";
 							$this->vars['graphData'] = $usage->purpose();
+							$this->vars['graphType'] = "column";
 						}else if($actions['data'] == "classBar"){
 							$this->view = "UsageGraph";
 							$this->vars['graphData'] = $usage->byClass();

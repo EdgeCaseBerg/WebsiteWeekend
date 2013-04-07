@@ -26,7 +26,7 @@ function milToAMPM($hour){
 		Use the box below to add new hours, or click the hours themselves to edit them.
 	</p>
 
-	<p class="admin">
+	<div class="adminHours">
 		<form action="/Admin/hours=new" method="POST">
 			<select>
 				<option value="-1" >Select Crew Member</option>
@@ -39,10 +39,11 @@ function milToAMPM($hour){
 					}
 				?>
 			</select>
-			<p>
-				Enter Hours in military time:
-			</p>
+			<br />
 			<table>
+				<tr>
+					<td colspan="2">Enter Hours in military time:</td>
+				</tr>
 				<tr>
 					<td class="left">
 						Hour:
@@ -61,10 +62,10 @@ function milToAMPM($hour){
 				</tr>
 
 			</table>
-			<input type="submit" value="Add Hours">
+			<input id="submit" type="submit" value="Add Hours">
 
 		</form>
-	</p>
+	</div>
 
 	<div class="hours">	
 		<table>

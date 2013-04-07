@@ -14,20 +14,23 @@ $('.membersLink').css({'color' : '#00774B'});
 var $thisUTF8 = $('a.membersLink').find('.utf8');
 $thisUTF8.addClass("utf8Active");
 </script>
-	<div class="membersContain">
+
+
+	<div class="membersContainer">
 		<div class="contentHeader"><!--[if !IE]> -->&#10094;<!-- <![endif]-->Members<!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-		<div class="row-fluid">
-		      <th>Name</th>
-		      <th>Year</th>
-		      <th>Major</th>
-		      <th>Contact Info</th>
-		      <th>Website</th>
+
+		<p>
+			If you'd like to contact a member of CS Crew, you can come to our lab in Votey 332 or <a href="<?=BASEDIR ?>Default/?page=contact">Contact Us</a>.
+			If you know which member you'd like to contact, you can find active member's contact information below.
+		</p>
+
+		<div class="row-fluid text-center">
 		    <?php
 		    	if($none){
 		    		echo '<div class="span1">No Currently Active Members</div>';
 		    	}else{
 		    		foreach ($this->vars['members'] as $member) {
-			    		echo '<div class="span1">';
+			    		echo '<div class="span2 pagination-centered">';
 			    			if($member['image'] != ""){
 			    				echo '<img src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
 			    			}else{
@@ -35,13 +38,13 @@ $thisUTF8.addClass("utf8Active");
 			    			}
 			    			echo "</br><span>".$member['fname']." ". $member['lname']."</span><br />";
 			    			echo '<a href="mailto:'.$member['email'].'">Contact ' . $member['fname'] . '</a><br />';
-			    			echo '<a href="' . $member['url'] . '" >'.$member['url']. '</a><br />';
-
-			    			
-			    			
+			    			if($member['url']!=''){
+			    				echo '<a href="' . $member['url'] . '" >Personal Website</a><br />';	    			
+			    			}
 			    		echo '</div>';
 		    		}	
 		    	}
 		    ?>
 		</div>
+		<div class="spacing"></div>
 </div>

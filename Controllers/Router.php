@@ -35,14 +35,16 @@
 			}
 		}
 
-		// logThis($requestArr['path']);
-
 
 		// // the following trims the leading and following "/" off of the path
 		$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
 		
+		
 		if(isset($urlPath[1+array_search($dirTrim, $urlPath)])){
 			$ControllerQuery = $dirTrim;
+			if(substr($ControllerQuery, -1) == "/"){
+				substr_replace($dirTrim ,"",-1);
+			}
 			$this->controller = ucfirst(strtolower($ControllerQuery));
 		}
 				
@@ -55,7 +57,7 @@
  	// this function tells us whether its a phone or not
  	// not sure if this should be in the router or the display
  		if(stristr($userAgent, 'mobile') || stristr($userAgent, 'android') || stristr($userAgent, 'iphone') || stristr($userAgent, 'ipod')){
- 			return 2; // 2 is for phone
+ 			return 2; // 2 is for phoneerialize() gets called or provide a __autoload() function to load the class definition  in /var/www/WebsiteWeekend/Controllers/Controller.php on line 36
  		}
  		else {
  			return 1; // 1 is for desktop

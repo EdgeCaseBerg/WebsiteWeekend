@@ -1,5 +1,19 @@
 <?php
 require_once "topBar.php";
+
+function milToAMPM($hour){
+	//Takes something like 00:15:30 and converts it to 3:00pm
+	$temp = explode(':', $hour);
+	$AMPM = 'am';
+	if(intval($temp[1]) > 11){
+		$AMPM = 'pm';
+		if(intval($temp[1]) > 12){
+			$temp[1] = intval($temp[1]) % 12;	
+		}
+	}
+	return $temp[1] . ':' . $temp[2] . $AMPM;
+}
+
 ?>
 
 <div class="hoursPage">
@@ -55,7 +69,7 @@ require_once "topBar.php";
 				$days = array('Mon','Tues','Wednes','Thurs','Fri');
 				$hours = array(	'Mon'=>array(),
 								'Tues'=>array(),
-								'Wednesday'=>array(),
+								'Wednes'=>array(),
 								'Thurs'=>array(),
 								'Fri'=>array()
 							  );
@@ -68,9 +82,21 @@ require_once "topBar.php";
 					}
 				}
 				for ($i=0; $i < $maxDepth; $i++) { 
-					echo "<tr class=\"" . $i%2==0 ? 'alt' : '' ."\">";
+					echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
 					foreach ($hours as $day => $hoursOnDay) {
+						if(isset($hoursOnDay[$i])){
+							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
+								echo '<td>';
+								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
+								echo milToAMPM($hoursOnDay[$i]['hour']);
+								echo '</td>';
+							}else{
+								echo '<td></td>';
+							}
 						
+						}else{
+							echo '<td></td>';
+						}
 					}
 					echo '</tr>';
 				}

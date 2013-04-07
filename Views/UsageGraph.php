@@ -7,10 +7,10 @@
 <script type="text/javascript">
 <?
 	if($this->vars['graphType'] == "line"){
+		echo "var chartData = ".json_encode($this->vars['graphData']).";";
 	    $chartJS = file_get_contents("Views/js/lineChart.js");
 	    echo $chartJS;
 	}else if($this->vars['graphType'] == "column"){
-		
 		echo "var chartData = ".json_encode($this->vars['graphData']).";";
 		$chartJS = file_get_contents("Views/js/3dColumnStack.js");
 		echo $chartJS;

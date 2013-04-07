@@ -9,9 +9,14 @@ class Usagedata{
 	public $vars;
 
 	public function usageOverTIme(){
-		$array = array('tableName'=>'tblRoomUsage');
-		$dbWrapper = new InteractDB('select', $array);
-		logThis($dbWrapper->returnedRows);
+		$query = "SELECT Count(*) as qty, month(visitDate) ";
+		$query .= "as month,day(visitDate) as day,year(visitDate) ";
+		$query .= "as year FROM `tblRoomUsage` GROUP BY year(visitDate), ";
+		$query .= "month(visitDate), day(visitDate)";
+
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		return $dbWrapper->returnedRows;
 	}
 
 	public function purpose(){

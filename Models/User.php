@@ -82,8 +82,11 @@ class UserModel{
 			);
 		}
 		$dbWrapper = new InteractDB('select', $array);
-		$returnArr = $dbWrapper->returnedRows[0];
+		$returnArr['profile'] = $dbWrapper->returnedRows[0];
 		$returnArr['langs'] = $this->getUserLangs(12);
+		require_once "Models/Jack.php";
+		$jack = new Jack();
+		$returnArr['memberLangs'] = $jack->getMemberLangs();
 		return $returnArr;
 	} // end getProfile
 

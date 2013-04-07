@@ -1,16 +1,10 @@
-<script type="text/javascript">
-    var lineChartData = $.parseJSON($('#chartDat').val());
-    // var lineChartData = $('#chartDat').val();
-    console.log(lineChartData);
-    for(var ii=0; ii<lineChartData.length; ii++){
-        lineChartData[ii].date = new Date(lineChartData[ii].date)
-    }
-
+ var chart;
+ console.log(chartData);
             AmCharts.ready(function () {
                 var chart = new AmCharts.AmSerialChart();
-                chart.dataProvider = lineChartData;
+                chart.dataProvider = chartData;
                 chart.pathToImages = "js/amcharts/images/";
-                chart.categoryField = "date";
+                chart.categoryField = "day";
 
                 // sometimes we need to set margins manually
                 // autoMargins should be set to false in order chart to use custom margin values
@@ -39,7 +33,7 @@
                 // GRAPH
                 var graph = new AmCharts.AmGraph();
                 graph.type = "line";
-                graph.valueField = "value";
+                graph.valueField = "qty";
                 graph.lineColor = "red";
                  // graph.lineColor = "#D2CB00";
                 // graph.customBullet = "http://cochinherald.com/assets/images/dot_indicator_small.png"; // bullet for all data points
@@ -54,4 +48,3 @@
                 // WRITE
                 chart.write("chartdiv");
             });
-        </script>

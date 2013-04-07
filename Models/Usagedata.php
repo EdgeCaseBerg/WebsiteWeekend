@@ -23,7 +23,7 @@ class Usagedata{
 		$dbWrapper->customStatement($query);
 		$purposeData = array();
 		for($ii=0; $ii<count($dbWrapper->returnedRows); $ii++){
-			$purposeData[$ii]['qty'] = $dbWrapper->returnedRows[$ii]['peoples'];
+			$purposeData[$ii]['qty'] = (int)$dbWrapper->returnedRows[$ii]['peoples'];
 			$purposeData[$ii]['purpose'] = $dbWrapper->returnedRows[$ii]['purpose'];
 		}
 		return $purposeData;

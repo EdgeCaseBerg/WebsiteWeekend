@@ -20,7 +20,8 @@ $thisUTF8.addClass("utf8Active");
 		<div class="contentHeader"><!--[if !IE]> -->&#10094;<!-- <![endif]-->Members<!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
 
 		<p>
-			Members of the CS Crew
+			If you'd like to contact a member of CS Crew, you can come to our lab in Votey 332 or <a href="<?=BASEDIR ?>Default/?page=contact">Contact Us</a>.
+			If you know which member you'd like to contact, you can find active member's contact information below.
 		</p>
 
 		<div class="row-fluid text-center">
@@ -29,7 +30,7 @@ $thisUTF8.addClass("utf8Active");
 		    		echo '<div class="span1">No Currently Active Members</div>';
 		    	}else{
 		    		foreach ($this->vars['members'] as $member) {
-			    		echo '<div class="span2">';
+			    		echo '<div class="span2 pagination-centered">';
 			    			if($member['image'] != ""){
 			    				echo '<img src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
 			    			}else{
@@ -45,4 +46,5 @@ $thisUTF8.addClass("utf8Active");
 		    	}
 		    ?>
 		</div>
+		<div class="spacing"></div>
 </div>

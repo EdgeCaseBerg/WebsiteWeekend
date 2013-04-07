@@ -134,15 +134,24 @@ class AdminController extends AbstractController{
 
 							//AJAX endpoint for removing saved picture
 							case "removePicture":
+								$path = null;
 								$return = false;
 								if(isset($_POST['id'])){
+									//if removed from edit page
 									$news= new News();
 									$news->initById($_POST['id']);
-									$exists = file_exists($this->NEWS_IMAGE_PATH.$news->getImage());
+									$path = $this->NEWS_IMAGE_PATH.$news->getImage();
+									$news->setImage('');
+									$news->save();
+								}else if(isset($_POST['imagePath'])){
+									//if removed from new page
+									$name=end(explode('/', $_POST['imagePath']));
+									$path=$this->NEWS_IMAGE_PATH.$name;
+								}
+								if($path!==null){
+									$exists = file_exists($path);
 									if($exists){
 										unlink($this->NEWS_IMAGE_PATH.$news->getImage());
-										$news->setImage('');
-										$news->save();
 										$return = true;
 									}
 								}
@@ -152,9 +161,9 @@ class AdminController extends AbstractController{
 
 							default:
 								break;
+						}
+						break;
 
-<<<<<<< HEAD
-=======
 					case 'hours':
 						switch ($actions['hours']) {
 							case 'id':
@@ -259,10 +268,8 @@ class AdminController extends AbstractController{
 								$modelObj = new Contact($this->view);
 								$this->vars['emails'] = $modelObj->getContacts();
 								break;
->>>>>>> 4793745c2b8bdfe1bd66954951e4221b7e6a8d84
 						}
-						break;
-						
+						break;						
 
 					case "users":
 						break;

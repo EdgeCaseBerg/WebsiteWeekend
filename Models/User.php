@@ -17,7 +17,7 @@ class UserModel{
 	private $cleaner; // holds the sanitizer object
 
 	function __construct(){
-		$this->cleaner = new CleanIn();
+		//$this->cleaner = new CleanIn();
 	}
 
 	// perform a login, return a boolean
@@ -42,7 +42,7 @@ class UserModel{
 
 	public function newUser($POST){
 		require_once "Models/Bcrypt.php";
-
+		$this->cleaner = new CleanIn();
 		$username = $POST['fldUsername'];
 		$password = $POST['fldPassword'];
 		$cleanUsername = $this->cleaner->clean($username);

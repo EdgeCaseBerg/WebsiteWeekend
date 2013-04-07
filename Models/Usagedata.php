@@ -13,10 +13,20 @@ class Usagedata{
 		$query .= "as month,day(visitDate) as day,year(visitDate) ";
 		$query .= "as year FROM `tblRoomUsage` GROUP BY year(visitDate), ";
 		$query .= "month(visitDate), day(visitDate)";
-
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
-		return $dbWrapper->returnedRows;
+		$rows = $dbWrapper->returnedRows;
+		for($ii=0; $ii<count($rows); $ii++){
+			if($rows[$ii]['month'] <= 9){
+				$rows[$ii]['month'] = "0".$rows[$ii]['month'];
+			}
+
+			if($rows[$ii]['day'] <= 9){
+				$rows[$ii]['day'] = "0".$rows[$ii]['day'];
+			}
+			$rows[$ii]['date'] = $rows[$ii]['month']."-".$rows[$ii]['day'];
+		}
+		return $rows;
 	}
 
 	public function purpose(){

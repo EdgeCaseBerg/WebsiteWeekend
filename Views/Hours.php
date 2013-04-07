@@ -85,7 +85,6 @@ function milToAMPM($hour){
 					echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
 					foreach ($hours as $day => $hoursOnDay) {
 						if(isset($hoursOnDay[$i])){
-							logThis($hoursOnDay[$i]['day'] . ' HEEEY ' . $day);
 							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
 								echo '<td>';
 								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';

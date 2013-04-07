@@ -12,6 +12,13 @@ class AdminController extends AbstractController{
 	public function __construct($actions, $POST){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
+	 	//Verify admin privilege
+	 	/*
+	 	if($_SESSION['user']->getUserAuth()!=3){
+	 		//Not privileged
+	 		header('/');
+	 	}
+	 	*/
 	 	$this->parseAction($this->actions);
 	}
 
@@ -83,7 +90,16 @@ class AdminController extends AbstractController{
 						
 					break;
 
-					case "id":
+					case 'hours':
+						switch ($actions['hours']) {
+							case 'id':
+								//Respond to ajax change to an hour
+								break;
+							
+							default:
+								//Display the very ajax riffic table
+								break;
+						}
 						break;
 
 					case "users":

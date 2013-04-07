@@ -22,12 +22,13 @@ class UserModel{
 
 	// perform a login, return a boolean
 	public function login($username, $password){
-		$salt = time()*0.118321;
+		require_once "Models/Bcrypt.php";
+		$bcrypt = new Bcrypt(15);
 	 	// $password = md5($password, $salt);
 	 	$array = array('tableName'=>'tblUserAccount', 'fldUsername'=>$username);
 	 	$dbWrapper = new InteractDB('select', $array);
 	 	// logThis($dbWrapper);
-	 	if(isset($dbWrapper->returnedRows[0]['fldPassword']) && $dbWrapper->returnedRows[0]['fldPassword'] == $password){
+	 	if(isset($dbWrapper->returnedRows[0]['fldPassword']) && $bcrypt->verify($password, $dbWrapper->returnedRows[0]['fldPassword'])){
 	 		$this->setUserLoggedIn(true);
 			$this->setUserAuth($dbWrapper->returnedRows[0]['fldAuth']);
 			$this->setUserID($dbWrapper->returnedRows[0]['pkUserID']);
@@ -40,10 +41,14 @@ class UserModel{
 	} // end logIn
 
 	public function newUser($POST){
+		require_once "Models/Bcrypt.php";
+
 		$username = $POST['fldUsername'];
 		$password = $POST['fldPassword'];
 		$cleanUsername = $this->cleaner->clean($username);
 		$cleanPassword = $this->cleaner->clean($password);
+		$bcrypt = new Bcrypt(15);
+		$cleanPassword = $bcrypt->hash($cleanPassword);
 		$array = array(
 			'tableName'=>'tblUserAccount',
 			'fldUsername'=>$cleanUsername
@@ -56,6 +61,7 @@ class UserModel{
 				'fldAuth'=>1,
 				'fldUsername'=>$cleanUsername
 			);
+			$_SESSION['user']->setUserAuth(1);
 			$dbWrapper = new InteractDB('insert', $array);
 			return true;
 		}else{

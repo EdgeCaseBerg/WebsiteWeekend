@@ -17,7 +17,6 @@ class InteractDB{
 	public $errorCondition;
 	
 	public $connection = null;
-
 	public $action = null;			// this is the action to be performed on the DB (SELECT INSERT etc)
 	public $numberEntries = null;	// this is the number of total items to be acted upon
 	private $data = array();		// the array of data to be INSERTED (or whatever)

@@ -9,6 +9,9 @@ class AdminController extends AbstractController{
 	private $view;
 	public $vars;
 
+	private $NEWS_CONTENT_PATH = "Views/Stories/Content/";
+	private $NEWS_IMAGE_PATH = "Views/Stories/Images/"; 
+
 	public function __construct($actions, $POST){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
@@ -35,12 +38,8 @@ class AdminController extends AbstractController{
 						switch($actions['news']){
 							case "new":
 								$this->view = "AdminViews/newStory";
-								$newsBundle = new NewsBundle();
-								$news = $newsBundle->retrieveAll();
-								foreach($news as $story){
-									error_log(print_r($story->toArray(),true));
-								}
 								break;
+
 							case  "edit":
 								if(isset($_GET['id'])){
 									$news = new News();
@@ -50,41 +49,104 @@ class AdminController extends AbstractController{
 									$this->view= 'AdminViews/editStory';
 								}
 								break;
-							case "save":
-								error_log(print_r($_POST,true));
-								
-								$imageName = '';
+
+							//Form Submit for a new article
+							case "saveNew":
+								logThis($_POST);
+								$news = new News();
+								$news->setTitle($_POST['news-title']);
+								$news->saveHtml($_POST['news-html']);
+								if($_POST['news-image']!==''){
+									$ext = end(explode('.', $_POST['news-image']));
+									$oldName = end(explode('/', $_POST['news-image']));
+									$newName = $news->getPath()."_image.".$ext;
+									rename("Views/Stories/Images/".$oldName, "Views/Stories/Images/".$newName);
+									$news->setImage($newName);
+								}else{
+									$news->setImage($imageName);								
+								}
+								$id = $news->save();
+								logThis($news->toArray());
+								header("location: ". BASEDIR."Admin/?news=edit&id=".$id);
+								break;
+
+							//Load new Image but don't save
+							case "uploadImg":
+								logThis('inUploadImg');
+								$this->vars['imagePath'] = '';
 								if(isset($_FILES['story-image'])){
 									$picName = $_FILES['story-image']['name'];
 									$ext = end(explode('.', $picName));
 									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
-										$imageName = end(explode('/', $_FILES['story-image']['tmp_name']));
-										move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName.'.'.$ext);
-									}else{
-										$imageName = '';
+										$imageName = end(explode('/', $_FILES['story-image']['tmp_name']))."_tmp.".$ext;
+										move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName);
+										$this->vars['imagePath'] = 'Views/Stories/Images/'.$imageName;
 									}
 								}
+								$this->view = 'json';
+								break;
+
+							//AJAX endpoint for image upload
+							case "updateImg":
+								if(isset($_POST['story-id']) && isset($_FILES['story-image'])){
+									if($_FILES['story-image']['error']===0){
+										$picName = $_FILES['story-image']['name'];
+										$ext = end(explode('.', $picName));
+										if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
+											$imageName = end(explode('/', $_FILES['story-image']['tmp_name'])).".".$ext;
+											move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName);
+										}else{
+											$imageName = '';
+										}
+										if($imageName != ''){
+											$news = new News();
+											$news->initById($_POST['story-id']);
+											$news->setImage($imageName);
+											$news->save();
+											$this->vars['imagePath']=$news->getImage();
+											$this->view='json';
+										}
+									}
+								}
+								break;
+
+							//AJAX endpoint for saving text
+							case "updateTxt":
 								if(isset($_POST['id'])){
 									$news = new News();
 									$news->initById($_POST['id']);
 									$news->saveHtml($_POST['html']);
+									$this->vars['sucess']=true;
 								}else{
-									$news = new News();
-									$news->setTitle($_POST['story-title']);
-									$news->setImage($imageName);
-									$news->saveHtml($_POST['story-html']);
-									$news->save();
+									$this->vars['sucess']=false;
 								}
-								
+								$this->view='json';
 								break;
+
+							//AJAX endpoint for removing saved picture
+							case "removePicture":
+								$return = false;
+								if(isset($_POST['id'])){
+									$news= new News();
+									$news->initById($_POST['id']);
+									$exists = file_exists($this->NEWS_IMAGE_PATH.$news->getImage());
+									if($exists){
+										unlink($this->NEWS_IMAGE_PATH.$news->getImage());
+										$news->setImage('');
+										$news->save();
+										$return = true;
+									}
+								}
+								$this->vars['sucess']=$return;
+								$this->view = 'json';
+								break;
+
 							default:
 								break;
-						}
-						
-					break;
 
-					case "id":
+						}
 						break;
+						
 
 					case "users":
 						break;

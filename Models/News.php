@@ -125,6 +125,7 @@
 			}
 			$dbObject = new InteractDB();
 			$dbObject->customStatement($statement);
+			return $dbObject->connection->lastInsertId();
 		}
 
 	}

@@ -61,7 +61,6 @@ class UserModel{
 				'fldAuth'=>1,
 				'fldUsername'=>$cleanUsername
 			);
-			$_SESSION['user']->setUserAuth(1);
 			$dbWrapper = new InteractDB('insert', $array);
 			return true;
 		}else{
@@ -70,11 +69,18 @@ class UserModel{
 	}
 
 	// retrieves user data from the database, returns it as an array
-	public function getProfile(){
-		$array = array(
-			'tableName'=>'tblUserProfile',
-			'fkUserID'=>$_SESSION['user']->getUserID()
-		);
+	public function getProfile($uid = null){
+		if($uid != null){
+			$array = array(
+				'tableName'=>'tblUserProfile',
+				'fkUserID'=>$uid
+			);
+		}else{
+			$array = array(
+				'tableName'=>'tblUserProfile',
+				'fkUserID'=>$_SESSION['user']->getUserID()
+			);
+		}
 		$dbWrapper = new InteractDB('select', $array);
 		return $dbWrapper->returnedRows[0];
 	} // end getProfile

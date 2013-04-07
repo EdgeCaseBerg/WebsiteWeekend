@@ -8,8 +8,14 @@ require_once "topBar.php";
 
 <script type="text/javascript">
 $(document).ready(function(){
+	<?
+		if(isset($_GET['showUserProfile'])){
+	?>
+		var query = <? echo BASEDIR; ?>+"User/?showUserProfile="+<? echo $_GET['showUserProfile']; ?>+"&output=json";
+	<?	}else{ ?>
 	// grab our profile data from our model object via AJAX
 	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
+	<? } ?>
 	$.getJSON(query, function(data) {
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
@@ -63,19 +69,18 @@ $(document).ready(function(){
 	</div>
 	<ul>
 		<li class="containRow row1">
-
-				<div class="nest">
-					<div class="profilePicNest">
-					</div>
-					<div class="profileDescrip">
-						<b>About Me</b><br />
-						<span class="descripText"></span>
-					</div>
-					<div class="social">
-					</div>
-					<div class="clearBoth"></div>
+			<div class="nest">
+				<div class="profilePicNest">
 				</div>
-			
+				<div class="profileDescrip">
+					<h3><b>About Me</b></h3>
+					<span class="descripText"></span>
+				</div>
+				<div class="social">
+				</div>
+				<div class="clearBoth"></div>
+				</div>
+			</div>
 		</li>
 	</ul>
 </div>

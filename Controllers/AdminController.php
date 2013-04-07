@@ -2,6 +2,7 @@
 require_once "AbstractController.php";
 require_once "Models/News.php";
 require_once "Models/NewsBundle.php";
+require_once "Models/Hours.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -94,10 +95,45 @@ class AdminController extends AbstractController{
 						switch ($actions['hours']) {
 							case 'id':
 								//Respond to ajax change to an hour
+								$oldID = explode('|',$_POST['id']);
+								$newData = $_POST['new'];
+								
+								//Convert new data to military time
+								$tmp = explode(':',$newData);
+								//The last two digits should be am or pm
+								$ampm = substr($tmp[1], 2);
+								if(strcmp($ampm, 'pm')==0){
+									$tmp[0] = intval($tmp[0]) + 12;
+								}else{
+									//If am and 12 then that's really 0
+					
+									if(intval($tmp[0])==12 || intval($tmp[0])==24){
+										$tmp[0] = '00';
+									}else{
+										if($tmp[0] < 10){
+											$tmp[0] = '0' . strval($tmp[0]);
+										}else{
+											$tmp[0] = strval($tmp[0]);	
+										}
+										
+									}
+									
+								}
+								$newTime = $tmp[0] . substr($tmp[1],0,2);
+
+
+								$modelObj = new Hours('AdminHours');
+								$success = $modelObj->updateHours($oldID,$newTime);
+								logThis($success);
+								
 								break;
 							
 							default:
 								//Display the very ajax riffic table
+								$modelObj = new Hours('AdminHours');
+								$this->vars['hours'] = $modelObj->getAllHours();
+								$this->vars['members'] = $modelObj->getActiveMembers();
+								$this->view = 'AdminHours';
 								break;
 						}
 						break;

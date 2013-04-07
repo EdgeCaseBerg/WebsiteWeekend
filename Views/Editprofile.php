@@ -64,7 +64,7 @@ $(document).ready(function(){
 		}
 
 		for(var ii=0; ii< data['langs'].length; ii++){
-			alert($('.expertiseCheckboxNest').find("input[lang='"+data['langs']['language']+"']"));
+			$('.expertiseCheckboxNest').find("input[lang='"+data['langs'][ii]['language']+"']").prop("checked", true);
 		}
 
 		// slidedowns for social checkboxes

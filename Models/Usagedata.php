@@ -17,11 +17,11 @@ class Usagedata{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$rows = $dbWrapper->returnedRows;
-		logThis($rows);
+		// logThis($rows);
 		$monthArr = array(
-			'jan'=> 31, 'feb' => 28, 'mar' => 31, 'apr' => 30,
-			'may' => 31, 'jun' => 30, 'jul' => 31, 'aug' => 31,
-			'sep' => 30, 'oct' => 31, 'nov'=>30, 'dec' =>31
+		31, 28, 31, 30,
+			31, 30, 31, 31,
+			30, 3130,31
 		);
 		$beginMonth = $rows[0]['month'];
 		$beginDay = $rows[0]['day'];
@@ -54,19 +54,89 @@ class Usagedata{
 				}
 				$counter++;
 			}
-		}
+		}else{
 		// ------- we have several months of data
-		
-		for($ii=0; $ii<count($rows); $ii++){
-			if($rows[$ii]['month'] <= 9){
-				$rows[$ii]['month'] = "0".$rows[$ii]['month'];
+			// loop over each month
+			for($mm=$beginMonth; $mm<=$endMonth; $mm++){
+				// logThis($mm);
+				// logThis("begin day ".$beginDay);
+				// logThis("end month ".$endMonth);
+				// deal with the first month
+				if($mm==$beginMonth){
+					// logThis("in Begin Month");
+					// for every day from the beginDay to the last day of the month
+					logThis($monthArr[$mm-1]);
+					for($ii=$beginDay; $ii<=$monthArr[$mm-1]; $ii++){
+						// check all of our database rows
+						for($zz=0; $zz<count($rows); $zz++){
+							// if we have an entry for the month and day that matches
+							if($ii == $rows[$zz]['day'] && $rows[$zz]['month'] == $mm){
+								// set our date...
+								$dateQty[$counter]['day'] = $rows[$zz]['day'];
+								$dateQty[$counter]['qty'] = $rows[$zz]['qty'];
+								$dateQty[$counter]['month'] = $rows[$zz]['month'];
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$rows[$zz]['day'];
+								// ...and move on
+								$zz = count($rows);
+							}else{
+								// otherwise set our qty for that day and month to 0
+								$dateQty[$counter]['day'] = $ii;
+								$dateQty[$counter]['qty'] = 0;
+								$dateQty[$counter]['month'] = $mm;
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$ii;
+							}
+						}
+						$counter++;
+					}
+				}else if($mm!=$endMonth){
+					// our month increment is not the last month
+					for($ii=0; $ii<=$monthArr[$mm-1]; $ii++){
+						//  create a value for each day
+						for($zz=0; $zz<count($rows); $zz++){
+							if($ii == $rows[$zz]['day'] && $rows[$zz]['month'] == $mm){
+								$dateQty[$counter]['day'] = $rows[$zz]['day'];
+								$dateQty[$counter]['qty'] = $rows[$zz]['qty'];
+								$dateQty[$counter]['month'] = $rows[$zz]['month'];
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$rows[$zz]['day'];
+								$zz = count($rows);
+							}else{
+								$dateQty[$counter]['day'] = $ii;
+								$dateQty[$counter]['qty'] = 0;
+								$dateQty[$counter]['month'] = $mm;
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$ii;
+							}
+						}
+						$counter++;
+					}
+				}else if ($mm==$endMonth){
+					for($ii=0; $ii<=$endDay; $ii++){
+						// for every day
+						for($zz=0; $zz<count($rows); $zz++){
+							if($ii == $rows[$zz]['day'] && $rows[$zz]['month'] == $mm){
+								$dateQty[$counter]['day'] = $rows[$zz]['day'];
+								$dateQty[$counter]['qty'] = $rows[$zz]['qty'];
+								$dateQty[$counter]['month'] = $rows[$zz]['month'];
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$rows[$zz]['day'];
+								$zz = count($rows);
+							}else{
+								$dateQty[$counter]['day'] = $ii;
+								$dateQty[$counter]['qty'] = 0;
+								$dateQty[$counter]['month'] = $mm;
+								$dateQty[$counter]['year'] = $rows[$zz]['year'];
+								$dateQty[$counter]['date'] = $mm."-".$ii;
+							}
+						}
+						$counter++;
+					}
+				}
 			}
-
-			if($rows[$ii]['day'] <= 9){
-				$rows[$ii]['day'] = "0".$rows[$ii]['day'];
-			}
-			$rows[$ii]['date'] = $rows[$ii]['month']."-".$rows[$ii]['day'];
 		}
+
 		return $dateQty;
 	}
 

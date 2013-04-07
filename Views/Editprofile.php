@@ -19,9 +19,6 @@ $(document).ready(function(){
 			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+langs[ii]['language']+"' name='langs[]' value='"+langs[ii]['pkID']+"' class='langCheck'>"+langs[ii]['language']+"</li>");
 		}
 
-		for(var ii=0; ii<data2.length; ii++){
-			$('')
-		}
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
 			$('.about_me').val(data['fldAboutMe']);

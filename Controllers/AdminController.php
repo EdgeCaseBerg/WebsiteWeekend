@@ -99,21 +99,21 @@ class AdminController extends AbstractController{
 								$this->view = 'json';
 								break;
 
-							//AJAX endpoint for image upload
+							//AJAX endpoint for image upload on edit article page
 							case "updateImg":
 								if(isset($_POST['story-id']) && isset($_FILES['story-image'])){
+									$news = new News();
+									$news->initById($_POST['story-id']);
 									if($_FILES['story-image']['error']===0){
 										$picName = $_FILES['story-image']['name'];
 										$ext = end(explode('.', $picName));
 										if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
-											$imageName = end(explode('/', $_FILES['story-image']['tmp_name'])).".".$ext;
+											$imageName = $news->getPath().'.'.$ext;
 											move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName);
 										}else{
 											$imageName = '';
 										}
 										if($imageName != ''){
-											$news = new News();
-											$news->initById($_POST['story-id']);
 											$news->setImage($imageName);
 											$news->save();
 											$this->vars['imagePath']=$news->getImage();

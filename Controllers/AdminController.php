@@ -171,10 +171,25 @@ class AdminController extends AbstractController{
 							case 'add':
 								//Adding a new email via ajax post
 								$this->view = 'json';
+								$email = $_POST['email'];
+								$modelObj = new Contact($this->view);
+								$this->vars['success'] = $modelObj->addEmail($email);
 								break;
 							case 'delete':
 								//Remove an email via ajax
 								$this->view = 'json';
+								$id = $_POST['id'];
+								$modelObj = new Contact($this->view);
+								$this->vars['success'] = $modelObj->deleteEmail($id);
+								break;
+							case 'edit':
+								//Update an email via ajax
+								$this->view = 'json';
+								$id = $_POST['id'];
+								$new = $_POST['newEmail'];
+								$modelObj = new Contact($this->view);
+								$this->vars['success'] = $modelObj->updateEmail($id,$new);
+								break;
 							default:
 								//Default view of the admin for contact administration
 								$this->view = 'AdminViews/contact';

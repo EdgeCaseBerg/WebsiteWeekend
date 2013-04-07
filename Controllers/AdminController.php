@@ -213,7 +213,6 @@ class AdminController extends AbstractController{
 						$this->view = 'json';
 						break;
 					default:
-						logThis('hey im trying');
 						$this->view = 'AdminViews/landing';
 						break;
 				}

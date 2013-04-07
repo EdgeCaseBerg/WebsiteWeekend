@@ -4,12 +4,12 @@ class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view = "defaultView";
-	private $vars;
 
 	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
+
 	 }
 
 	function parseAction($actions){
@@ -29,21 +29,34 @@ class DefaultController extends AbstractController{
 				switch ($value){
 					case "page":
 						switch($actions['page']){
+							case "Misc":
+								$this->view = "Misc";
+							break;
 							case "login":
 								$this->view = "Login";
-							break; 
+								break; 
 							case "calendar":
 								$this->view = "Calendar";
-							break;
+								break;
 							case "projects":
 								$this->view = "Projects";
-							break;
+								break;
 							case "members":
 								$this->view = "Members";
-							break;
+								break;
+							case "signup":
+								$this->view = "Signup";
+								break;
 							case "contact":
+								//Grab the list of emails of who to talk to
+								$dbWrapper = new InteractDB('select',array('tableName'=>'tblContactEmails'));
+								$this->vars['emails'] = $dbWrapper->returnedRows;
 								$this->view = "Contact";
-							break;
+								break;
+							case "help":
+								//Send em to the hours page
+								header('/Hours/');
+								break;
 						}
 					break;
 					} // end switch

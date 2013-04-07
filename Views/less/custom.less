@@ -77,6 +77,10 @@ ul{
 	list-style-type:none;
 }
 
+li{
+	list-style-type:none;
+}
+
 a{
 	cursor:pointer;
 }
@@ -456,6 +460,11 @@ table{
 		min-width:155px;
 	}
 
+	li.error{
+		margin-bottom:10px;
+		color:red;
+	}
+
 	.textInput{
 		min-width:300px;
 	}
@@ -790,7 +799,7 @@ table{
 		height:200px;
 
 			.profilePicNest{
-				height:200px;
+				min-height:200px;
 				width:200px;
 				border:0px;
 				padding:0px;
@@ -920,6 +929,7 @@ table{
 	text-align:left;
 	border:@nestBorder;
 	background:@nestBG;
+	padding-bottom:20px;
 
 	ul{
 		margin:0px;
@@ -943,6 +953,21 @@ table{
 		li{
 			display:block;
 			text-align:left;
+			.expertiseCheckboxNest{
+				ul{
+					padding:3px;
+					width:60%;
+					border:solid 1px #bcbcbc;
+					background:#fefefe;
+					margin-top:10px;
+				}
+				.expertiseInputItem{
+					margin-left:10px;
+					.langCheck{
+						margin-right:8px;
+					}
+				}
+			}
 		}
 	}
 
@@ -1024,9 +1049,11 @@ table{
         	filter: dropshadow(color=#383838, offx=1, offy=1);
 		}
 		.imageDialog{
-			height:200px;
 			width:200px;
+			min-height:200px;
 			border:solid 1px #999;
+			margin:0px;
+			padding:0px;
 			display:inline-block;
 			background:url('../images/noprofile.png');
 		}
@@ -1221,6 +1248,114 @@ table{
 		top: 0;
 	}
 }
+
+/* ------------------ UsageStats ------------------------ */
+
+
+/* ------------------ Hours Page ------------------------- */
+
+.hoursPage{
+	div.adminHours{
+		display: inline-block;
+		margin-left: 40%;
+	}
+	.adminHours{
+		color: #009999;
+		ul{
+			color: #FF0000;
+			display: block;
+			text-align: center;
+		}
+		form{
+			clear:both;
+			width: 100%;
+			padding: 2%;
+			p{
+				margin: 0px;
+				padding: 0px;
+			}
+			table{
+				width: 100%;
+				border: none;
+				.left{
+					float: left;
+				}
+				.right{
+					float: right;
+				}
+			}
+			select{
+				width: 100%;
+
+			}
+			input{
+				margin-left: 30%;
+				display:inline-block;
+				width: auto;
+			}
+			#submit{
+				float: right;
+				width: 100%;
+				padding: 2%;
+			}
+		}
+
+	}
+	h3{
+		font-size: 200%;
+		font-weight: bolder;
+		text-align: center;
+	}
+	p{
+		margin-left: 5%;
+		margin-right: 5%;
+		padding-left: 5%;
+		padding-right: 5%;
+		text-align: center;
+	}
+	.note{
+		font-size: 80%;
+		font-style: italic;
+	}
+	.search{
+		float: right;
+		clear: both;
+		margin-right: 5%;
+	}
+	.hours{
+		margin-right: auto;
+		padding-bottom: 2%;
+		table{
+			padding-top: 5%;	
+			clear: both;
+			width: 90%;
+			margin-right: 5%;
+			margin-left: 5%;
+		}
+
+		thead,tbody{
+			border: solid #000000;
+		}
+		th{
+			border: solid #000000;
+			border-width: 2%;
+			width: 20%;
+			text-align: center;
+		}
+		td{
+			text-align: center;
+			border-right: solid;
+			border-left: solid;
+		}
+		.alt{
+			background-color: #aaf;
+		}
+		#editbox{
+			display:inline-block;
+				width: auto;
+		}
+	}
+}
 /* -------------- Admin Edit News Pages ------------- */
 .admin-edit-news{
 	padding-left: 5%;
@@ -1251,3 +1386,43 @@ table{
 	
 } 
 
+/* ----------------- Contact Admin ------------ */
+
+.contactAdmin{
+	h3{
+		margin-left: 10%;
+		margin-right: auto;
+		text-align: center;
+		font-family: @headerFont;
+	}
+	p{
+		text-align: left;
+	}
+	div{
+		width: 40%;
+		margin-left: 35%;
+		text-align: center;
+	}
+	fieldset{
+		p{
+			text-align: center;
+		}
+		a{
+			font-size: 140%;
+		}
+	}
+	ul{
+		li{
+			padding-bottom: 2%; 
+		}
+		.delete{
+			float: right;
+		}
+	}
+
+}
+
+/* --------- Misc.php --------- */
+.miscDiv{
+	padding:20px;
+}

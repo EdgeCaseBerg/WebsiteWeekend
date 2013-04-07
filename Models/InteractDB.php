@@ -47,10 +47,6 @@ class InteractDB{
 			case "update":
 			$this->updateStatement();
 			break;
-
-			case "custom":
-			$this->customStatement();
-			break;
 		}
 
 	} // end parseActions
@@ -207,7 +203,7 @@ class InteractDB{
 				$stmt->execute();
 				$this->returnedRows = $stmt->fetchAll();
 			}catch (Exception $e){
-				// logThis($e);
+				logThis($e);
 				$this->error = true;
 				$this->errorCondition = $e;
 			}	

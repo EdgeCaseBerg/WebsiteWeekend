@@ -8,8 +8,16 @@ $profilePic = "noprofile";
 <script type="text/javascript">
 $(document).ready(function(){
 	// grab our profile data from DB
+	var query2 = <? echo BASEDIR; ?>+"Jack/?getMemberLangs=true&output=json";
+	$.getJSON(query2, function(data2) {
+		console.log(data2);
+		for(var ii =0; ii<data2.length; ii++){
+			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+data2[ii]['language']+"' name='langs[]' value='"+data2[ii]['pkID']+"' class='langCheck'>"+data2[ii]['language']+"</li>");
+		}
+	});
 	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
 	$.getJSON(query, function(data) {
+		console.log(data);
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
 			$('.about_me').val(data['fldAboutMe']);
@@ -55,6 +63,10 @@ $(document).ready(function(){
 			$("input[name='google']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 
+		for(var ii=0; ii< data['langs'].length; ii++){
+			$('.expertiseCheckboxNest').find("input[lang='"+data['langs'][ii]['language']+"']").prop("checked", true);
+		}
+
 		// slidedowns for social checkboxes
 		$('.socialCheckbox').click(function(){
 			if($(this).parent().find('.socialUrl').hasClass('active')){
@@ -87,6 +99,13 @@ $(document).ready(function(){
 						<li><input type="text" name="personal_url" value=""></li>
 						<li><span>About Me</span></li>
 						<li><textarea name="about_me" class="about_me" rows="6"></textarea></li>
+						<li><span class="inputTitle">Expertise</span></li>
+						<li>
+							<div class="expertiseCheckboxNest">
+								<ul id="languagesList">
+								</ul>
+							</div>
+						</li>
 					</ul>
 				</div>
 
@@ -114,18 +133,6 @@ $(document).ready(function(){
 								<div class="socialUrl">URL: <input type="text" name="facebook"></div>
 							</li>
 							<li>
-								<input type="checkbox" class="socialCheckbox" id="tumblr">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/tumblr.png">
-								Tumblr
-								<div class="socialUrl">URL: <input type="text" name="tumblr"></div>
-							</li>
-							<li>
-								<input type="checkbox" class="socialCheckbox" id="blogger">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/blogger.png">
-								Blogger
-								<div class="socialUrl">URL: <input type="text" name="blogger"></div>
-							</li>
-							<li>
 								<input type="checkbox" class="socialCheckbox" id="linkedin">
 								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png">
 								Linkedin
@@ -137,21 +144,14 @@ $(document).ready(function(){
 								Google +
 								<div class="socialUrl">URL: <input type="text" name="google"></div>
 							</li>
-							<li>
-								<input type="checkbox" class="socialCheckbox" id="rss">
-								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/rss.png">
-								RSS Feed
-								<div class="socialUrl">URL: <input type="text" name="rss"></div>
-							</li>
 						</ul>
 					</div>
 				
 
 					<div class="rightNest nest">
 						<div class="inputTitle">Profile image</div>
-						<div class="imageDialog" id="PhotoPrevs">
-						</div>
-						<input type="file" name="userIMG">
+						<div class="imageDialog" id="PhotoPrevs"></div>
+						<input type="file" class="fileInput" name="userIMG">
 					</div>
 
 				</div>

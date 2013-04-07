@@ -1,12 +1,15 @@
 <?php
-if(isset($_SESSION['notifications'])){
-	echo $_SESSION['notifications'];
-}
 ?>
 
 <div class="loginContain">
 	<form action="<? echo BASEDIR; ?>User/?doLogin=yes" method="post">
 		<ul>
+			<li class="error">
+				<? if(isset($this->vars['notifications'])){
+						echo "<b>".$this->vars['notifications']."</b>";
+					}
+				?>
+			</li>
 			<li><b>Userame</b></li>
 			<li><input type="text" name="fldUsername" class="textInput"></li>
 			<li><b>Password</b></li>

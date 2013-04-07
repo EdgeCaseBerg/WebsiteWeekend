@@ -171,14 +171,21 @@ function milToAMPM($hour){
        						$('.ajax').html($('.ajax input').val());  
         					$('.ajax').removeClass('ajax');  
        		}});  
-    }  
-    //Remove input box if they click outside of it
-    $('#editbox').live('blur',function(){  
-        $('.ajax').html($('.ajax input').val());  
-        $('.ajax').removeClass('ajax');  
+    	}  
+	    //Remove input box if they click outside of it
+	    $('#editbox').live('blur',function(){  
+	        $('.ajax').html($('.ajax input').val());  
+	        $('.ajax').removeClass('ajax');  
+		});
+	});  
+	
+	//Add a 0 if the bit in the input box is a single didigt
+	$('.right').live('blur',function(){
+		var contents = $(this).find('input').val();
+		if(contents.length == 1){
+			$(this).find('input').val('0' + contents);
+		}
 	});
-  
-});  
 
 	</script>
 

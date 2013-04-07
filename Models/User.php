@@ -71,19 +71,24 @@ class UserModel{
 	// retrieves user data from the database, returns it as an array
 	public function getProfile($uid = null){
 		if($uid != null){
+			$uud = $uid;
 			$array = array(
 				'tableName'=>'tblUserProfile',
 				'fkUserID'=>$uid
 			);
 		}else{
+			$uud = $_SESSION['user']->getUserID();
 			$array = array(
 				'tableName'=>'tblUserProfile',
 				'fkUserID'=>$_SESSION['user']->getUserID()
 			);
 		}
 		$dbWrapper = new InteractDB('select', $array);
-		$returnArr = $dbWrapper->returnedRows[0];
-		$returnArr['langs'] = $this->getUserLangs(12);
+		$returnArr['profile'] = $dbWrapper->returnedRows[0];
+		$returnArr['langs'] = $this->getUserLangs($uud);
+		require_once "Models/Jack.php";
+		$jack = new Jack();
+		$returnArr['memberLangs'] = $jack->getMemberLangs();
 		return $returnArr;
 	} // end getProfile
 

@@ -3,22 +3,22 @@
 require_once "topBar.php";
 
 $profilePic = "noprofile";
-?>
+logThis($this->vars);
 
-<script type="text/javascript">
+echo "<script type=\"text/javascript\">";
+echo "var data2= ".json_encode($this->vars['langs']).";";
+echo "var data= ".json_encode($this->vars['profile']).";";
+echo "var langs= ".json_encode($this->vars['memberLangs']).";";
+?>
 $(document).ready(function(){
 	// grab our profile data from DB
-	var base = "<?= HOST . BASEDIR ?>";
-	var query2 = base+"Jack/?getMemberLangs=true&output=json";
-	$.getJSON(query2, function(data2) {
 		console.log(data2);
-		for(var ii =0; ii<data2.length; ii++){
-			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+data2[ii]['language']+"' name='langs[]' value='"+data2[ii]['pkID']+"' class='langCheck'>"+data2[ii]['language']+"</li>");
-		}
-	});
-	var query = base+"User/?getProfile=true&output=json";
-	$.getJSON(query, function(data) {
 		console.log(data);
+		console.log(langs);
+		for(var ii =0; ii<langs.length; ii++){
+			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+langs[ii]['language']+"' name='langs[]' value='"+langs[ii]['pkID']+"' class='langCheck'>"+langs[ii]['language']+"</li>");
+		}
+
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
 			$('.about_me').val(data['fldAboutMe']);
@@ -64,8 +64,8 @@ $(document).ready(function(){
 			$("input[name='google']").parent().parent().find('.socialCheckbox').prop('checked', true);
 		}
 
-		for(var ii=0; ii< data['langs'].length; ii++){
-			$('.expertiseCheckboxNest').find("input[lang='"+data['langs'][ii]['language']+"']").prop("checked", true);
+		 for(var ii=0; ii< data2.length; ii++){
+			$('.expertiseCheckboxNest').find("input[lang='"+data2[ii]['language']+"']").prop("checked", true);
 		}
 
 		// slidedowns for social checkboxes
@@ -77,7 +77,6 @@ $(document).ready(function(){
 			}
 		});
 
- 	});
 	$('#submitButt').click(function(){
 		$('#editProf').submit();
 	});

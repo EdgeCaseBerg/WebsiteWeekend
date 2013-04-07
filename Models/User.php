@@ -77,7 +77,7 @@ class UserModel{
 				'fkUserID'=>$uid
 			);
 		}else{
-			$uud = $this->userID;
+			$uud = $_SESSION['user']->getUserID();
 			$array = array(
 				'tableName'=>'tblUserProfile',
 				'fkUserID'=>$_SESSION['user']->getUserID()

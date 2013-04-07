@@ -1,9 +1,11 @@
 <?php
 require_once "AbstractController.php";
-class TestController extends AbstractController{
+require_once "Models/Member.php";
+
+class MemberController extends AbstractController{
 	private $POST;
 	private $actions;
-	private $view;
+	private $view='Members';
 
 	function __construct($actions, $POST){
 		$this->POST = $POST;
@@ -23,16 +25,20 @@ class TestController extends AbstractController{
 			// please add my functionality
 		}
 		else{
+			if(count($children)==0){
+				$children = array('something' => '');
+			}
 			foreach($children as $value){
 				// as long as there are an equal number of methods and variables
 				// do --> for every action perform the switch statement
 				switch ($value){
-					case "database":
+					default:
+						//Get active members to display
 						$dbWrapper = new InteractDB();
-						$this->vars['dbObj'] = $dbWrapper;
-						$this->view = "Systemtest";
-					break;
-					default;
+						$modelObj = new Member('');
+						$this->vars['members'] = $modelObj->getMembers();
+						$this->view = "Members";
+						break;
 				}
 			}
 		}

@@ -8,14 +8,15 @@ $profilePic = "noprofile";
 <script type="text/javascript">
 $(document).ready(function(){
 	// grab our profile data from DB
-	var query2 = <? echo BASEDIR; ?>+"Jack/?getMemberLangs=true&output=json";
+	var base = "<?= HOST . BASEDIR ?>";
+	var query2 = base+"Jack/?getMemberLangs=true&output=json";
 	$.getJSON(query2, function(data2) {
 		console.log(data2);
 		for(var ii =0; ii<data2.length; ii++){
 			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+data2[ii]['language']+"' name='langs[]' value='"+data2[ii]['pkID']+"' class='langCheck'>"+data2[ii]['language']+"</li>");
 		}
 	});
-	var query = <? echo BASEDIR; ?>+"User/?getProfile=true&output=json";
+	var query = base+"User/?getProfile=true&output=json";
 	$.getJSON(query, function(data) {
 		console.log(data);
 		// set our inputs full of data from the DB

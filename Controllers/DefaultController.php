@@ -39,7 +39,7 @@ class DefaultController extends AbstractController{
 								$this->view = "Projects";
 								break;
 							case "members":
-								$this->view = "Members";
+								header('Location: ' . BASEDIR . 'Member/');
 								break;
 							case "signup":
 								$this->view = "Signup";
@@ -52,7 +52,7 @@ class DefaultController extends AbstractController{
 								break;
 							case "help":
 								//Send em to the hours page
-								header('/Hours/');
+								header('Location: '. BASEDIR . 'Hours/');
 								break;
 						}
 					break;

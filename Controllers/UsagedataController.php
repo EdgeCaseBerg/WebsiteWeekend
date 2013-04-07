@@ -41,6 +41,7 @@ private $POST;
 						if($actions['data'] == "visitsOverTime"){
 							$this->view = "UsageGraph";
 							$this->vars['graphData'] = $usage->usageOverTIme();
+							$this->vars['graphType'] = "line";
 						}else if($actions['data'] == "purposeBar"){
 							$this->view = "UsageGraph";
 							$this->vars['graphData'] = $usage->purpose();

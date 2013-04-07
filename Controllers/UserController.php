@@ -38,6 +38,7 @@ class UserController extends AbstractController{
 						$this->view = 'Profile';
 					break;
 					case "settings":
+						$this->vars = $_SESSION['user']->getProfile();
 						$this->view = 'Editprofile';
 					break;
 					case "updateProfile":
@@ -51,7 +52,7 @@ class UserController extends AbstractController{
 						$this->view = "Profile";
 					break;
 					case "getProfile":
-						$this->vars = $_SESSION['user']->getProfile();
+						$this->vars['userProfile'] = $_SESSION['user']->getProfile();
 						// logThis($this->vars);
 					break; 
 					case "doLogin":

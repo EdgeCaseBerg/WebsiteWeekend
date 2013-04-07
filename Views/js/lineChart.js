@@ -1,14 +1,8 @@
-<script type="text/javascript">
-    var lineChartData = $.parseJSON($('#chartDat').val());
-    // var lineChartData = $('#chartDat').val();
-    console.log(lineChartData);
-    for(var ii=0; ii<lineChartData.length; ii++){
-        lineChartData[ii].date = new Date(lineChartData[ii].date)
-    }
-
+ var chart;
+ console.log(chartData);
             AmCharts.ready(function () {
                 var chart = new AmCharts.AmSerialChart();
-                chart.dataProvider = lineChartData;
+                chart.dataProvider = chartData;
                 chart.pathToImages = "js/amcharts/images/";
                 chart.categoryField = "date";
 
@@ -23,8 +17,9 @@
                 // AXES
                 // category                
                 var categoryAxis = chart.categoryAxis;
-                categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-                categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
+                // categoryAxis.dateFormats = [{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM'},{period:'YYYY',format:'YYYY'}]
+                // categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+                // categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
                 categoryAxis.inside = true;
                 categoryAxis.gridAlpha = 0;
                 categoryAxis.tickLength = 0;
@@ -39,7 +34,7 @@
                 // GRAPH
                 var graph = new AmCharts.AmGraph();
                 graph.type = "line";
-                graph.valueField = "value";
+                graph.valueField = "qty";
                 graph.lineColor = "red";
                  // graph.lineColor = "#D2CB00";
                 // graph.customBullet = "http://cochinherald.com/assets/images/dot_indicator_small.png"; // bullet for all data points
@@ -54,4 +49,3 @@
                 // WRITE
                 chart.write("chartdiv");
             });
-        </script>

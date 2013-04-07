@@ -24,7 +24,7 @@
 </script>
 <div class ="row-fluid">
 	<div class = "span11">
-		<h1>Edit a New Story</h1>
+		<h1>Edit a Story</h1>
 	</div>
 </div>
 <div class ="row-fluid">
@@ -45,10 +45,15 @@
 		</ul>
 	</div>
 	<div class ="span10">
+		
+			<textfield class="span4" name="story-title" id="story-title"><?php echo $this->vars['news']['title'];?></textfield><br />
+			<?php if($this->vars['news']['image'] === ''){?>
+				<input type="file" class ="span8" name="story-image" id="story-image">
+			<?php }else{ ?>
+				<img src="<?php echo BASEDIR.'Views/Stories/Images/'.$this->vars["news"]["image"];?>"></img>
+			<?php } ?>
 		<form name="edit-story" action="">
 			<input type="hidden" name ="story-id" id="story-id" value="<?php echo $this->vars['news']['id']?>">
-			<textfield class="span4" name="story-title" id="story-title"><?php echo $this->vars['news']['title'];?></textfield><br />
-			<input type="file" class ="span8" name="story-image" id="story-image">
 			<textarea class="span8" rows="20" name="story-html" id="story-html"><?php echo $this->vars['file_text'];?></textarea>
 			<input type="button" class="save" value ="Save"> <input type="button" id="preview" value="Preview">
 		<form>

@@ -119,7 +119,7 @@
 				$statement = 'UPDATE tblNews SET image= "'.$this->image.'" WHERE id= "'. $this->id . '"';
 			}else{
 				$this->created_at =  date('Y-m-d H:i:s');
-				$values = "'".$this->title."', '".$this->created_at."', '".$this->path."', 'image_1'";
+				$values = "'".$this->title."', '".$this->created_at."', '".$this->path."', '".$this->image."'";
 				$path= "path";
 				$statement = 'INSERT into tblNews (title, created_at, '.$path.', image) VALUES ('.$values.')';
 			}

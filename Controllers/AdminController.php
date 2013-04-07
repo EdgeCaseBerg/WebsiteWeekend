@@ -52,17 +52,28 @@ class AdminController extends AbstractController{
 								break;
 							case "save":
 								error_log(print_r($_POST,true));
-								logThis($_FILES);
+								
+								$imageName = '';
+								if(isset($_FILES['story-image'])){
+									$picName = $_FILES['story-image']['name'];
+									$ext = end(explode('.', $picName));
+									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
+										$imageName = end(explode('/', $_FILES['story-image']['tmp_name']));
+										move_uploaded_file($_FILES["story-image"]["tmp_name"],'Views/Stories/Images/'.$imageName.'.'.$ext);
+									}else{
+										$imageName = '';
+									}
+								}
 								if(isset($_POST['id'])){
 									$news = new News();
 									$news->initById($_POST['id']);
-									//$news->saveHtml($_POST['html']);
+									$news->saveHtml($_POST['html']);
 								}else{
 									$news = new News();
-									$news->setTitle($_POST['title']);
-									$news->setImage($_POST['image']);
-									//$news->saveHtml($_POST['html']);
-									//$news->save();
+									$news->setTitle($_POST['story-title']);
+									$news->setImage($imageName);
+									$news->saveHtml($_POST['story-html']);
+									$news->save();
 								}
 								
 								break;

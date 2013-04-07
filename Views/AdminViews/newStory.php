@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.save').click(function(){
-			console.log("I'm in the thing");
+			console.log(this.files);
 			var title=$("input#story-title").val();
 			var image=$("input#story-image").val();
 			var html = $("textarea#story-html").val();
@@ -43,11 +43,11 @@
 		</ul>
 	</div>
 	<div class ="span10">
-		<form name= "create-story" action="" enctype="multipart/form-data">
+		<form method="post" enctype="multipart/form-data" action="<?php echo BASEDIR;?>Admin/?news=save">
 			<input type="text" class="span4" name="story-title" id="story-title"></input>
 			<input type="file" class ="span8" name="story-image" id="story-image"></input>
 			<textarea class="span8" rows="20" name="story-html" id="story-html"></textarea>
-			<input type="button" class="save" value ="Save"> <input type="button" id="preview" value="Preview">
+			<input type="submit" value ="Save"> <input type="button" id="preview" value="Preview">
 		<form>
 	</div>
 </div>

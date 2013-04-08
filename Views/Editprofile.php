@@ -17,7 +17,7 @@ $(document).ready(function(){
 		for(var ii =0; ii<langs.length; ii++){
 			$('#languagesList').append("<li class='expertiseInputItem'><input type='checkbox' lang='"+langs[ii]['language']+"' name='langs[]' value='"+langs[ii]['pkID']+"' class='langCheck'>"+langs[ii]['language']+"</li>");
 		}
-
+	if(data != null){
 		// set our inputs full of data from the DB
 		if(data['fldAboutMe']!= ""){
 			$('.about_me').val(data['fldAboutMe']);
@@ -75,6 +75,7 @@ $(document).ready(function(){
 				$(this).parent().find('.socialUrl').slideDown().addClass('active');
 			}
 		});
+	}
 
 	$('#submitButt').click(function(){
 		$('#editProf').submit();

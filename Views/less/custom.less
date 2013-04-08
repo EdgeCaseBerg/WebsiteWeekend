@@ -1196,6 +1196,8 @@ table{
 }
 #newsPage h1{
 	text-align: center;
+	
+	font-family:@headerFont;
 }
 .newsPost img{
 	width:200px;
@@ -1208,6 +1210,13 @@ table{
 	border-bottom: 1px dashed black;
 	padding:5px;
 	margin-bottom: 15px;
+	a{
+		color:#bbb;
+	}
+	a:hover{
+		color:@uvm-green;
+		text-decoration: none;
+	}
 }
 .cemsNewsPost img{
 	width:100px;
@@ -1217,6 +1226,38 @@ table{
 	margin-right: 5px;
 }
 
+
+/* ------------- Single News page ----------- */
+#singleNewsPage{
+	#backLink{
+		position:relative;
+		margin-top:1.5%;
+		padding:0px;
+
+		a{
+			margin:0px;
+			padding:0px;
+			color:#bbb;
+			font-size:2em;
+			bottom: 50%;
+		}
+		a:hover{
+			color:@uvm-green;
+			text-decoration: none;
+		}
+	}
+	
+	h1{
+		text-align: center;
+		font-family: @headerFont;
+	}
+	.news-img-container{
+		border: 1px solid @uvm-green;
+		img.news-img{
+			width:100%;
+		}
+	}
+}
 /* -------------- Room Sign in Page ------------- */
 
 .roomSignIn{
@@ -1379,7 +1420,67 @@ table{
 		}
 	}
 }
+/* -------------- Admin Edit News Pages ------------- */
+#news-management-container{
+	#top-title{
+		h1{
+			font-family: @headerFont;
+		}
+	}
+	
+}
 
+.admin-edit-news{
+	padding-left: 5%;
+	.header{
+		margin-bottom:2%;
+		h1{
+			font-family: @headerFont;
+		}
+
+	}
+	.sidebar-left{
+		h4{
+			font-family: @headerFont;
+		}
+		ul{
+			a{
+				color: #bbb;
+			}
+			li{
+				padding-bottom:3px;
+			}
+			li.active a{
+				color:#000;
+			}
+			a:hover{
+				color:@uvm-green;
+				text-decoration: none;
+			}
+		}
+	}
+	.create-form{
+		label{
+			font-family: @headerFont;
+		}
+		#story-image-path{
+			padding-bottom:1%;
+		}
+			
+	}
+	.news-update-content{
+		h2{
+			font-family: @headerFont;
+		}
+		label{
+			font-family: @headerFont;
+		}
+		#news-image{
+			padding-bottom:1%;
+		}
+	}
+	
+} 
 
 /* ----------------- Contact Admin ------------ */
 

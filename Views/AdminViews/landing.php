@@ -53,6 +53,24 @@
         <h3>Manage Crew Members</h3>
       </a>
     </li>
+    <li>
+      <h2>Faculty Reports</h2>
+      <a href="<?= BASEDIR ?>Usagedata/?reports=display">
+        <p>
+          See reports about the Lab's Usage, broken out by categories.
+        </p>
+        <h3>Show Reports</h3>
+      </a>
+    </li>
+    <li>
+      <h2>Room Login</h2>
+      <a href=<?= "'".BASEDIR."RoomSignIn/"."'";?>>
+        <p>
+          The sign in page for Room 332. Click here to boot up the kiosk
+        </p>
+        <h3>Room Sign In</h3>
+      </a>
+    </li>
   </ul>
 
 </div>

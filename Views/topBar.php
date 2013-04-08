@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
@@ -50,7 +51,7 @@
         </a>
       </li>
     <? 
-  if (isset($_SESSION['priv_level']) && $_SESSION['priv_level'] > 0){ 
+  if ($_SESSION['user']->getUserAuth() > 0){ 
   echo   "<li>
         <a class='navLinks forumLink' href='".BASEDIR."Forum/?getPosts=yes'>
           <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
@@ -60,7 +61,7 @@
       </li>"; 
     }else{
       echo "<li>
-        <a class='navLinks helpLink' href='".BASEDIR."help/'>
+        <a class='navLinks helpLink' href='".BASEDIR."Default/?page=help'>
           <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Get Help
           <div class='utf8 right'><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
@@ -79,14 +80,14 @@
                 <b class="caret"></b>
             </a>
               <ul class="dropdown-menu">
-                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "login/'>Log in</a></li>";}?>
-                  <? if($_SESSION['priv_level']<1){echo "<li class='login'><a href='". BASEDIR . "signup/'>Sign Up</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='divider'></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."'>Profile <i class='icon-user'></i></a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href="."'".BASEDIR."User/?getProfile=".$_SESSION['uvm_id']."&page=Editprofile'>Settings</a></li>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li class='divider'>";}?>
-                  <? if($_SESSION['priv_level']>=1){echo "<li><a href='".BASEDIR."messages/'>Messages</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "Default/?page=login'>Log in</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()<1){echo "<li class='login'><a href='". BASEDIR . "Default/?page=signup'>Sign Up</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='logout'><a href='".BASEDIR."User/?logOut=yes'>Log out</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?home=".$_SESSION['user']->getUserID()."'>Profile <i class='icon-user'></i></a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?settings=".$_SESSION['user']->getUserID()."'>Settings</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href='".BASEDIR."messages/'>Messages</a></li>";}?>
                  
               </ul>
           </li>

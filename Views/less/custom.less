@@ -69,7 +69,15 @@ body{
 
 }
 
+.clearBoth{
+	clear:both;
+}
+
 ul{
+	list-style-type:none;
+}
+
+li{
 	list-style-type:none;
 }
 
@@ -442,45 +450,24 @@ table{
 /* ----------------- Login.php ------------- */
 
 .loginContain{
-	width:90%;
+	.rounded-corners;
+	width:400px;
 	padding:4%;
-	li{
-		vertical-align:top;
-		display:inline-block;
-		width:49%;
-
-		div{
-			border:solid 1px #eee;
-			padding:10px;
-		}
-		
+	background:#efefef;
+	margin:auto;
+	margin-top:100px;
+	.submitButton{
+		min-width:155px;
 	}
 
-	table{
-		padding-top:2em;
-		border:none;
-
-		.button{
-			margin-right:0.5em;
-			width:80px;
-			font-weight:bold;
-		}
-
-		.button:hover{
-			background-color:@button-hover-bg;
-			color:@button-hover-color;
-
-		}
-
-		.inputLabel{
-			font-family: 'Quantico', sans-serif;
-			font-size:1.3em;
-			font-weight:bold;
-			padding:0px 10px 7px 0px;
-		}
-
+	li.error{
+		margin-bottom:10px;
+		color:red;
 	}
 
+	.textInput{
+		min-width:300px;
+	}
 }
 
 
@@ -748,6 +735,29 @@ table{
 	}
 }
 
+.membersContainer{
+	text-align: center;
+	.contentHeader{
+		padding-left: 0px;
+		text-align: center;
+	}
+	div{
+		padding-left: 3%;
+		width: 100%;
+	}
+	p{
+		width: 80%;
+		margin: auto;
+		text-align: left;
+		font-weight: bold;
+		padding-bottom: 2%;
+	}
+	.spacing{
+		margin-bottom: 4%;
+		padding-bottom: 4%;
+	}
+}
+
 /* ----------- help contain ---------- */
 
 .helpContain{ 
@@ -796,6 +806,15 @@ table{
 
 	}
 
+	.avatar{
+					background:url('../images/noprofile.png');
+					height:200px;
+					width:200px;
+					margin:auto;
+					margin-top:0px;
+					display:block;
+				}
+
 	.containRow{
 		width:100%;
 		border:0px;
@@ -803,7 +822,7 @@ table{
 		height:200px;
 
 			.profilePicNest{
-				height:200px;
+				min-height:200px;
 				width:200px;
 				border:0px;
 				padding:0px;
@@ -821,88 +840,37 @@ table{
 
 			.nest{
 					text-align:left;
+					padding:5px;
 					width:69.5%;
-					height:100%;
 					margin:0px;
 					background:#eee;
 					border:solid 1px #222;
 					display:inline-block;
 
 					.profileDescrip{
+						text-wrap:normal;
+						width:100px;
 						display:inline-block;
 						vertical-align: top;
 					}
 
-						.memberName{
-							font-weight: bold;
-							font-size:1.3em;
-						}
-
-						.social{
-							float:right;
-							.icon{
-								width:2.3em;
-								margin:3px 0px 0px -4px;
-							}
-						}
-
-						p{
-						margin:2px 0px 0px 8px;
-						}
-				}
-
-				.nest{
-					width:80%;
-					height:100%;
-					margin:auto;
-					margin:0px;
-					background:#efefef;
-
-					ul{
-						padding:0px;
-						margin:0px;
-						height:100%;
-						li{
-							line-height: 100%;
-							text-align:center;
-							width:100%;
-							height:33.3%;
-							border:0px;
-							margin:0px;
-
-							.button{
-								background: #222;
-								width:100%;
-								height:auto;
-								display: inline-block; 
-								padding:5.9% 0% 5.8% 0%; 
-								color: #fff; 
-								text-decoration: none;
-								-moz-border-radius: 5px; 
-								-webkit-border-radius: 5px;
-								-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-								-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-								text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-								border-bottom: 1px solid rgba(0,0,0,0.25);
-								position: relative;
-								cursor: pointer;
-								font-size:1.4em;
-								font-weight:bold;
-
-								.mailCount{
-									color:red;
-								}
-
-							}
-							.button:hover{
-								background-color: #111; color: #fff;
-							}
+					.memberName{
+						font-weight: bold;
+						font-size:1.3em;
+					}
+					.social{
+						float:right;
+						.icon{
+							width:2.3em;
+							margin:3px 0px 0px -4px;
 						}
 					}
+					p{
+						margin:2px 0px 0px 8px;
+					}
 				}
-
-
 	}
+
 
 	.row2{
 		.leftCell{
@@ -984,6 +952,7 @@ table{
 	text-align:left;
 	border:@nestBorder;
 	background:@nestBG;
+	padding-bottom:20px;
 
 	ul{
 		margin:0px;
@@ -1007,6 +976,21 @@ table{
 		li{
 			display:block;
 			text-align:left;
+			.expertiseCheckboxNest{
+				ul{
+					padding:3px;
+					width:60%;
+					border:solid 1px #bcbcbc;
+					background:#fefefe;
+					margin-top:10px;
+				}
+				.expertiseInputItem{
+					margin-left:10px;
+					.langCheck{
+						margin-right:8px;
+					}
+				}
+			}
 		}
 	}
 
@@ -1088,9 +1072,11 @@ table{
         	filter: dropshadow(color=#383838, offx=1, offy=1);
 		}
 		.imageDialog{
-			height:200px;
 			width:200px;
+			min-height:200px;
 			border:solid 1px #999;
+			margin:0px;
+			padding:0px;
 			display:inline-block;
 			background:url('../images/noprofile.png');
 		}
@@ -1172,6 +1158,8 @@ table{
 		}	
 	}
 }
+
+
 /* ------------- New User page ----------- */
 
 .signUp{
@@ -1208,6 +1196,8 @@ table{
 }
 #newsPage h1{
 	text-align: center;
+	
+	font-family:@headerFont;
 }
 .newsPost{
 	height:250px;
@@ -1225,6 +1215,13 @@ table{
 	padding:5px;
 	margin-bottom: 15px;
 	clear:both;
+	a{
+		color:#bbb;
+	}
+	a:hover{
+		color:@uvm-green;
+		text-decoration: none;
+	}
 }
 .cemsNewsPost img{
 	width:100px;
@@ -1235,4 +1232,332 @@ table{
 }
 .readMore{
 	display:inline;
+}
+
+/* ------------- Single News page ----------- */
+#singleNewsPage{
+	#backLink{
+		position:relative;
+		margin-top:1.5%;
+		padding:0px;
+
+		a{
+			margin:0px;
+			padding:0px;
+			color:#bbb;
+			font-size:2em;
+			bottom: 50%;
+		}
+		a:hover{
+			color:@uvm-green;
+			text-decoration: none;
+		}
+	}
+	
+	h1{
+		text-align: center;
+		font-family: @headerFont;
+	}
+	.news-img-container{
+		border: 1px solid @uvm-green;
+		img.news-img{
+			width:100%;
+		}
+	}
+}
+/* -------------- Room Sign in Page ------------- */
+
+.roomSignIn{
+	table{
+		width: 100%;
+		border: none;
+	}
+	.error{
+		color: #FF0000;		
+	}
+	div{
+		text-align: center;
+		margin-left: 35%;
+		margin-right: auto;
+		margin-top: 10%;
+		color: #00FF00;	
+		width: 30%;
+	}
+	fieldset{
+		legend{
+			color: #00FF00;
+			padding-bottom: 1%;
+			font-weight: bolder;
+			font-size: 200%;
+		}
+		form{
+			padding-top: 2%;
+			textarea{
+				width: 100%;
+			}
+			select,input{
+				float: right;
+			}
+			span{
+				padding-top: 3%;
+				float: left;
+				font-weight: bold;
+			}
+			#desc{
+				clear: both;
+				text-weight: italic;
+				font-size: 90%;
+				margin-left: 20%;
+			}
+
+		}
+	}
+	#errors{
+		z-index: 10;
+		color: #FF0000;
+		position: absolute;
+		top: 0;
+	}
+}
+
+/* ------------------ UsageStats ------------------------ */
+
+
+/* ------------------ Hours Page ------------------------- */
+
+.hoursPage{
+	div.adminHours{
+		display: inline-block;
+		margin-left: 40%;
+	}
+	.adminHours{
+		color: #009999;
+		ul{
+			color: #FF0000;
+			display: block;
+			text-align: center;
+		}
+		form{
+			clear:both;
+			width: 100%;
+			padding: 2%;
+			p{
+				margin: 0px;
+				padding: 0px;
+			}
+			table{
+				width: 100%;
+				border: none;
+				.left{
+					float: left;
+				}
+				.right{
+					float: right;
+				}
+			}
+			select{
+				width: 100%;
+
+			}
+			input{
+				margin-left: 30%;
+				display:inline-block;
+				width: auto;
+			}
+			#submit{
+				float: right;
+				width: 100%;
+				padding: 2%;
+			}
+		}
+
+	}
+	h3{
+		font-size: 200%;
+		font-weight: bolder;
+		text-align: center;
+	}
+	p{
+		margin-left: 5%;
+		margin-right: 5%;
+		padding-left: 5%;
+		padding-right: 5%;
+		text-align: center;
+	}
+	.note{
+		font-size: 80%;
+		font-style: italic;
+	}
+	.search{
+		float: right;
+		clear: both;
+		margin-right: 5%;
+	}
+	.hours{
+		margin-right: auto;
+		padding-bottom: 2%;
+		table{
+			padding-top: 5%;	
+			clear: both;
+			width: 90%;
+			margin-right: 5%;
+			margin-left: 5%;
+		}
+
+		thead,tbody{
+			border: solid #000000;
+		}
+		th{
+			border: solid #000000;
+			border-width: 2%;
+			width: 20%;
+			text-align: center;
+		}
+		td{
+			text-align: center;
+			border-right: solid;
+			border-left: solid;
+		}
+		.alt{
+			background-color: #aaf;
+		}
+		#editbox{
+			display:inline-block;
+				width: auto;
+		}
+	}
+}
+/* -------------- Admin Edit News Pages ------------- */
+#news-management-container{
+	#top-title{
+		h1{
+			font-family: @headerFont;
+		}
+	}
+	
+}
+
+.admin-edit-news{
+	padding-left: 5%;
+	.header{
+		margin-bottom:2%;
+		h1{
+			font-family: @headerFont;
+		}
+
+	}
+	.sidebar-left{
+		h4{
+			font-family: @headerFont;
+		}
+		ul{
+			a{
+				color: #bbb;
+			}
+			li{
+				padding-bottom:3px;
+			}
+			li.active a{
+				color:#000;
+			}
+			a:hover{
+				color:@uvm-green;
+				text-decoration: none;
+			}
+		}
+	}
+	.create-form{
+		label{
+			font-family: @headerFont;
+		}
+		#story-image-path{
+			padding-bottom:1%;
+		}
+			
+	}
+	.news-update-content{
+		h2{
+			font-family: @headerFont;
+		}
+		label{
+			font-family: @headerFont;
+		}
+		#news-image{
+			padding-bottom:1%;
+		}
+	}
+	
+} 
+
+/* ----------------- Contact Admin ------------ */
+
+.contactAdmin{
+	h3{
+		margin-left: 10%;
+		margin-right: auto;
+		text-align: center;
+		font-family: @headerFont;
+	}
+	p{
+		text-align: left;
+	}
+	div{
+		width: 40%;
+		margin-left: 35%;
+		text-align: center;
+	}
+	fieldset{
+		p{
+			text-align: center;
+		}
+		a{
+			font-size: 140%;
+		}
+	}
+	ul{
+		li{
+			padding-bottom: 2%; 
+		}
+		.delete{
+			float: right;
+		}
+	}
+
+}
+
+
+/* ------------ Admin Landing Page ---------- */
+
+.landingAdmin{
+	text-align: center;
+	h1{
+		font-style: @headerFont;
+		text-decoration: none;
+	}
+	li{
+		padding: 3%;
+		margin-bottom: 1%;
+		border: thin dashed #000000;
+		width: 20%;
+		display: inline-block;
+		a{
+			h1{
+				color: #000000;
+			}		
+			p{
+				width: 100%;
+			}
+		}
+	}
+	div{
+		margin-left: 25%;
+		text-align: center;
+		width: 50%;
+		padding: 2%;
+	}
+}
+
+/* --------- Misc.php --------- */
+.miscDiv{
+	padding:20px;
 }

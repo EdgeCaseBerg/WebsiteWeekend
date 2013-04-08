@@ -6,7 +6,6 @@ class TestController extends AbstractController{
 	private $view;
 
 	function __construct($actions, $POST){
-logThis("inside TestController");
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);

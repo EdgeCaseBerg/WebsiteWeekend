@@ -3,7 +3,6 @@
 require_once "topBar.php";
 
 $profilePic = "noprofile";
-logThis($this->vars);
 
 echo "<script type=\"text/javascript\">";
 echo "var data2= ".json_encode($this->vars['langs']).";";

@@ -1421,9 +1421,19 @@ table{
 	}
 }
 /* -------------- Admin Edit News Pages ------------- */
+#news-management-container{
+	#top-title{
+		h1{
+			font-family: @headerFont;
+		}
+	}
+	
+}
+
 .admin-edit-news{
 	padding-left: 5%;
 	.header{
+		margin-bottom:2%;
 		h1{
 			font-family: @headerFont;
 		}
@@ -1433,9 +1443,12 @@ table{
 		h4{
 			font-family: @headerFont;
 		}
-		ul.news-list{
+		ul{
 			a{
 				color: #bbb;
+			}
+			li{
+				padding-bottom:3px;
 			}
 			li.active a{
 				color:#000;
@@ -1445,7 +1458,26 @@ table{
 				text-decoration: none;
 			}
 		}
-		
+	}
+	.create-form{
+		label{
+			font-family: @headerFont;
+		}
+		#story-image-path{
+			padding-bottom:1%;
+		}
+			
+	}
+	.news-update-content{
+		h2{
+			font-family: @headerFont;
+		}
+		label{
+			font-family: @headerFont;
+		}
+		#news-image{
+			padding-bottom:1%;
+		}
 	}
 	
 } 

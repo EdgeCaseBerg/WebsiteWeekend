@@ -129,10 +129,20 @@
 							}else{
 								echo '<li>';
 							}
-							echo '<a href="'.BASEDIR.'Admin/?news=edit&id='.$story->getId().'">'.$story->getTitle().'</a>';
+							echo '<a href="'.BASEDIR.'Admin/?news=edit&id='.$story->getId().'">';
+							if(strlen($story->getTitle())>20){
+								echo substr($story->getTitle(),0,18).'&#8230;';
+							}else{
+							 	echo $story->getTitle();
+							}
+							echo '</a>';
 							echo '</li>';
 				 		}
-				 ?>
+				?>	
+			</ul>
+			<h4>Or</h4>
+			<ul>
+				<li><a href="<?php echo BASEDIR.'Admin/?news=new';?>">New Article</a></li>
 			</ul>
 		</div>
 		<div class ="news-update-content span10">
@@ -140,6 +150,7 @@
 			<div class='row-fluid'>
 				<div id="upload-image-form" class ="span4">
 					<form  enctype="multipart/form-data" id="upload-story-picture" action="javascript:void(0)">
+						<label for="story-image">Upload a Picture:</label>
 						<input type="hidden" name ="story-id" id="story-id" value="<?php echo $this->vars['news']['id']?>">
 						<input type="file" class ="span8" name="story-image" id="story-image" accept="image/*">
 					</form>
@@ -149,11 +160,12 @@
 					<button id ="remove-image" class = "span1">Remove</button>
 				</div>
 			</div>
-			<div class ="span10">
+			<div class ="row-fluid">
 			</div>
 			<div class= "news-text row-fluid">
 				<form name="edit-story" action="">
 					<input type="hidden" name ="story-id" id="story-id" value="<?php echo $this->vars['news']['id']?>">
+					<label for="story-html">Content:</label>
 					<textarea class="span8" rows="20" name="story-html" id="story-html"><?php echo $this->vars['file_text'];?></textarea>
 					<input type="button" class="save" value ="Save"> <input type="button" id="preview" value="Preview"><br />
 					<div class="updateTextResponse span3">

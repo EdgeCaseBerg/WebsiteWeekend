@@ -195,15 +195,17 @@ class InteractDB{
 	public function customStatement($query){
 		// logThis($query);
 		$connection = $this->connection;
+		logThis($connection);
 			try{
 				// var_dump($query);
 				$stmt = $connection->prepare($query);
-				// logThis($stmt);
+				logThis($stmt);
 				// Execute the query
 				$stmt->execute();
+				logThis($stmt);
 				$this->returnedRows = $stmt->fetchAll();
 			}catch (Exception $e){
-				//logThis($e);
+				logThis($e);
 				$this->error = true;
 				$this->errorCondition = $e;
 			}	

@@ -128,7 +128,14 @@
 					  foreach($news as $story){
 				?>
 				<li>
-					<a href='<?php echo BASEDIR.'Admin/?news=edit&id='.$story->getId()?>'> <?php echo $story->getTitle()?></a>
+					<a href='<?php echo BASEDIR.'Admin/?news=edit&id='.$story->getId()?>'>
+					<?php
+					if(strlen($story->getTitle())>20){
+						echo substr($story->getTitle(),0,18).'&#8230;';
+					}else{
+					 	echo $story->getTitle();
+					}
+					 ?></a>
 				</li>
 				<?php }?>
 			</ul>
@@ -136,12 +143,14 @@
 		<div class ="create-form span10">
 			<!--Form that submits the title-->
 			<form id = "form-news-title" action = "">
+				<label for="story-title">Title:</label>
 				<input type="text" class="span4" name="story-title" id="story-title"></input>
 			</form>
 
 			<!--Form that saves the image as tmp file and loads a preview-->
 			<div class ="row-fluid">
 				<form  enctype="multipart/form-data" id="upload-story-picture" action="javascript:void(0)">
+					<label for="story-image">Upload a Picture:</label>
 					<input type="file" class ="span8" name="story-image" id="story-image" accept="image/*"></input>
 				</form>
 				<div id="story-image-container">
@@ -150,15 +159,18 @@
 				</div>
 			<div>
 
-			<div class ="span10">
+			<div class ="row-fluid">
 			</div>
-			<!--Form that submits the text and the picture if there is one-->
-			<form id = "form-news-content" method="post" action = "<?php echo BASEDIR.'Admin/?news=saveNew';?>">
-				<input type ="hidden" name="news-image" id="news-image" value="">
-				<input type= "hidden" name="news-title" id = "news-title" value = ""></input>
-				<textarea class="span8" rows="20" name="news-html" id="news-html"></textarea>
-				<input type="button" id ='save' value ="Save"> <input type="button" id="preview" value="Preview">
-			<form>
+			<div class="row-fluid">
+				<!--Form that submits the text and the picture if there is one-->
+				<form id = "form-news-content" method="post" action = "<?php echo BASEDIR.'Admin/?news=saveNew';?>">
+					<input type ="hidden" name="news-image" id="news-image" value=""></input>
+					<input type= "hidden" name="news-title" id = "news-title" value = ""></input>
+					<label for="news-html">Content:</label>
+					<textarea class="span8" rows="20" name="news-html" id="news-html"></textarea>
+					<input type="button" id ='save' value ="Save"> <input type="button" id="preview" value="Preview">
+				<form>
+			</div>
 		</div>
 	</div>
 </div>

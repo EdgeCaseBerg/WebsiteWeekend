@@ -49,6 +49,12 @@ class AdminController extends AbstractController{
 				switch ($value){
 					case "news":
 						switch($actions['news']){
+
+							case "home":
+								$newsBundle= new NewsBundle();
+								$this->vars['newsBundle']=$newsBundle->RetrieveAll();
+								$this->view = "AdminViews/homeStory";
+								break;
 							case "new":
 								$this->view = "AdminViews/newStory";
 								break;

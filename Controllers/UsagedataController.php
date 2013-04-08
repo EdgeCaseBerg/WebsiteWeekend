@@ -50,12 +50,15 @@ private $POST;
 							$this->view = "UsageGraph";
 							$this->vars['graphData'] = $usage->byClass();
 						}
-					break;
+						break;
 					case "output":
 						if($actions['output']=="json"){
 							$this->view = "json";
 						}
-					break;
+						break;
+					case "reports":
+						$this->view = 'reports';
+						break;
 				}
 			}
 		}

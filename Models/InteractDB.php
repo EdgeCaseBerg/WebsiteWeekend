@@ -17,7 +17,6 @@ class InteractDB{
 	public $errorCondition;
 	
 	public $connection = null;
-
 	public $action = null;			// this is the action to be performed on the DB (SELECT INSERT etc)
 	public $numberEntries = null;	// this is the number of total items to be acted upon
 	private $data = array();		// the array of data to be INSERTED (or whatever)
@@ -196,15 +195,17 @@ class InteractDB{
 	public function customStatement($query){
 		// logThis($query);
 		$connection = $this->connection;
+		logThis($connection);
 			try{
 				// var_dump($query);
 				$stmt = $connection->prepare($query);
-				// logThis($stmt);
+				logThis($stmt);
 				// Execute the query
 				$stmt->execute();
+				logThis($stmt);
 				$this->returnedRows = $stmt->fetchAll();
 			}catch (Exception $e){
-				//logThis($e);
+				logThis($e);
 				$this->error = true;
 				$this->errorCondition = $e;
 			}	

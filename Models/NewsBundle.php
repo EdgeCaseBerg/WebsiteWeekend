@@ -3,9 +3,11 @@ require_once 'News.php';
 class NewsBundle{
 
 	public function RetrieveAll(){
-		$stories = new InteractDB('select', array('tableName'=> 'tblNews'));
+		$dbObject= new InteractDB();
+		$select = "SELECT * FROM tblNews ORDER BY 'created_at'";
+		$dbObject->customStatement($select); 
 		$newsArray = array();
-		foreach($stories->returnedRows as $story){
+		foreach(array_reverse($dbObject->returnedRows) as $story){
 			$news = new News();
 			$news->setId($story['id']);
 			$news->setTitle($story['title']);

@@ -17,7 +17,7 @@ class UserModel{
 	private $cleaner; // holds the sanitizer object
 
 	function __construct(){
-		$this->cleaner = new CleanIn();
+		//$this->cleaner = new CleanIn();
 	}
 
 	// perform a login, return a boolean
@@ -42,7 +42,7 @@ class UserModel{
 
 	public function newUser($POST){
 		require_once "Models/Bcrypt.php";
-
+		$this->cleaner = new CleanIn();
 		$username = $POST['fldUsername'];
 		$password = $POST['fldPassword'];
 		$cleanUsername = $this->cleaner->clean($username);
@@ -62,6 +62,11 @@ class UserModel{
 				'fldUsername'=>$cleanUsername
 			);
 			$dbWrapper = new InteractDB('insert', $array);
+			//Grab their id out from the new table
+			$dbWrapper = new InteractDB('select', array('tableName'=>"tblUserAccount",'fldUsername'=>$cleanUsername));
+			$info = $dbWrapper->returnedRows[0];
+			$profQuery = 'INSERT INTO tblUserProfile (fkUserID) VALUES ('.$info['pkUserID'].');';
+			$dbWrapper->customStatement($profQuery);
 			return true;
 		}else{
 			return false;

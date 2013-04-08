@@ -71,23 +71,17 @@
 		public function saveHtml($html){
 			//make sure it knows where to go
 			if($this->path!==null){
-
-				logThis('Path not null');
 				$exists = file_exists("Views/Stories/Content/".$this->path.".php");
 				//If the file exits delete it and recreate it
 				if($exists){
-					logThis("Unlink: Views/Stories/Content/".$this->path.".php");
 					unlink("Views/Stories/Content/".$this->path.".php");
 				}
 			}else{
-				logThis('Path was totally null');
 				$this->generatePath();
 			}
 			//now write to it
-			logThis($html);
 			$handle = fopen("Views/Stories/Content/".$this->path.".php",'w');
-			logThis($handle);
-			fwrite($handle,$html) or logThis('Could not open file');
+			fwrite($handle,$html);
 			//now close it
 			fclose($handle);
 
@@ -125,6 +119,7 @@
 			}
 			$dbObject = new InteractDB();
 			$dbObject->customStatement($statement);
+			return $dbObject->connection->lastInsertId();
 		}
 
 	}

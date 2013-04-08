@@ -63,7 +63,7 @@ if(isset($this->vars['success'])){
 							</tr>
 						</table>
 						<span id="desc">Brief Description of what you're working on</span>
-						<textarea type="text" name="description" cols="60" ><?= $_POST['description']; ?></textarea><br />
+						<textarea type="text" name="description" cols="60" ><?= isset($_POST['description']) ? $_POST['description'] : ''; ?></textarea><br />
 						<input type="submit" value="Sign In">
 					</form>
 			</fieldset>

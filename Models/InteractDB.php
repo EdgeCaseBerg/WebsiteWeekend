@@ -199,10 +199,10 @@ class InteractDB{
 			try{
 				// var_dump($query);
 				$stmt = $connection->prepare($query);
-				logThis($stmt);
+				//logThis($stmt);
 				// Execute the query
 				$stmt->execute();
-				logThis($stmt);
+				//logThis($stmt);
 				$this->returnedRows = $stmt->fetchAll();
 			}catch (Exception $e){
 				logThis($e);

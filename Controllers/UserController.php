@@ -38,11 +38,16 @@ class UserController extends AbstractController{
 						$this->view = 'Profile';
 					break;
 					case "settings":
+						if($_SESSION['user']->getUserID() != $actions['settings']){
+							header("location: ".BASEDIR."Default/"); 
+						}
 						$this->vars = $_SESSION['user']->getProfile();
 						$this->view = 'Editprofile';
 					break;
 					case "updateProfile":
-						$_SESSION['user']->updateProfile($this->POST);
+						// if($_SESSION['user']->getUserAuth() > 0){
+							$_SESSION['user']->updateProfile($this->POST);
+						// }
 					break;
 					case "showUserProfile":
 						// for outsiders seeing a user's profile
@@ -80,7 +85,7 @@ class UserController extends AbstractController{
 				    	}
 				    break;
 				    case "output":
-				    	if($actions['output'] = "json"){
+				    	if($actions['output'] == "json"){
 				    		$this->view = "json";
 				    	}
 				    break;

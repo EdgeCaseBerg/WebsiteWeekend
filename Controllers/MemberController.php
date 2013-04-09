@@ -36,8 +36,7 @@ class MemberController extends AbstractController{
 						//Get active members to display
 						$dbWrapper = new InteractDB();
 						$modelObj = new Member('');
-						$this->vars['members'] = $modelObj->getMembers();
-						logThis($this->vars);
+						$this->vars['members'] = $modelObj->getMembers(0,1000);
 						$this->view = "Members";
 						break;
 				}

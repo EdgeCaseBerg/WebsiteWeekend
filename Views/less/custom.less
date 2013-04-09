@@ -1426,9 +1426,31 @@ table{
 		h1{
 			font-family: @headerFont;
 		}
+
 	}
 	h3{
 		font-family: @headerFont;
+	}
+	a#home-link{
+		color: #999;
+		font-size: 150%;
+	}
+	a#home-link:hover{
+		color: @uvm-green;
+		text-decoration:none;
+	}
+	#top-content{
+		p{
+			padding: 1% 0 3% 0;
+			font-size: 130%;
+			a{
+				color: #999;
+			}
+			a:hover{
+				color: @uvm-green;
+				text-decoration:none;
+			}
+		}
 	}
 	#manage-table-container{
 		padding-top:2%;
@@ -1459,8 +1481,19 @@ table{
 					padding:1%;
 				}
 			}
+			.date{
+				text-align:center;
+			}
+			.published{
+				text-align:center;
+				select{
+					text-align:center;
+					width:50%;
+				}
+			}
 			tr{
 				padding: 5px 0 5% 0;
+				
 			}
 			tr.even{
 				background-color: #ddd;
@@ -1471,7 +1504,13 @@ table{
 			}
 		}
 		a{
+			font-size: 130%;
 			padding-right:2%;
+			color: #999;
+		}
+		a:hover{
+			text-decoration:none;
+			color:@uvm-green;
 		}
 	}
 }

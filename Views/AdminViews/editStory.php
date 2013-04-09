@@ -45,11 +45,13 @@
 				data: {id:id},
 				success: function(response){
 					if(response['success']){
-						//hide the image container and reset the image source
-						$('#news-image-container').hide();
-						$('#news-image').attr('src', basePath+'Views/Stories/Images/');
-						//show the upload form
-						$('#upload-image-form').show();
+						//hide the image container and reset the image source & show the upload form
+						$('#news-image-container:visible').fadeOut('1000', function(){
+							$('#upload-image-form').fadeIn('100');
+							$('#news-image').attr('src', basePath+'Views/Stories/Images/');
+						});
+
+						
 					}
 				},
 
@@ -76,12 +78,14 @@
 						response = response[0];
 					}
 					response = $.parseJSON(response);
-					$('#upload-image-form').hide();
+					
 					$('#story-image').val('');
 					var path = $('#news-image').attr('src');
 					path += response['imagePath'];
-					$('#news-image').attr('src', path);
-					$('#news-image-container').fadeIn();
+					$('#upload-image-form:visible').fadeOut('100', function(){
+						$('#news-image-container').fadeIn(1000);
+						$('#news-image').attr('src', path);
+					});
 				},
 				error: function(){
 					console.log('there was an error');
@@ -167,7 +171,7 @@
 					<input type="hidden" name ="story-id" id="story-id" value="<?php echo $this->vars['news']['id']?>">
 					<label for="story-html">Content:</label>
 					<textarea class="span8" rows="20" name="story-html" id="story-html"><?php echo $this->vars['file_text'];?></textarea>
-					<input type="button" class="save" value ="Save"> <input type="button" id="preview" value="Preview"><br />
+					<input type="button" class="save" value ="Save"><br />
 					<div class="updateTextResponse span3">
 						<span id="textResponse"></span>
 					</div>

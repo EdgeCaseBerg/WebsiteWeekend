@@ -1,4 +1,4 @@
-<?php
+f<?php
 /**
 * @author Joshua Dickerson at The University of Vermont
 *  Profile.php displays the user's profile
@@ -36,7 +36,13 @@ $(document).ready(function(){
 
 			$('.profilePicNest').html("<img class='avatar'>");
 		}
+		if(typeof data['fldFirstName']  == "undefined"){
+			data['fldFirstName'] = "";
+		}
 		if(data['fldFirstName']!= ""){
+		}
+		if(typeof data['fldLastName']  == "undefined"){
+			data['fldLastName'] = "";
 		}
 		if(data['fldLastName']!= ""){
 		}

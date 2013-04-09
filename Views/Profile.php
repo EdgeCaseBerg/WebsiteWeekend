@@ -30,12 +30,11 @@ $(document).ready(function(){
 		if(typeof data['fldProfileImage']  == "undefined"){
 			data['fldProfileImage'] = "";
 		}
-		if(data['fldProfileImage'] != ""){
+		if(data['fldProfileImage'] != "" && typeof data['fldProfileImage'] != "undefined"){
 			var basedir = <? echo "'".BASEDIR."'"; ?>;
 			var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+data['fldProfileImage']+"'>"
 			$('.profilePicNest').html(imgStr);
 		}else{
-
 			$('.profilePicNest').html("<img class='avatar'>");
 		}
 		if(typeof data['fldFirstName']  == "undefined"){

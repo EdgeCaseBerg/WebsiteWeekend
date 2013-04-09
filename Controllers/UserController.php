@@ -85,7 +85,7 @@ class UserController extends AbstractController{
 				    	}
 				    break;
 				    case "output":
-				    	if($actions['output'] = "json"){
+				    	if($actions['output'] == "json"){
 				    		$this->view = "json";
 				    	}
 				    break;

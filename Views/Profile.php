@@ -20,8 +20,10 @@ $(document).ready(function(){
 	<? } ?>
 	$.getJSON(query, function(data) {
 		// set our inputs full of data from the DB
-		if(data['fldAboutMe']!= ""){
+		if(data['fldAboutMe']!= "" && typeof data['fldAboutMe'] != "undefined"){
 			$('.descripText').text(data['fldAboutMe']);
+		}else{
+			$('.descripText').text("You haven't added an 'about me' to your profile");
 		}
 		// if there is a loaded image, show it, otherwise show the default
 		

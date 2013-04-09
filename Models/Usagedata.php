@@ -17,7 +17,7 @@ class Usagedata{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$rows = $dbWrapper->returnedRows;
-		// logThis($rows);
+		logThis($rows);
 		$monthArr = array(
 		31, 28, 31, 30,
 			31, 30, 31, 31,

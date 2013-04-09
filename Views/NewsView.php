@@ -17,7 +17,9 @@
 				$post = file_get_contents('Views/Stories/Content/' . $this->vars['path'] .'.php');
 				echo "<div class='newsPost'>";
 				echo '<img src="Views/Stories/Content/'. $this->vars['image'].'.jpg"/>';
+				echo '<p>';
 				echo $post;
+				echo '</p>';
 				echo '</div> <!-- end newsPost -->';
 			}
 			else{
@@ -25,8 +27,12 @@
 					$post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
 					echo "<div class='newsPost'>";
 					echo '<img src="Views/Stories/Content/'. $newsPost->getImage().'.jpg"/>';
-					echo $post;
-					echo '<span class="readMore"><a href="/WebsiteWeekend/News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
+					echo '<p>';
+					// logThis("This is the substring");
+					// logThis(substr($post, 0, 100));
+					echo substr($post, 0, 900);
+					echo '<span class="readMore"><a href="/WebsiteWeekend/News/?singleStory='. $newsPost->getId() .'">...Read More</a></span>';
+					echo '</p>';
 					echo '</div> <!-- end newsPost -->';
 				} 
 			}

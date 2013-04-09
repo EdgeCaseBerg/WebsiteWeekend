@@ -7,14 +7,13 @@
 		<h1>CSCrew News</h1>
 		<hr>
 
-
 		<!-- Render each of the news items, as needed -->
 		<?
 			
-		echo '<div class="row-fluid">';
+		echo '<div id="postContainer" class="row-fluid">';
 		foreach($this->vars as $newsPost){
 			$post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
-			echo "<div class='newsPost span12'>";
+			echo "<div class='newsPost span12' style='margin-left:15px'>";
 				if($newsPost->getImage()!== ''){
 					echo '<img class = "span3" src="../Views/Stories/Images/'. $newsPost->getImage().'"/>';	
 				}else{

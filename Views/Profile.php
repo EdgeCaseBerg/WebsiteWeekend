@@ -16,7 +16,7 @@ $(document).ready(function(){
 		var query = base+"User/?showUserProfile="+<? echo $_GET['showUserProfile']; ?>+"&output=json";
 	<?	}else{ ?>
 	// grab our profile data from our model object via AJAX
-	var query =base+"User/?getProfile=true&output=json";
+	var query =base+"User/?showUserProfile="+<?= $_SESSION['user']->getUserID() ?>+"&output=json";
 	<? } ?>
 	
 	$.ajax({
@@ -24,6 +24,7 @@ $(document).ready(function(){
 			type: "POST",
 			success: function(data){
 				data = data.profile;
+				console.log(query);
 				// set our inputs full of data from the DB
 				if(data['fldAboutMe']!= "" && typeof data['fldAboutMe'] != "undefined"){
 					$('.descripText').text(data['fldAboutMe']);

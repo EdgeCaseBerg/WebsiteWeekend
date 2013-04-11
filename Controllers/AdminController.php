@@ -180,34 +180,39 @@ class AdminController extends AbstractController{
 							case 'id':
 								//Respond to ajax change to an hour
 								$oldID = explode('|',$_POST['id']);
-								$newData = $_POST['new'];
+								$newData = explode('-',$_POST['new']);
 								
 								//Convert new data to military time
-								$tmp = explode(':',$newData);
-								//The last two digits should be am or pm
-								$ampm = substr($tmp[1], 2);
-								if(strcmp($ampm, 'pm')==0){
-									$tmp[0] = intval($tmp[0]) + 12;
-								}else{
-									//If am and 12 then that's really 0
-					
-									if(intval($tmp[0])==12 || intval($tmp[0])==24){
-										$tmp[0] = '00';
+								for($i=0; $i < 2; $i++){
+									$tmp = explode(':',$newData[$i]);
+									//The last two digits should be am or pm
+									$ampm = substr($tmp[1], 2);
+									if(strcmp($ampm, 'pm')==0){
+										$tmp[0] = intval($tmp[0]) + 12;
 									}else{
-										if($tmp[0] < 10){
-											$tmp[0] = '0' . strval($tmp[0]);
+										//If am and 12 then that's really 0
+						
+										if(intval($tmp[0])==12 || intval($tmp[0])==24){
+											$tmp[0] = '00';
 										}else{
-											$tmp[0] = strval($tmp[0]);	
+											if($tmp[0] < 10){
+												$tmp[0] = '0' . strval($tmp[0]);
+											}else{
+												$tmp[0] = strval($tmp[0]);	
+											}
+											
 										}
 										
 									}
-									
+									$newTime[] = $tmp[0] . substr($tmp[1],0,2);
 								}
-								$newTime = $tmp[0] . substr($tmp[1],0,2);
 
 
 								$modelObj = new Hours('AdminHours');
-								$success = $modelObj->updateHours($oldID,$newTime);							
+								$this->vars['success'] = $modelObj->updateHours($oldID,$newTime[0],$newTime[1]);
+								$this->vars['newHour'] = $newTime[0];
+								$this->vars['newEndHour'] = $newTime[1];
+								$this->view = 'json';
 								break;
 							case 'new':
 								$id = $_POST['memberID'];
@@ -215,15 +220,19 @@ class AdminController extends AbstractController{
 									$this->vars['errors']['id'] = 'You must select a Crew Member';
 								}
 								$hour=$_POST['bigHand'] . $_POST['littleHand'];
+								$endHour=$_POST['bigHand2'] . $_POST['littleHand2'];
 								if(strlen($hour)==4){
-
 								}else{
 									$this->vars['errors']['time'] = 'Invalid Time -Please use military';
+								}
+								if(strlen($endHour)==4){
+								}else{
+									$this->vars['errors']['time'] = 'Invalid End Time -Please use military';
 								}
 								$day = $_POST['day'];
 								$modelObj = new Hours('AdminHours');
 								if(!isset($this->vars['errors'])){
-									$modelObj->addHours($id,$hour,$day);	
+									$modelObj->addHours($id,$hour,$day,$endHour);	
 								}
 								$this->vars['hours'] = $modelObj->getAllHours();
 								$this->vars['members'] = $modelObj->getActiveMembers();

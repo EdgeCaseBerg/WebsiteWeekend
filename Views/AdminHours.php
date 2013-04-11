@@ -59,15 +59,18 @@ function milToAMPM($hour){
 			<br />
 			<table>
 				<tr>
-					<td colspan="2">Enter Hours in military time:</td>
+					<td colspan="3">Enter Hours in military time:</td>
 				</tr>
 				<tr>
-					<td class="left">Hour:</td>
+					<td class="left">Begin Hour:</td>
 					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="bigHand" /></td>
+					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="littleHand" /></td>
 				</tr>
 				<tr>
-					<td class="left">Minutes:</td>
-					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="littleHand" /></td>
+
+					<td class="left">End Hour:</td>
+					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="bigHand2" /></td>
+					<td class="right"><input type="text" size="2" width="2em" maxlength="2" name="littleHand2" /></td>
 				</tr>
 
 			</table>
@@ -110,10 +113,11 @@ function milToAMPM($hour){
 							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
 								echo '<td>';
 								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
-								echo '<span class = "edit" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour'].'" >';
+								echo '<span class = "edit" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour'].'|'.'" >';
 								echo milToAMPM($hoursOnDay[$i]['hour']);
+								echo '-'. milToAMPM($hoursOnDay[$i]['endHour']);
 								echo '</span><br />';
-								echo '<a href="" onclick="return false;" class="remove" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour'].'">Delete</a>';
+								echo '<a href="" onclick="return false;" class="remove" id="'.$hoursOnDay[$i]['fkUserID'].'|'.$hoursOnDay[$i]['day'].'|'. $hoursOnDay[$i]['hour']. '">Delete</a>';
 								echo '</td>';
 							}else{
 								echo '<td></td>';
@@ -153,19 +157,10 @@ function milToAMPM($hour){
       						var oldid = $('.ajax').attr('id').split("|");
       						var tmpTime = $('.ajax input').val().split(":");
       						//convert it to military time
-      						var bigHand = parseInt(tmpTime[0]);
-      						var littleHand = parseInt(tmpTime[1].substr(0,2));
-      						var ampm = tmpTime[1].substr(2,2);
-      						if(ampm == 'am'){
-      							if(bigHand==12){
-      								bigHand = '00';
-      							}
-      						}else{
-      							if(bigHand < 12){
-      								bigHand = bigHand + 12;
-      							}
-      						}
-      						var newTime = '00:' + bigHand.toString() + ':' + littleHand.toString();
+      						console.log(data);
+      						var bigHand = data.newHour.toString().substr(0,2);
+      						var littleHand = data.newHour.toString().substr(2,2);
+      						var newTime = '00:' + bigHand + ':' + littleHand;
       						
       						//Update the id so we can edit more than once
       						$('.ajax').attr('id',oldid[0]+"|"+oldid[1]+"|"+newTime);

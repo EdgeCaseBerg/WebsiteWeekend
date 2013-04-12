@@ -8,14 +8,7 @@ include "topBar.php";
 // inside each li we have divs that are the cells, they are 
 // styled display:inline-block with css, and are lengthened to be of
 // equal height, in javascript below
-echo $_SESSION['priv_level'];
-function is_admin(){
-  if ($_SESSION['priv_level'] == 1){
-    return true;
-  }else{ 
-    return false;
-  }
-}
+
 ?>
 
 <div class='aboutContain'>
@@ -52,7 +45,7 @@ function is_admin(){
       </ul>
     </div>
     <div class="containCell midCell">
-      <? if(is_admin()){ echo $adminBlock; } ?>
+      <?  ?>
       <p>
         &nbsp; &nbsp; &nbsp;<span class="firstLetter">W</span>e need a nice long paragraph of stuff to go here.
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
@@ -76,7 +69,6 @@ function is_admin(){
       </p>
     </div>
     <div class="containCell rightCell">
-      <?php if ($_SESSION['auth']==2){echo $admin;} ?>
       <h2>News</h2>
       <p class="newsItem">
         <span>Peer To Peer Advising Night</span><br />

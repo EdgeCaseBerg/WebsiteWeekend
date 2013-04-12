@@ -17,6 +17,7 @@
 <!-- These are all plugins and libraries --> 
 <!-- jquery javascript library --> 
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/jquery-1.8.0.min.js"></script>
+   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/jquery.easing.1.3.js"></script>
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/less.js"></script> <!-- less css framework -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/bootstrap-dropdown.js"></script> <!-- twitter bootstrap -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/bootstrap-collapse.js"></script>

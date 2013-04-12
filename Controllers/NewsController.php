@@ -48,7 +48,7 @@ class NewsController extends AbstractController{
 					case "allStories":
 						// calls to the database to get all of the stories
 						$modelObject = new NewsBundle;
-						$this->vars = $modelObject->RetrieveAll();
+						$this->vars = $modelObject->retrieveAllPublished();
 						// logThis($this->vars);
 						// logThis($methods[0]);
 
@@ -60,7 +60,9 @@ class NewsController extends AbstractController{
 						$modelObject = new News;
 						// logThis($methods[0]);
 						$modelObject->initById($methods[0]);
-						$this->vars = $modelObject->toArray();
+						$this->vars['single'] = $modelObject;
+						$newsBundle = new NewsBundle();
+						$this->vars['bundle'] = $newsBundle->retrieveAllPublished();
 						$this->view = "NewsSingle";
 						break;
 					default;

@@ -10,7 +10,7 @@ $thisUTF8.addClass("utf8Active");
 </script>
 
 <div class="calendar">
- 	<iframe id="calendarFrame" src="https://www.google.com/calendar/embed?gsessionid=DxLbahZMFxwsUbWwaOLyQQ" style=" border:none; width:100%; height:600px;"></iframe>
+ 	<iframe src="https://www.google.com/calendar/embed?src=uvm.cscrew%40gmail.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 </div>
 
 

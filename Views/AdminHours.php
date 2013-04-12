@@ -37,7 +37,7 @@ function milToAMPM($hour){
 			}
 		?>
 		</ul>
-		<form action="/Admin/?hours=new" method="POST">
+		<form action="<?php echo BASEDIR;?>Admin/?hours=new" method="POST">
 			<select name="memberID">
 				<option value="-1" >Select Crew Member</option>
 				<?php

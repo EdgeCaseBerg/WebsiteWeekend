@@ -18,7 +18,7 @@
   <ul>
     <li>
       <h2>News</h2>
-      <a href="<?= BASEDIR ?>Admin/?news=new">
+      <a href="<?= BASEDIR ?>Admin/?news=home">
         <p>
           Create,edit and remove news stories. Upload images and write new content.
         </p>

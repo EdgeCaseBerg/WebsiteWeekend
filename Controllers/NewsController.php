@@ -48,7 +48,7 @@ class NewsController extends AbstractController{
 					case "allStories":
 						// calls to the database to get all of the stories
 						$modelObject = new NewsBundle;
-						$this->vars = $modelObject->RetrieveAll();
+						$this->vars = $modelObject->retrieveAllPublished();
 						// logThis($this->vars);
 						// logThis($methods[0]);
 

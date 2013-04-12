@@ -1,3 +1,0 @@
-<p>
-I LIKE BANANAS
-</p>

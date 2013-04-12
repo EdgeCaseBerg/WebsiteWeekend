@@ -56,6 +56,7 @@ class AdminController extends AbstractController{
 								$this->vars['newsBundle']=$newsBundle->RetrieveAll();
 								$this->view = "AdminViews/homeStory";
 								break;
+							
 							case "new":
 								$this->view = "AdminViews/newStory";
 								break;
@@ -169,19 +170,34 @@ class AdminController extends AbstractController{
 								break;
 
 							case "updatePublished":
-								logThis('in updatePublished');
-								logThis($_POST);
 								$this->vars['success']=false;
 								if(isset($_POST['id'])&&isset($_POST['is_published'])){
 									$news= new News();
 									$news->initById($_POST['id']);
-									logThis($news);
 									if(is_int($news->getId())){
 										$news->setIsPublished($_POST['is_published']);
 										logThis($news->getIsPublished());
 										$news->save();
 										$this->vars['success']=true;	
 									}										
+								}
+								$this->view='json';
+								break;
+
+							case "deleteArticle":
+								$this->vars['success']=false;
+								if(isset($_POST['id'])){
+									$news = new News();
+									$news->initById($_POST['id']);
+									$contentFile = $this->NEWS_CONTENT_PATH.$news->getPath().'.php';
+									$imageFile = $this->NEWS_IMAGE_PATH.$news->getImage();
+									if(file_exists($contentFile)){
+										unlink($contentFile);
+									}
+									if($news->getImage() !== '' && file_exists($imageFile)){
+										unlink($imageFile);
+									}
+									$this->vars['success'] = $news->delete();
 								}
 								$this->view='json';
 								break;

@@ -118,7 +118,8 @@
 	<div class="row-fluid">
 		<div class="header span12">
 			<div class="span2"></div>
-			<h1 class="span6">Edit your article</h1>
+			<h1 class="span8">Edit your article</h1>
+			<div class="span2"><a href="<?php echo BASEDIR.'Admin/?news=home';?>">Articles Home</a></div>
 		</div>
 	</div>
 	<div class ="row-fluid">

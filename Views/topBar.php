@@ -86,6 +86,7 @@
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?home=".$_SESSION['user']->getUserID()."'>Profile <i class='icon-user'></i></a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href="."'".BASEDIR."User/?settings=".$_SESSION['user']->getUserID()."'>Settings</a></li>";}?>
+                  <? if($_SESSION['user']->getUserAuth()>=3){echo "<li><a href="."'".BASEDIR."Admin/'>Admin</a></li>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li class='divider'>";}?>
                   <? if($_SESSION['user']->getUserAuth()>=1){echo "<li><a href='".BASEDIR."messages/'>Messages</a></li>";}?>
                  

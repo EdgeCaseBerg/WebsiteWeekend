@@ -60,7 +60,9 @@ class NewsController extends AbstractController{
 						$modelObject = new News;
 						// logThis($methods[0]);
 						$modelObject->initById($methods[0]);
-						$this->vars = $modelObject->toArray();
+						$this->vars['single'] = $modelObject;
+						$newsBundle = new NewsBundle();
+						$this->vars['bundle'] = $newsBundle->retrieveAllPublished();
 						$this->view = "NewsSingle";
 						break;
 					default;

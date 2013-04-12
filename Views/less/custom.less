@@ -1201,6 +1201,14 @@ table{
 .newsPost{
 	height:250px;
 	overflow: hidden;
+	h4{
+		font-family:@headerFont;
+	}
+	.news-date{
+		float:right;
+		margin-right: 3%;
+		bottom:0px;
+	}
 }
 .newsPost img{
 	width:200px;
@@ -1235,20 +1243,22 @@ table{
 
 /* ------------- Single News page ----------- */
 #singleNewsPage{
+	margin:0 3% 3% 3%;
+	padding: 0 1% 1% 1%;
 	#backLink{
 		position:relative;
 		margin-top:1.5%;
-		padding:0px;
+		padding:0;
 
 		a{
 			margin:0px;
 			padding:0px;
-			color:#bbb;
+			color:@uvm-green;
 			font-size:2em;
 			bottom: 50%;
 		}
 		a:hover{
-			color:@uvm-green;
+			color:#bbb;
 			text-decoration: none;
 		}
 	}
@@ -1257,10 +1267,30 @@ table{
 		text-align: center;
 		font-family: @headerFont;
 	}
-	.news-img-container{
-		border: 1px solid @uvm-green;
-		img.news-img{
-			width:100%;
+	
+	.news-content{
+		.news-img-container{
+			border: 1px solid @uvm-green;
+			img.news-img{
+				width:100%;
+			}
+		}
+		.news-text{
+			p#date{
+				font-family:@headerFont;
+			}
+		}
+		.side-bar-right{
+			h5{
+				font-family: @headerFont;
+			}
+			a{
+				color:@uvm-green
+			}
+			a:hover{
+				color: #bbb;
+				text-decoration:none;
+			}
 		}
 	}
 }
@@ -1428,6 +1458,10 @@ table{
 }
 /* -------------- Admin Edit News Pages ------------- */
 #news-management-container{
+	border:@nestBorder;
+	background:@nestBG;
+	margin: 0 5% 0 5%;
+	padding: 1% 1% 0 1%;
 	#top-title{
 		h1{
 			font-family: @headerFont;
@@ -1437,23 +1471,26 @@ table{
 	h3{
 		font-family: @headerFont;
 	}
-	a#home-link{
-		color: #999;
-		font-size: 150%;
-	}
-	a#home-link:hover{
-		color: @uvm-green;
-		text-decoration:none;
+	#home-link-container{
+		text-align:right;
+		a#home-link{
+			color: @uvm-green;
+			font-size: 150%;
+		}
+		a#home-link:hover{
+			color: #999;
+			text-decoration:none;
+		}
 	}
 	#top-content{
 		p{
 			padding: 1% 0 3% 0;
 			font-size: 130%;
 			a{
-				color: #999;
+				color: @uvm-green;
 			}
 			a:hover{
-				color: @uvm-green;
+				color: #999;
 				text-decoration:none;
 			}
 		}
@@ -1484,6 +1521,7 @@ table{
 				font-size: 1.1em;
 				border-bottom: 1px solid black;
 				th{
+					background-color: #fff;
 					padding:1%;
 				}
 			}
@@ -1506,27 +1544,39 @@ table{
 				padding: 5% 0 5% 0;
 			}
 			tr.odd{
-
+				background-color: #fff;
 			}
 		}
 		a{
 			font-size: 130%;
 			padding-right:2%;
-			color: #999;
+			color: @uvm-green;
 		}
 		a:hover{
 			text-decoration:none;
-			color:@uvm-green;
+			color:#999;
 		}
 	}
 }
 
 .admin-edit-news{
-	padding-left: 5%;
+	border:@nestBorder;
+	background:@nestBG;
+	margin: 0 5% 0 5%;
+	padding: 1% 1% 0 1%;
 	.header{
 		margin-bottom:2%;
 		h1{
 			font-family: @headerFont;
+		}
+		a{
+			color:@uvm-green;
+			font-size: 130%;
+			float: right;
+		}
+		a:hover{
+			color:#bbb;
+			text-decoration: none;
 		}
 
 	}
@@ -1536,7 +1586,7 @@ table{
 		}
 		ul{
 			a{
-				color: #bbb;
+				color:@uvm-green;
 			}
 			li{
 				padding-bottom:3px;
@@ -1545,7 +1595,7 @@ table{
 				color:#000;
 			}
 			a:hover{
-				color:@uvm-green;
+				color:#bbb;
 				text-decoration: none;
 			}
 		}

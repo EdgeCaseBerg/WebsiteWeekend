@@ -173,7 +173,7 @@ $(document).ready(function(){
   }
 
   // fire up the gallery plugin
-  var basedir = <? echo BASEDIR; ?>;
+  var basedir = '<? echo BASEDIR; ?>';
   Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
   Galleria.run('#galleria');
 });

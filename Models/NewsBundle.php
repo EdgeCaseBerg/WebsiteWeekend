@@ -4,7 +4,7 @@ class NewsBundle{
 
 	public function retrieveAll(){
 		$dbObject= new InteractDB();
-		$select = "SELECT * FROM tblNews ORDER BY 'created_at'";
+		$select = "SELECT * FROM tblNews ORDER BY created_at";
 		$dbObject->customStatement($select); 
 		$newsArray = array();
 		foreach(array_reverse($dbObject->returnedRows) as $story){
@@ -22,7 +22,7 @@ class NewsBundle{
 
 	public function retrieveAllPublished(){
 		$dbObject= new InteractDB();
-		$select = "SELECT * FROM tblNews WHERE is_published = 1 ORDER BY 'created_at'";
+		$select = "SELECT * FROM tblNews WHERE is_published = 1 ORDER BY created_at";
 		logThis($select);
 		$dbObject->customStatement($select); 
 		logThis($dbObject->returnedRows);
@@ -38,5 +38,7 @@ class NewsBundle{
 		}
 		return $newsArray;
 	}
+
+
 }
 ?>

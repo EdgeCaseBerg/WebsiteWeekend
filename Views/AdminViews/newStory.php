@@ -49,8 +49,11 @@
 			}
 			$("#news-title").attr("value", title);
 			$("#news-image").attr("value", image);
-			$("#form-news-content").submit();
+			if(validate(title) && validate($("#news-html").val())){
+				$("#form-news-content").submit();
+			}else{
 
+			}
 		});
 
 		
@@ -120,7 +123,8 @@
 	<div class="row-fluid">
 		<div class="header span12">
 			<div class="span2"></div>
-			<h1 class="span6">Publish a New Story</h1>
+			<h1 class="span8">Publish a New Story</h1>
+			<div class="span2"><a href="<?php echo BASEDIR.'Admin/?news=home';?>">Articles Home</a></div>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -172,7 +176,7 @@
 					<input type= "hidden" name="news-title" id = "news-title" value = ""></input>
 					<label for="news-html">Content:</label>
 					<textarea class="span8" rows="20" name="news-html" id="news-html"></textarea>
-					<input type="button" id ='save' value ="Save"> <input type="button" id="preview" value="Preview">
+					<input type="button" id ='save' value ="Save">
 				<form>
 			</div>
 		</div>

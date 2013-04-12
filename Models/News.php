@@ -111,7 +111,7 @@
 				$parts = explode(' ', $this->title);
 				$tempPath = '';
 				foreach ($parts as $part) {
-					$tempPath .= strtolower($part);
+					$tempPath .= $part;
 					$tempPath .= "_";
 				}
 				$tempPath .= $index;
@@ -130,10 +130,33 @@
 				$path= "path";
 				$statement = 'INSERT into tblNews (title, created_at, '.$path.', image) VALUES ('.$values.')';
 			}
-			logThis($statement);
 			$dbObject = new InteractDB();
 			$dbObject->customStatement($statement);
 			return $dbObject->connection->lastInsertId();
+		}
+
+		public function delete(){
+			$return = false;
+			if($this->id !== null){
+				$statement = 'DELETE from tblNews WHERE id = '.$this->id;
+				error_log("Statement: ".$statement);
+				$dbObject = new InteractDB();
+				$dbObject->customStatement($statement);
+				$return = true;
+			}
+			error_log("Return: ".$return);
+			return $return;
+		}
+
+		public function displayDate(){
+			$date = '';
+			if($this->created_at !== null){
+				$dateParts = explode(' ', $this->created_at);
+				$dateDMY = explode('-', $dateParts[0]);
+				$date = $dateDMY[1]."/".$dateDMY[2]."/".$dateDMY[0];
+			}
+			error_log("Return: ". $date);
+			return $date;
 		}
 
 	}

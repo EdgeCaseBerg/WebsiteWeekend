@@ -15,15 +15,20 @@
 			$post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
 			echo "<div class='newsPost span12' style='margin-left:15px'>";
 				if($newsPost->getImage()!== ''){
-					echo '<img class = "span3" src="../Views/Stories/Images/'. $newsPost->getImage().'"/>';	
+					echo '<img class = "span4" src="../Views/Stories/Images/'. $newsPost->getImage().'"/>';	
 				}else{
-					echo '<img class = "span3" src="../Views/Stories/Images/default.jpg"/>';
+					echo '<img class = "span4" src="../Views/Stories/Images/default.jpg"/>';
 				}
 				
-				echo '<div class="news-content span8">';
-				echo '<h3>'.$newsPost->getTitle().'</h3>';
-				if(strlen($post) > 700){
-					echo substr($post, 0,600).'&#8230;';
+				echo '<div class="news-content span6">';
+				echo '<h4>'.$newsPost->getTitle().'</h4>';
+				echo '</div>';
+				echo '<div class = "news-date span1">';
+					echo '<p>'.$newsPost->displayDate().'</p>';
+				echo '</div>';
+				echo '<div class="news-contetnt span7">';
+				if(strlen($post) > 600){
+					echo substr($post, 0,500).'&#8230;';
 				}else{
 					echo $post;
 				}

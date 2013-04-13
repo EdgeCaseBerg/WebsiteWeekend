@@ -71,7 +71,7 @@ class UserController extends AbstractController{
 								$_POST["recaptcha_challenge_field"],
 								$_POST["recaptcha_response_field"]);
 							if ($resp->is_valid) {
-								$loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
+								$loginResult = $_SESSION['user']->login($this->POST['fldEmail'], $this->POST['fldPassword']);
 								if($loginResult){
 									logThis("login good");
 									header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID()); 
@@ -97,6 +97,35 @@ class UserController extends AbstractController{
 							exit;
 						}
 				    break;
+				    case "lostPassword":
+						require_once "Lib/recaptchalib.php";
+						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
+						if ($_POST["recaptcha_response_field"]) {
+								$resp = recaptcha_check_answer ($privatekey,
+								$_SERVER["REMOTE_ADDR"],
+								$_POST["recaptcha_challenge_field"],
+								$_POST["recaptcha_response_field"]);
+							if ($resp->is_valid) {
+								if(isset($_POST['fldEmail'])){
+									$_SESSION['user']->lostPassword($_POST['fldEmail']);
+								}else{
+									# set the error code so that we can display it
+									$_SESSION['notifications'] = "You forgot to enter your email";
+									header("location: ".BASEDIR."Default/?page=lostPassword");
+									exit;
+								}
+							} else {
+								# set the error code so that we can display it
+								$_SESSION['notifications'] = "Captcha Invalid";
+								header("location: ".BASEDIR."Default/?page=lostPassword");
+								exit;
+							}
+						}else{
+							$_SESSION['notifications'] = "Please complete the captcha";
+							header("location: ".BASEDIR."Default/?page=lostPassword"); 
+							exit;
+						}
+				    break;
 				    case "newUser":
 				    require_once "Lib/recaptchalib.php";
 						logThis("capta");
@@ -108,26 +137,43 @@ class UserController extends AbstractController{
 								$_POST["recaptcha_challenge_field"],
 								$_POST["recaptcha_response_field"]);
 							if ($resp->is_valid) {
-								$loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
+								$loginResult = $_SESSION['user']->login($this->POST['fldEmail'], $this->POST['fldPassword']);
 						    	if($_SESSION['user']->newUser($this->POST)){
 						    		$this->view = "Login";
-						    		$this->vars['notifications'] = "Please log into your new account";
+						    		$_SESSION['notifications'] = "Please log into your new account";
 						    	}else{
 						    		$this->view = "Signup";
-						    		$this->vars['notifications'] = "That username is already in use";
+						    		$_SESSION['notifications'] = "That username is already in use";
 						    	}
 						    }else{
 						    	$this->view = "Signup";
-						    		$this->vars['notifications'] = "captcha failed";
+						    		$_SESSION['notifications'] = "captcha failed";
 						    }
 						}else{
 							$this->view = "Signup";
-						    $this->vars['notifications'] = "Don't forget to enther the captcha!";
+						    $_SESSION['notifications'] = "Don't forget to enther the captcha!";
 						}
 				    break;
 				    case "output":
 				    	if($actions['output'] == "json"){
 				    		$this->view = "json";
+				    	}
+				    break;
+				    case "resetPassword":
+				    	// the reset password link has been clicked
+				    	if(isset($actions['resetPassword']) && isset($_GET['emailAddr']){
+				    		// check for a row where hash and email address coincicide
+				    		$userHash = $actions['resetPassword'];
+				    		$email = $_GET['emailAddr'];
+				    		$array = array(
+				    			'tableName'=>'userAccounts',
+				    			'fldEmail'=>$email,
+				    			'fldLostPasswordHash'=>$userHash
+				    		);
+				    		$dbWrapper = new InteractDB('select', $array);
+				    		if (count($dbWrapper->returnedRows) == 1){
+				    			// there was a match for the hash and for the email address
+				    		}
 				    	}
 				    break;
 				    case "logOut":

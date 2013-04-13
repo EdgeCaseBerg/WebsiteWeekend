@@ -27,13 +27,13 @@ $(document).ready(function(){
 	<form action="<? echo BASEDIR; ?>User/?newUser=yes" method="post">
 		<ul>
 			<li class="error">
-				<? if(isset($this->vars['notifications'])){
-						echo "<b>".$this->vars['notifications']."</b>";
+				<? if(isset($_SESSION['notifications'])){
+						echo "<b>".$_SESSION['notifications']."</b>";
 					}
 				?>
 			</li>
-			<li><b>Desired Userame</b></li>
-			<li><input type="text" name="fldUsername" class="textInput" required></li>
+			<li><b>Email</b></li>
+			<li><input type="text" name="fldEmail" class="textInput" required></li>
 			<li><b>Password (must be 7 or more characters)</b></li>
 			<li><input type="password" name="fldPassword" class="textInput" required></li>
 			<li><b>Re-enter Password</b></li>

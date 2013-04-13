@@ -21,11 +21,11 @@ class UserModel{
 	}
 
 	// perform a login, return a boolean
-	public function login($username, $password){
+	public function login($email, $password){
 		require_once "Models/Bcrypt.php";
 		$bcrypt = new Bcrypt(15);
 	 	// $password = md5($password, $salt);
-	 	$array = array('tableName'=>'tblUserAccount', 'fldUsername'=>$username);
+	 	$array = array('tableName'=>'tblUserAccount', 'fldEmail'=>$email);
 	 	$dbWrapper = new InteractDB('select', $array);
 	 	// logThis($dbWrapper);
 	 	if(isset($dbWrapper->returnedRows[0]['fldPassword']) && $bcrypt->verify($password, $dbWrapper->returnedRows[0]['fldPassword'])){
@@ -43,15 +43,15 @@ class UserModel{
 	public function newUser($POST){
 		require_once "Models/Bcrypt.php";
 		$this->cleaner = new CleanIn();
-		$username = $POST['fldUsername'];
+		$email = $POST['fldEmail'];
 		$password = $POST['fldPassword'];
-		$cleanUsername = $this->cleaner->clean($username);
+		$cleanEmail = $this->cleaner->clean($email);
 		$cleanPassword = $this->cleaner->clean($password);
 		$bcrypt = new Bcrypt(15);
 		$cleanPassword = $bcrypt->hash($cleanPassword);
 		$array = array(
 			'tableName'=>'tblUserAccount',
-			'fldUsername'=>$cleanUsername
+			'fldEmail'=>$cleanEmail
 		);
 		$dbWrapper = new InteractDB('select', $array);
 		if(count($dbWrapper->returnedRows) == 0){
@@ -59,11 +59,11 @@ class UserModel{
 				'tableName'=>'tblUserAccount',
 				'fldPassword'=>$cleanPassword,
 				'fldAuth'=>1,
-				'fldUsername'=>$cleanUsername
+				'fldEmail'=>$cleanEmail
 			);
 			$dbWrapper = new InteractDB('insert', $array);
 			//Grab their id out from the new table
-			$dbWrapper = new InteractDB('select', array('tableName'=>"tblUserAccount",'fldUsername'=>$cleanUsername));
+			$dbWrapper = new InteractDB('select', array('tableName'=>"tblUserAccount",'fldEmail'=>$cleanEmail));
 			$info = $dbWrapper->returnedRows[0];
 			$profQuery = 'INSERT INTO tblUserProfile (fkUserID) VALUES ('.$info['pkUserID'].');';
 			$dbWrapper->customStatement($profQuery);
@@ -165,6 +165,34 @@ class UserModel{
 		// send the user back to his/her profile page
 		header('location: '.BASEDIR.'User/?settings='.$_SESSION['user']->getUserID()); 
 	} // end updateProfile()
+
+	public function lostPassword($email){
+		require_once "Controllers/JackController";
+		$jack = new JackConreoller();
+		// get a random hash to send to the user
+		$hash = $jack->generateRandomString();
+		// drop the hash in the DB
+		$array = array(
+			'tableName'=>'tblUserAccount',
+			'tableKey'=>$email,
+			'tableKeyName'=>'fldEmail',
+			'fldLostPasswordHash'=>$hash
+		);
+		$dbWrapper = new InteractDB('update', $array);
+
+		$to = $email;
+		$subject = "CS Crew Lost Password";
+		$body = "From: CS-Crew Lost Password Bot\n";
+
+		$body .= "<a href='http://www.uvm.edu/~cscrew/User/?resetPassword=".$hash."&emailAddr=".$email.">Reset Your Password</a><br />";
+		$body .= "<br />Thanks,<br />-Crew";
+
+		if(mail($to, $subject, $body)){
+
+		}else{
+
+		}
+	}
 
 	// kill our user object
 	public function logout(){

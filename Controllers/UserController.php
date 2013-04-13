@@ -61,19 +61,41 @@ class UserController extends AbstractController{
 						// logThis($this->vars);
 					break; 
 					case "doLogin":
-						logThis("in dologin");
-					    $loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
-					    if($loginResult){
-					    	// if login worked redirect the user to his home page
-					    	logThis("login good");
-					    	header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID()); 
-					    	exit;
-					    }else{
-					    	logThis("login bad");
-					    	// $_SESSION['notifications'] = "login Failed";
-					    	header("location: ".BASEDIR."Default/"); 
-					    	exit;
-					    }
+						require_once "Lib/recaptchalib.php";
+						logThis("capta");
+						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
+						if ($_POST["recaptcha_response_field"]) {
+								logThis("inside post response capta");
+								$resp = recaptcha_check_answer ($privatekey,
+								$_SERVER["REMOTE_ADDR"],
+								$_POST["recaptcha_challenge_field"],
+								$_POST["recaptcha_response_field"]);
+							if ($resp->is_valid) {
+								$loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
+								if($loginResult){
+									logThis("login good");
+									header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID()); 
+									exit;
+								}else{
+									logThis("login bad");
+									// $_SESSION['notifications'] = "login Failed";
+									header("location: ".BASEDIR."Default/?page=login"); 
+									exit;
+								}
+							} else {
+								# set the error code so that we can display it
+								logThis("captcha bad");
+								// $_SESSION['notifications'] = "login Failed";
+								header("location: ".BASEDIR."Default/?page=login"); 
+								exit;
+							}
+						}else{
+							# set the error code so that we can display it
+							logThis("captcha non-existent");
+							// $_SESSION['notifications'] = "login Failed";
+							header("location: ".BASEDIR."Default/?page=login"); 
+							exit;
+						}
 				    break;
 				    case "newUser":
 				    	if($_SESSION['user']->newUser($this->POST)){

@@ -365,7 +365,15 @@ class AdminController extends AbstractController{
 						switch ($actions['projects']){
 							case 'new':
 								$modelObj = new Projects($this->view);
-								$this->view = 'json';
+								//Do some sanity checks on the value
+								$team = $_POST['team'];
+								$projName = $_POST['projName'];
+								$url = urldecode($_POST['url']);
+								$status = $_POST['status'];
+								$description = $_POST['description'];
+								$this->vars['success'] = $modelObj->addProject($team,$projName,$url,$status,$description);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$this->view = 'AdminViews/Projects';
 								break;
 
 							case 'modified':

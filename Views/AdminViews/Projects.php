@@ -40,9 +40,17 @@ $thisUTF8.addClass("utf8Active");
 			use the base url of http://github.com/UserName/Project/commits/master.atom in the url given and enjoy
 		</p>
 		<p>
-			&nbsp; &nbsp; &nbsp;At any given time there are dozens of CS-Crew projects
-			in progress. Click on a project see a description and any contact information the
-			students involved have placed into it.
+			<form action="/Admin/?projects=new" method="POST">
+				<fieldset class="addProj">
+					<legend>Add a new Project</legend>
+					<label for="Team">Team Name:<input type="text" name="team" /></label>
+					<label for="Project">Project Name:<input type="text" name="projName" /></label>
+					<label for="url">URL:<input type="text" name="url" /></label>
+					<label for="status">Status:<input type="text" name="status" /></label>
+					<label for="description">Description: <textarea name="description"></textarea></label>
+					<input type="submit" value="Create new Project">
+				</fieldset>
+			</form>
 		</p>
 	</li>
 

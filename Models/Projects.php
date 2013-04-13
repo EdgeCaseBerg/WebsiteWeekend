@@ -16,6 +16,14 @@ class Projects{
 		return $this->vars['projects'];
 	}
 
+	public function addProject($team,$projName,$url,$status,$description){
+		$dbWrapper = new InteractDB();
+		$query = "INSERT INTO tblProjects (team, projName, url, status, description) VALUES ('$team', '$projName', '$url', '$status', '$description')";
+		$dbWrapper->customStatement($query);
+		$this->vars['result'] = $dbWrapper->returnedRows;
+		return $this->vars['result'];
+	}
+
 	public function getView(){
 		if($this->view){
 			return $this->view;

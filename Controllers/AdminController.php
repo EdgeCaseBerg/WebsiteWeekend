@@ -56,6 +56,7 @@ class AdminController extends AbstractController{
 								$this->vars['newsBundle']=$newsBundle->RetrieveAll();
 								$this->view = "AdminViews/homeStory";
 								break;
+							
 							case "new":
 								$this->view = "AdminViews/newStory";
 								break;
@@ -72,10 +73,10 @@ class AdminController extends AbstractController{
 
 							//Form Submit for a new article
 							case "saveNew":
-								logThis($_POST);
 								$news = new News();
 								$news->setTitle($_POST['news-title']);
 								$news->saveHtml($_POST['news-html']);
+								$news->setIsPublished(1);
 								if($_POST['news-image']!==''){
 									$ext = end(explode('.', $_POST['news-image']));
 									$oldName = end(explode('/', $_POST['news-image']));
@@ -86,13 +87,11 @@ class AdminController extends AbstractController{
 									$news->setImage($imageName);								
 								}
 								$id = $news->save();
-								logThis($news->toArray());
 								header("location: ". BASEDIR."Admin/?news=edit&id=".$id);
 								break;
 
 							//Load new Image but don't save
 							case "uploadImg":
-								logThis('inUploadImg');
 								$this->vars['imagePath'] = '';
 								if(isset($_FILES['story-image'])){
 									$picName = $_FILES['story-image']['name'];
@@ -168,6 +167,39 @@ class AdminController extends AbstractController{
 								}
 								$this->vars['success']=$return;
 								$this->view = 'json';
+								break;
+
+							case "updatePublished":
+								$this->vars['success']=false;
+								if(isset($_POST['id'])&&isset($_POST['is_published'])){
+									$news= new News();
+									$news->initById($_POST['id']);
+									if(is_int($news->getId())){
+										$news->setIsPublished($_POST['is_published']);
+										logThis($news->getIsPublished());
+										$news->save();
+										$this->vars['success']=true;	
+									}										
+								}
+								$this->view='json';
+								break;
+
+							case "deleteArticle":
+								$this->vars['success']=false;
+								if(isset($_POST['id'])){
+									$news = new News();
+									$news->initById($_POST['id']);
+									$contentFile = $this->NEWS_CONTENT_PATH.$news->getPath().'.php';
+									$imageFile = $this->NEWS_IMAGE_PATH.$news->getImage();
+									if(file_exists($contentFile)){
+										unlink($contentFile);
+									}
+									if($news->getImage() !== '' && file_exists($imageFile)){
+										unlink($imageFile);
+									}
+									$this->vars['success'] = $news->delete();
+								}
+								$this->view='json';
 								break;
 
 							default:

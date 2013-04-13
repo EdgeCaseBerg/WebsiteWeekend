@@ -24,17 +24,19 @@ $thisUTF8.addClass("utf8Active");
 			If you know which member you'd like to contact, you can find active member's contact information below.
 		</p>
 
-		<div class="row-fluid text-center">
+		<div class="">
 		    <?php
 		    	if($none){
-		    		echo '<div class="span1">No Currently Active Members</div>';
+		    		echo '<div class="span1">No Currently Active Members</div></div>';
 		    	}else{
+		    		$i=0;
+		    		echo '<div class="row">';
 		    		foreach ($this->vars['members'] as $member) {
-			    		echo '<div class="span2 pagination-centered">';
+			    		echo '<div class="span3">';
 			    			if($member['image'] != ""){
-			    				echo '<img src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
+			    				echo '<img width="200" height = "200" src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
 			    			}else{
-			    				echo '<img src="'. BASEDIR . 'Views/profilePics/noprofile.png">'	;
+			    				echo '<img width="200" height = "200" src="'. BASEDIR . 'Views/profilePics/noprofile.png">'	;
 			    			}
 			    			echo "</br><span>".$member['fname']." ". $member['lname']."</span><br />";
 			    			echo '<a href="mailto:'.$member['email'].'">Contact ' . $member['fname'] . '</a><br />';
@@ -42,7 +44,15 @@ $thisUTF8.addClass("utf8Active");
 			    				echo '<a href="' . $member['url'] . '" >Personal Website</a><br />';	    			
 			    			}
 			    		echo '</div>';
+			    		$i=$i+1;
+			    		if($i % 4 == 0){
+			    			echo '</div>';
+			    			echo '<div class="row">';
+			    		}
+
 		    		}	
+		    		echo '</div>';
+		    		
 		    	}
 		    ?>
 		</div>

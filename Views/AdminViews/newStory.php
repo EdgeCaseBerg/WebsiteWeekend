@@ -44,13 +44,16 @@
 			//Move the values from separate froms to the hidden fields in the form being submitted
 			var title = $('#story-title').val();
 			var image = $('#story-image-path').attr("src");
-			if(image === basePath){
+			if(image === (basePath+"Views/Stories/Images/")){
 				image = ''
 			}
 			$("#news-title").attr("value", title);
 			$("#news-image").attr("value", image);
-			$("#form-news-content").submit();
+			if(validate(title) && validate($("#news-html").val())){
+				$("#form-news-content").submit();
+			}else{
 
+			}
 		});
 
 		
@@ -76,12 +79,15 @@
 						response = response[0];
 					}
 					response = $.parseJSON(response);
-					$('#upload-story-picture').hide();
-					$('#story-image').val('');
+					
+					
 					var path = $('#story-image-path').attr('src');
 					path += response['imagePath'];
 					$('#story-image-path').attr('src',path);
-					$('#story-image-container').fadeIn();
+					$('#upload-story-picture:visible').fadeOut('100', function(){
+						$('#story-image').val('');
+						$('#story-image-container').fadeIn('1000');
+					});
 				},
 				error: function(){
 					console.log('there was an error');
@@ -99,10 +105,11 @@
 				success: function(response){
 					if(response['success']){
 						//hide the image container and reset the image source
-						$('#story-image-container').hide();
-						$('#story-image-path').attr('src', basePath+'Views/Stories/Images/');
-						//show the upload form
-						$('#upload-story-picture').show();
+						$('#story-image-container').fadeOut('1000', function(){
+							$('#story-image-path').attr('src', basePath+'Views/Stories/Images/');
+							//show the upload form
+							$('#upload-story-picture').fadeIn('100');
+						});
 					}
 				}
 			});
@@ -116,7 +123,8 @@
 	<div class="row-fluid">
 		<div class="header span12">
 			<div class="span2"></div>
-			<h1 class="span6">Publish a New Story</h1>
+			<h1 class="span8">Publish a New Story</h1>
+			<div class="span2"><a href="<?php echo BASEDIR.'Admin/?news=home';?>">Articles Home</a></div>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -168,7 +176,7 @@
 					<input type= "hidden" name="news-title" id = "news-title" value = ""></input>
 					<label for="news-html">Content:</label>
 					<textarea class="span8" rows="20" name="news-html" id="news-html"></textarea>
-					<input type="button" id ='save' value ="Save"> <input type="button" id="preview" value="Preview">
+					<input type="button" id ='save' value ="Save">
 				<form>
 			</div>
 		</div>

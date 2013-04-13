@@ -89,6 +89,7 @@ function milToAMPM($hour){
 								echo '<td>';
 								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
 								echo milToAMPM($hoursOnDay[$i]['hour']);
+								echo '-' . milToAMPM($hoursOnDay[$i]['endHour']);
 								echo '</td>';
 							}else{
 								echo '<td></td>';

@@ -65,16 +65,20 @@ class Controller{
 			// logThis($controller);
 			// if there is an associated controller, make an instance of that object
 			// perform the requested action, and return the data, otherwise drop into 
-			// the default model. 
-			
-			if(file_exists("Controllers/".$controller.".php")){ // check if a file exists in the controller dir
-				// logThis("******** Found sub-controller ********");
-				include "Controllers/".$controller.".php";
-				$controllerObj = new $controller($this->routerObj->getActions(), $this->POST);
-				$this->view = $controllerObj->getView();
-				if($controllerObj->getVars()){$this->vars = $controllerObj->getVars();}
-			}else{	// a controller was called, but does not exist, send user to the default
-			} // end nested if-else
+			// the default model.
+			if($controller == "AdminController" && ($_SESSION['user']->getUserAuth() < 3)){
+				header("location: ".BASEDIR."Default/"); 
+				exit;
+			}else{
+				if(file_exists("Controllers/".$controller.".php")){ // check if a file exists in the controller dir
+					include "Controllers/".$controller.".php";
+					$controllerObj = new $controller($this->routerObj->getActions(), $this->POST);
+					$this->view = $controllerObj->getView();
+					if($controllerObj->getVars()){$this->vars = $controllerObj->getVars();}
+				}else{	// a controller was called, but does not exist, send user to the default
+
+				} // end nested if-else
+			}
 		}
 	} // end getModelData()
 

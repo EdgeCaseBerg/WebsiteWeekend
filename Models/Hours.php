@@ -12,16 +12,16 @@ class Hours{
 
 	public function getAllHours(){
 		//Gets Hours without any expertise search
-		$query = "SELECT fkUserID, fldFirstName, fldLastName, day , hour FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu WHERE tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ORDER BY hour;";
+		$query = "SELECT fkUserID, fldFirstName, fldLastName, day , hour,endHour FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu WHERE tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ORDER BY hour;";
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
 		return $this->vars['hours'];
 	}
 
-	public function addHours($id,$hour,$day){
+	public function addHours($id,$hour,$day,$endHour){
 		$dbWrapper = new InteractDB();
-		$query = "INSERT INTO `CSCREW_Website`.`tblHours` (`fkCrewID`, `day`, `hour`) VALUES ('$id', '$day', '$hour');";
+		$query = "INSERT INTO `CSCREW_Website`.`tblHours` (`fkCrewID`, `day`, `hour`,`endHour`) VALUES ('$id', '$day', '$hour','$endHour');";
 		$dbWrapper->customStatement($query);
 
 	}
@@ -38,18 +38,25 @@ class Hours{
 		if($expertise=="Show+all"){
 			return $this->getAllHours();
 		}
-		$query= "SELECT tbp.fkUserID, fldFirstName, fldLastName, day , hour FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu,tblExpertise tl WHERE tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 AND tl.fkLangID=".$expertise." AND tl.fkUserID = tbp.fkUserID ORDER BY hour;";
+		$query= "SELECT tbp.fkUserID, fldFirstName, fldLastName, day , hour, endHour FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu,tblExpertise tl WHERE tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 AND tl.fkLangID=".$expertise." AND tl.fkUserID = tbp.fkUserID ORDER BY hour;";
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
 		return $this->vars['hours'];	
 	}
 
-	public function updateHours($id,$newHour){
-		$query = "UPDATE tblHours SET `hour` = $newHour WHERE fkCrewID = ".$id[0]." AND day = '".$id[1]."' AND hour = '".$id[2]."' LIMIT 1;";
+	public function updateHours($id,$newHour,$newEndHour){
+		//Id is an array with the fkCrewID in 0th, the day in the 1st,  then the begin and end hour in the next slots
+		$query = "UPDATE tblHours SET `hour` = $newHour, `endHour` = $newEndHour WHERE fkCrewID = ".$id[0]." AND day = '".$id[1]."' AND hour = '".$id[2]."' LIMIT 1;";
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
-		$this->vars['success'] =  $dbWrapper->returnedRows;
+		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+			//A 2053 means it worked... weird but true
+			$this->vars['success'] = true;
+		}else{
+			$this->vars['success'] = false;
+			return false;
+		}
 		return $this->vars['success'];	
 	}
 

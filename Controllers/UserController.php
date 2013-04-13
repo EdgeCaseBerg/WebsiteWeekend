@@ -96,8 +96,8 @@ class UserController extends AbstractController{
 							header("location: ".BASEDIR."Default/?page=login"); 
 							exit;
 						}
-				    break;
-				    case "lostPassword":
+					break;
+					case "lostPassword":
 						require_once "Lib/recaptchalib.php";
 						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
 						if ($_POST["recaptcha_response_field"]) {
@@ -125,9 +125,9 @@ class UserController extends AbstractController{
 							header("location: ".BASEDIR."Default/?page=lostPassword"); 
 							exit;
 						}
-				    break;
-				    case "newUser":
-				    require_once "Lib/recaptchalib.php";
+					break;
+					case "newUser":
+					require_once "Lib/recaptchalib.php";
 						logThis("capta");
 						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
 						if ($_POST["recaptcha_response_field"]) {
@@ -153,36 +153,53 @@ class UserController extends AbstractController{
 							$this->view = "Signup";
 						    $_SESSION['notifications'] = "Don't forget to enther the captcha!";
 						}
-				    break;
-				    case "output":
-				    	if($actions['output'] == "json"){
-				    		$this->view = "json";
-				    	}
-				    break;
-				    case "resetPassword":
-				    	// the reset password link has been clicked
-				    	if(isset($actions['resetPassword']) && isset($_GET['emailAddr']){
-				    		// check for a row where hash and email address coincicide
-				    		$userHash = $actions['resetPassword'];
-				    		$email = $_GET['emailAddr'];
-				    		$array = array(
-				    			'tableName'=>'userAccounts',
-				    			'fldEmail'=>$email,
-				    			'fldLostPasswordHash'=>$userHash
-				    		);
-				    		$dbWrapper = new InteractDB('select', $array);
-				    		if (count($dbWrapper->returnedRows) == 1){
-				    			// there was a match for the hash and for the email address
-				    		}
-				    	}
-				    break;
-				    case "logOut":
-				    	$_SESSION['user']->logout();
-				    	header("location: ".BASEDIR."Default/"); 
-					    exit;
-				    break;
-				    default:
-				       // echo "i is not equal to 0, 1 or 2";
+					break;
+					case "output":
+						if($actions['output'] == "json"){
+							$this->view = "json";
+						}
+					break;
+					case "resetPassword":
+					// the reset password link has been clicked
+						if(isset($actions['resetPassword']) && isset($_GET['emailAddr']){
+							// check for a row where hash and email address coincicide
+							$userHash = $actions['resetPassword'];
+							$email = $_GET['emailAddr'];
+							$array = array(
+								'tableName'=>'tblUserAccount',
+								'fldEmail'=>$email,
+								'fldLostPasswordHash'=>$userHash
+							);
+							$dbWrapper = new InteractDB('select', $array);
+							if (count($dbWrapper->returnedRows) == 1){
+								// there was a match for the hash and for the email address
+								$this->vars['lostEmail'] = $email;
+								$this->vars['lostEmailHash'] = $userHash;
+								$this->view = "resetPassword"; 
+							}
+						}
+					break;
+					case "completeResetPassword":
+						// verify that the password and email has been properly posted
+						if(isset($_POST['fldPassword']) && isset($_POST['validEmail']) && isset($_POST['lostEmailHash'])){
+							// update our db with the new password
+							$query = "UPDATE tblUserAccount SET fldLostPasswordHash=null, ";
+							$query .= "fldPassword=".$_POST['fldPassword']." WHERE fldEmail=";
+							$query .= $_POST['validEmail']." AND fldLostPasswordHash=".$_POST['lostEmailHash'];
+							$dbWrapper = new InteractDB();
+							$dbWrapper->customStatement($query);
+						}else{
+							// if we got invalid info, drop to the default
+							header("location: ".BASEDIR."Default/"); 
+							exit;
+						}
+					break;
+					case "logOut":
+						$_SESSION['user']->logout();
+						header("location: ".BASEDIR."Default/"); 
+						exit;
+					break;
+					default:
 				} // end switch
 			} // end foreach
 		} // end else

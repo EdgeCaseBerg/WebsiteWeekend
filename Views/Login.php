@@ -34,4 +34,7 @@
 			<li style="margin-top:10px;"><input type="submit" value="submit" class="submitButton"><input type="button" value="clear" class="submitButton"></li>
   		</ul>
   	</form>
+  	<li>
+  		<a href="<? echo BASEDIR; ?>Default/?page=lostPassword">Lost Password?</a>
+  	</li>
 </div>

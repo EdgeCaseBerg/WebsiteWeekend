@@ -1,6 +1,5 @@
 <?php
 require_once "AbstractController.php";
-
 class UserController extends AbstractController{
  	private $POST;
  	private $actions = array();
@@ -62,7 +61,6 @@ class UserController extends AbstractController{
 					break; 
 					case "doLogin":
 						require_once "Lib/recaptchalib.php";
-						logThis("capta");
 						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
 						if ($_POST["recaptcha_response_field"]) {
 								logThis("inside post response capta");
@@ -161,7 +159,7 @@ class UserController extends AbstractController{
 					break;
 					case "resetPassword":
 					// the reset password link has been clicked
-						if(isset($actions['resetPassword']) && isset($_GET['emailAddr']){
+						if(isset($actions['resetPassword']) && isset($_GET['emailAddr'])){
 							// check for a row where hash and email address coincicide
 							$userHash = $actions['resetPassword'];
 							$email = $_GET['emailAddr'];

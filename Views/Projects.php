@@ -33,13 +33,15 @@ $thisUTF8.addClass("utf8Active");
 
 	<li class="col1">
 		<p>
-			&nbsp; &nbsp; &nbsp;<span class="firstLetter">We</span> 
-			can grab the top github commit from each active project and show them here.
+			&nbsp; &nbsp; &nbsp;<span class="firstLetter">T</span>he 
+			CS Crew prides itself on providing a place where students can work on projects and gain experience
+			that they wouldn't get in the classroom. Our lab's whiteboards are full of design ideas and the scracthings
+			of beginning mad scientists. 
 		</p>
 		<p>
 			&nbsp; &nbsp; &nbsp;At any given time there are dozens of CS-Crew projects
-			in progress. Click on a project to view its status
-			, to join the project, or to contact the members of the team.
+			in progress. Click on a project see a description and any contact information the
+			students involved have placed into it.
 		</p>
 	</li>
 
@@ -66,7 +68,7 @@ $thisUTF8.addClass("utf8Active");
 		  				?>
 		  					<tr class="projectRow">
 		  						<td><?= $project['team']; ?></td>
-		  						<td><?= $project['projName']; ?></td>
+		  						<td class="desc" rel="<?= $project['description'];  ?>"><?= $project['projName']; ?></td>
 		  						<td><a href="<?= $project['url']; ?>">Webpage/Repository</td>
 		  						<td><?= $project['status']; ?></td>
 		  					</tr>
@@ -76,8 +78,8 @@ $thisUTF8.addClass("utf8Active");
 		  					//Show the last time updated, and some of the commit and make it a link to the commit
 		  					$fh = file_get_contents($project['url'], 'r');
 		  					$xmlObj = simplexml_load_string($fh);				
-		  					echo '<td><strong>Last Updated:</strong><br/>' . githubDateFormat($xmlObj->updated[0]) . '</td>';
-		  					echo '<td colspan="3"><strong>Commit Message:</strong><br />'.$xmlObj->entry[0]->title.'</td>';
+		  					echo '<td><em>Last Updated:</em><br/>' . githubDateFormat($xmlObj->updated[0]) . '</td>';
+		  					echo '<td colspan="3"><em>Commit Message:</em><br />'.$xmlObj->entry[0]->title.'</td>';
 		  				}
 		  			}
 		  		}else{
@@ -92,3 +94,31 @@ $thisUTF8.addClass("utf8Active");
 	</li>
 
 </ul>
+
+<script>
+	$('.desc').bind('click',function(){
+		if ($('#lightbox').length > 0) { // #lightbox exists
+	    	//insert img tag with clicked link's href as src value
+	    	$('#content').html($(this).attr('rel'));
+	    	//show lightbox window - you can use a transition here if you want, i.e. .show('fast')
+	    	$('#lightbox').show();
+		}else{
+			//#lightbox does not exist
+    		//create HTML markup for lightbox window
+    		//Styling is inline because it wont apply from the less for some reason
+    		var lightbox =
+    			'<div id="lightbox" class="ethanBox" style="z-index: 500; text-align: center; background:rgba(255,255,255,.7); top: 0; position: absolute;  left: 0; padding-top: 15%; display: block; width:100%; height: 100%;">' +
+        			'<p style="z-index: 500; background: #000; width: 600px; margin: 0 auto; color: #fff;">Click to close</p>' +
+        			'<div id="content" class="ethanBox" style="z-index: 500; width: 600px; margin: 0 auto; background: #fff; border: 1px solid #ccc; padding: 25px; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius: 0 0 5px 5px; box-shadow:0 0 5px #ccc; -moz-box-shadow:0 0 5px #ccc; -webkit-box-shadow:0 0 5px #ccc;">' + //insert clicked link's href into img src
+            			$(this).attr('rel');
+        			'</div>' +
+    			'</div>';
+    			//insert lightbox HTML into page
+    			$('body').append(lightbox);
+		}
+	});
+	//Click to 
+	$('#lightbox').live('click', function() {
+    	$('#lightbox').hide();
+	});
+</script>

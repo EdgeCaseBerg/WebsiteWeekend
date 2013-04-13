@@ -13,7 +13,7 @@ private $POST;
  	public $modelObj;
  	public $vars;
 
- 	function __construct($actions, $POST){
+ 	function __construct($actions = null, $POST = null){
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->modelObj = $_SESSION['user'];
@@ -61,6 +61,16 @@ private $POST;
 
 	public function getVars(){
 		return $this->vars;
+	}
+
+	// generate a random string of chars
+	public function generateRandomString($length = 20) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, strlen($characters) - 1)];
+		}
+		return $randomString;
 	}
 } // end JackController classDef
 ?>

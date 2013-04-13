@@ -56,6 +56,7 @@ $thisUTF8.addClass("utf8Active");
 
 	<li class="col2">
 		<div class="contentHeader"><!--[if !IE]> -->&#10094;<!-- <![endif]-->Projects<!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
+		<h3>Click to edit a field</h3>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>

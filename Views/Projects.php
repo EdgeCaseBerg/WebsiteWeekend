@@ -14,7 +14,15 @@ function githubDateFormat($date='2013-04-12T17:27:02-07:00'){
 
 	//Reorder and return the date
 	return $day .' '.$datePiece[1].', '.$month.' '.$datePiece[0];
+}
 
+function removeAtom($url){
+	//Removes the rss bit from a github url of the form:
+	//http://github.com/Username/RepoName/commits/master.atom
+	//And returns one of http://github.com/Username/RepoName/
+	$boom = explode('commits',$url);
+	return $boom[0];
+	//Quick and dirty
 }
 
 ?>
@@ -69,7 +77,7 @@ $thisUTF8.addClass("utf8Active");
 		  					<tr class="projectRow">
 		  						<td><?= $project['team']; ?></td>
 		  						<td class="desc" rel="<?= $project['description'];  ?>"><?= $project['projName']; ?></td>
-		  						<td><a href="<?= $project['url']; ?>">Webpage/Repository</td>
+		  						<td><a href="<?= removeAtom($project['url']); ?>">Webpage/Repository</td>
 		  						<td><?= $project['status']; ?></td>
 		  					</tr>
 		  				<?

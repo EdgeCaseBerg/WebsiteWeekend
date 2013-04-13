@@ -34,7 +34,7 @@ $thisUTF8.addClass("utf8Active");
 		    		foreach ($this->vars['members'] as $member) {
 			    		echo '<div class="span3">';
 			    			if($member['image'] != ""){
-			    				echo '<img width="200" height = "200" src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
+			    				echo '<img width="200" src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
 			    			}else{
 			    				echo '<img width="200" height = "200" src="'. BASEDIR . 'Views/profilePics/noprofile.png">'	;
 			    			}

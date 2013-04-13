@@ -23,62 +23,72 @@ $(document).ready(function(){
 			url: query,
 			type: "POST",
 			success: function(data){
-				data = data.profile;
-				console.log(query);
+				profileData = data.profile;
+				console.log(data);
+				langData = data.langs;
+				console.log(langData);
 				// set our inputs full of data from the DB
-				if(data['fldAboutMe']!= "" && typeof data['fldAboutMe'] != "undefined"){
-					$('.descripText').text(data['fldAboutMe']);
+				if(profileData['fldAboutMe']!= "" && typeof profileData['fldAboutMe'] != "undefined"){
+					$('.descripText').text(profileData['fldAboutMe']);
 				}else{
 					$('.descripText').text("You haven't added an 'about me' to your profile");
 				}
 				// if there is a loaded image, show it, otherwise show the default
 				
-				if(typeof data['fldProfileImage']  == "undefined"){
+				if(typeof profileData['fldProfileImage']  == "undefined"){
 					data['fldProfileImage'] = "";
 				}
-				if(data['fldProfileImage'] != "" && typeof data['fldProfileImage'] != "undefined"){
+				if(profileData['fldProfileImage'] != "" && typeof profileData['fldProfileImage'] != "undefined"){
 					var basedir = <? echo "'".BASEDIR."'"; ?>;
-					var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+data['fldProfileImage']+"'>"
+					var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+profileData['fldProfileImage']+"'>"
 					$('.profilePicNest').html(imgStr);
 				}else{
 					$('.profilePicNest').html("<img class='avatar'>");
 				}
-				if(typeof data['fldFirstName']  == "undefined"){
-					data['fldFirstName'] = "";
+				if(typeof profileData['fldFirstName']  == "undefined"){
+					profileData['fldFirstName'] = "";
 				}
-				if(data['fldFirstName']!= ""){
+				if(profileData['fldFirstName']!= ""){
 				}
-				if(typeof data['fldLastName']  == "undefined"){
-					data['fldLastName'] = "";
+				if(typeof profileData['fldLastName']  == "undefined"){
+					profileData['fldLastName'] = "";
 				}
-				if(data['fldLastName']!= ""){
+				if(profileData['fldLastName']!= ""){
 				}
 				// for our profile title
-				if(data['fldLastName']!= "" && data['fldFirstName']!= ""){
-					$('.contentHeader').text(data['fldFirstName']+" "+data['fldLastName']);
+				if(profileData['fldLastName']!= "" && profileData['fldFirstName']!= ""){
+					$('.contentHeader').text(profileData['fldFirstName']+" "+profileData['fldLastName']);
 				}
-				if(data['fldPersonalURL']!= "" && typeof data['fldPersonalURL'] != "undefined"){
+				if(profileData['fldPersonalURL']!= "" && typeof profileData['fldPersonalURL'] != "undefined"){
+					$('.personalURL').html("<a href='"+profileData['fldPersonalURL']+"'>"+profileData['fldPersonalURL']+"</a>");
 				}
 				// social shit
-				if(data['fldGitURL']!= "" && typeof data['fldGitURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+data['fldTwitterURL']+
+				if(profileData['fldGitURL']!= "" && typeof profileData['fldGitURL'] != "undefined"){
+					$('.social').append("<a target='_blank' href='"+profileData['fldGitURL']+
 						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/git.png'></a>");
 				}
-				if(data['fldTwitterURL']!= "" && typeof data['fldTwitterURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+data['fldTwitterURL']+
+				if(profileData['fldTwitterURL']!= "" && typeof profileData['fldTwitterURL'] != "undefined"){
+					$('.social').append("<a target='_blank' href='"+profileData['fldTwitterURL']+
 						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png'></a>");
 				}
-				if(data['fldFacebookURL']!= "" && typeof data['fldFacebookURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+data['fldFacebookURL']+
+				if(profileData['fldFacebookURL']!= "" && typeof profileData['fldFacebookURL'] != "undefined"){
+					$('.social').append("<a target='_blank' href='"+profileData['fldFacebookURL']+
 						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png'></a>");
 				}
-				if(data['fldLinkedinURL']!= "" && typeof data['fldLinkedinURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+data['fldLinkedinURL']+
+				if(profileData['fldLinkedinURL']!= "" && typeof profileData['fldLinkedinURL'] != "undefined"){
+					$('.social').append("<a target='_blank' href='"+profileData['fldLinkedinURL']+
 						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png'></a>");
 				}
-				if(data['fldGoogleURL']!= "" && typeof data['fldGoogleURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+data['fldGoogleURL']+
+				if(profileData['fldGoogleURL']!= "" && typeof profileData['fldGoogleURL'] != "undefined"){
+					$('.social').append("<a target='_blank' href='"+profileData['fldGoogleURL']+
 						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/google.png'></a>");
+				}
+				for(var ii=0; ii<langData.length; ii++){
+					if(ii == langData.length-1){
+						$('.expertiseList').append(langData[ii].language);
+					}else{
+						$('.expertiseList').append(langData[ii].language+", ");
+					}
 				}
 			}
 		});
@@ -94,8 +104,14 @@ $(document).ready(function(){
 				<div class="profilePicNest">
 				</div>
 				<div class="profileDescrip">
-					<h3><b>About Me</b></h3>
-					<span class="descripText"></span>
+					<ul>
+						<li class="title"><h3><b>About Me</b></h3></li>
+						<li class="profileData descripText"></li>
+						<li class="title"><h3><b>Expertise</b></h3></li>
+						<li class="profileData expertiseList"><li>
+						<li class="title"><h3><b>Website</b></h3></li>
+						<li class="profileData personalURL"></li>
+					</ul>
 				</div>
 				<div class="social">
 				</div>

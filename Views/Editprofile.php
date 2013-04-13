@@ -118,13 +118,13 @@ $(document).ready(function(){
 								<input type="checkbox" class="socialCheckbox" id="git">
 								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/git.png">
 								GIT
-								<div class="socialUrl">Username: <input type="text" name="git"></div>
+								<div class="socialUrl">URL: <input type="text" name="git"></div>
 							</li>
 							<li>
 								<input type="checkbox" class="socialCheckbox" id="twitter">
 								<img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png">
 								Twitter
-								<div class="socialUrl">Username: <input type="text" name="twitter"></div>
+								<div class="socialUrl">URL: <input type="text" name="twitter"></div>
 							</li>
 							<li>
 								<input type="checkbox" class="socialCheckbox" id="facebook">

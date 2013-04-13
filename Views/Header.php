@@ -7,8 +7,9 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <meta name="author" content="Team 4" />
-  <meta name="description" content="Rat-A-Tat"/>
+  <meta name="author" content="CREW" />
+  <meta name="description" content="CS-Crew Website - University of Vermont"/>
+  <link rel="shortcut icon" href="http://www.uvm.edu/www/images/templates/favicon.ico" />
   <title>CS-Crew</title>
 <!-- these are all stylesheets -->
 <link rel="stylesheet/less" href="<? echo BASEDIR; ?>Views/css/bootstrap.css" />
@@ -23,4 +24,5 @@
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/bootstrap-collapse.js"></script>
 <!-- heres our custom JS file  -->
   <script type="text/javascript" src="<? echo BASEDIR; ?>Views/js/index.js"></script>
+  <? include "Views/analytics.php"; ?>
 </head>

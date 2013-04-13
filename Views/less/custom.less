@@ -854,6 +854,7 @@ table{
 		font-size:1.4em;
 		color:@contentHeader;
 		padding:20px 0px 0px 0px;
+		font-weight:bold;
 
 	}
 
@@ -877,7 +878,7 @@ table{
 				width:200px;
 				border:0px;
 				padding:0px;
-				display:inline-block;				
+				display:inline-block;
 				
 				.avatar{
 					background:url('../images/noprofile.png');
@@ -892,7 +893,7 @@ table{
 			.nest{
 					text-align:left;
 					padding:5px;
-					width:69.5%;
+					width:90%;
 					margin:0px;
 					background:#eee;
 					border:solid 1px #222;
@@ -900,9 +901,18 @@ table{
 
 					.profileDescrip{
 						text-wrap:normal;
-						width:100px;
+						width:50%;
 						display:inline-block;
 						vertical-align: top;
+						padding:2px;
+
+						.title{
+							margin: 15px 0px 0px 0px;
+						}
+
+						.profileData{
+							margin-left:8px;
+						}
 					}
 
 					.memberName{
@@ -910,6 +920,7 @@ table{
 						font-size:1.3em;
 					}
 					.social{
+						width:15%;
 						float:right;
 						.icon{
 							width:2.3em;

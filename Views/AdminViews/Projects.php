@@ -40,7 +40,7 @@ $thisUTF8.addClass("utf8Active");
 			use the base url of http://github.com/UserName/Project/commits/master.atom in the url given and enjoy
 		</p>
 		<p>
-			<form action="/Admin/?projects=new" method="POST">
+			<form action="<?= BASEDIR ?>Admin/?projects=new" method="POST">
 				<fieldset class="addProj">
 					<legend>Add a new Project</legend>
 					<label for="Team">Team Name:<input type="text" name="team" /></label>
@@ -56,7 +56,7 @@ $thisUTF8.addClass("utf8Active");
 
 	<li class="col2">
 		<div class="contentHeader"><!--[if !IE]> -->&#10094;<!-- <![endif]-->Projects<!--[if !IE]> -->&#10095;<!-- <![endif]--></div>
-		<h3>Click to edit a field</h3>
+		<h3>Click to edit a field</h3><h4 id="response"></h4>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
@@ -71,26 +71,26 @@ $thisUTF8.addClass("utf8Active");
 		  	<?php
 		  	if(!isset($this->vars['projects'])){
 		  		//No Projects set at all... don't know how but it is
-		  		echo '<tr><td colspan="4" style="text-align: center;">No current Projects</td></tr>';
+		  		echo '<tr><td colspan="4" style="text-align: center;">No current Projects. why not add some?</td></tr>';
 		  	}else{
 		  		if(count($this->vars['projects']) != 0 ){
 		  			//No projects
 		  			foreach ($this->vars['projects'] as $project) {
 		  				?>
-		  					<tr class="projectRow">
-		  						<td><?= $project['team']; ?></td>
-		  						<td class="desc" rel="<?= $project['description'];  ?>"><?= $project['projName']; ?></td>
-		  						<td><a href="<?= $project['url']; ?>">Webpage/Repository</td>
-		  						<td><?= $project['status']; ?></td>
+		  					<tr class="projectRow" rel="<?=$project['pkID']; ?>">
+		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="team" ><?= $project['team']; ?></td>
+		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="projName"><?= $project['projName']; ?></td>
+		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="url"><a href="<?= $project['url']; ?>"><?= $project['url']; ?></td>
+		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="status"><?= $project['status']; ?></td>
 		  						<td><a href="" onclick="return false;" class="delete" rel="<?=$project['pkID']; ?>" >Delete</a></td>
 		  					</tr>
-		  					<tr class="projectRow">
-		  						<td colspan="5"><?= $project['description'] ?></td>
+		  					<tr class="projectRow" rel="<?=$project['pkID']; ?>" field="description">
+		  						<td colspan="5" rel="<?=$project['pkID']; ?>" class="edit"><?= $project['description'] ?></td>
 		  					</tr>
 		  				<?
 		  			}
 		  		}else{
-		  			echo '<tr><td colspan="4" style="text-align: center;">No current Projects</td></tr>';
+		  			echo '<tr><td colspan="4" style="text-align: center;">No current Projects. Why not add some?</td></tr>';
 		  		}
 		  	}
 		  	
@@ -103,5 +103,61 @@ $thisUTF8.addClass("utf8Active");
 </ul>
 
 <script>
+	//Delete link operations:
+	$('.delete').bind('click',function(){
+		var id = $(this).attr('rel');
+		$.ajax({
+			url: '<?= BASEDIR ?>Admin/?projects=delete',
+			type: "POST",
+			data: "id="+id+"&output=json",
+			success: function(data){
+				console.log(data);
+				if(data.success){
+					$('#response').html('Deleted Project Successfully');
+					//Remove the old project from view 
+					$('tr[rel='+id+']').hide();
+				}else{
+					$('#response').html('Issue deleting project');
+				}
+			}
+		});
+	});
+	//Bind the td with a click so we can click to edit
+	$('td.edit').click(function(){  
+  
+ 		$('.ajax').html($('.ajax input').val());  
+ 		$('.ajax').removeClass('ajax');  
+  
+ 		$(this).addClass('ajax');  
+ 		$(this).html(' <input id="editbox" size="'+ $(this).text().length+'" type="text" value="' + $(this).text() + '">');  
+  
+		$('#editbox').focus();                                        
+	} );  
+	//Ajax call on enter
+	$('td.edit').keydown(function(event){  
+    	if(event.which == 13){  
+    		//We use the field to determine what we're updating and pass it's value along
+      		$.ajax({    type: "POST",  
+      					url:"<?= BASEDIR ?>Admin/?projects=edit",  
+      					data: "id="+$('.ajax').attr('rel')+"&"+$(this).attr('field')+"=" +$('.ajax input').val()+"&field="+$(this).attr('field'),
+      					success: function(data){  
+      						
+      						console.log(data);
+      						$('.ajax').html($('.ajax input').val());  
+        					$('.ajax').removeClass('ajax');  
+      						
+       		}});  
+    	}  
+	    //Remove input box if they click outside of it
+	    $('#editbox').live('blur',function(){  
+	        $('.ajax').html($('.ajax input').val());  
+	        $('.ajax').removeClass('ajax');  
+		});
+	});  
+	//Remove input box if they click outside of it
+	$('#editbox').live('blur',function(){  
+	    $('.ajax').html($('.ajax input').val());  
+	    $('.ajax').removeClass('ajax');  
+	});
 	
 </script>

@@ -376,11 +376,23 @@ class AdminController extends AbstractController{
 								$this->view = 'AdminViews/Projects';
 								break;
 
-							case 'modified':
+							case 'edit':
 								$modelObj = new Projects($this->view);
+								$this->vars['fieldUpdated'] = $_POST['field'];
+								$id = $_POST['id'];
+								$field = $_POST['field'];
+								$newData = $_POST["$field"];
+								$this->vars['success'] = $modelObj->updateField($id,$field,$newData);
 								$this->view = 'json';
 								break;
 
+							case 'delete':
+								$modelObj = new Projects($this->view);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$id = $_POST['id'];
+								$this->vars['success'] = $modelObj->deleteProject($id);
+								$this->view = 'json';
+								break;
 							default:
 								$modelObj = new Projects($this->view);
 								$this->vars['projects'] = $modelObj->getProjects();

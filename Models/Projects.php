@@ -24,6 +24,35 @@ class Projects{
 		return $this->vars['result'];
 	}
 
+	public function deleteProject($id){
+		$dbWrapper = new InteractDB();
+		$query = "DELETE FROM tblProjects WHERE pkID=".$id;
+		$dbWrapper->customStatement($query);
+		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+			//A 2053 means it worked... weird but true
+			$this->vars['success'] = true;
+		}else{
+			$this->vars['success'] = false;
+			return false;
+		}
+		return $this->vars['success'];	
+	}
+
+	public function updateField($id,$field,$newData){
+		$dbWrapper = new InteractDB();
+		$query = "UPDATE tblProjects SET '$field' = '$newData' WHERE pkID=$id";
+		$dbWrapper->customStatement($query);
+		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+			//A 2053 means it worked... weird but true
+			$this->vars['success'] = true;
+			return true;
+		}else{
+			$this->vars['success'] = false;
+			return false;
+		}
+		return $dbWrapper->returnedRows;	
+	}
+
 	public function getView(){
 		if($this->view){
 			return $this->view;

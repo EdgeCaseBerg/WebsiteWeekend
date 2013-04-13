@@ -122,7 +122,7 @@ table{
 
 #topBar{
 	width:100%;
-	min-width:963px;
+	min-width:993px;
 	height:30px;
 	margin-top:40px;
 	border-bottom:@topBarBorder;
@@ -451,13 +451,19 @@ table{
 
 .loginContain{
 	.rounded-corners;
-	width:400px;
+	width:27%;
+	min-width:320px;
 	padding:4%;
-	background:#efefef;
+	background:#eee;
 	margin:auto;
 	margin-top:100px;
 	.submitButton{
 		min-width:155px;
+	}
+
+	ul{
+		margin:0px;
+		padding:0px;
 	}
 
 	li.error{
@@ -617,6 +623,51 @@ table{
 
 		}
 
+	}
+
+}
+
+.newPostPop{
+	display:none;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-image:url('../images/backgrounds/50-percent-black.png');
+
+	.nest{
+		width:50%;
+		margin:auto;
+		margin-top:120px;
+		background:#000;
+		padding:50px 50px 20px 30px;
+
+		.closeButton{
+			width:40px;
+			float:right;
+			margin-top:-60px;
+			margin-right:-60px;
+			cursor:pointer;
+		}
+
+		.postDialog{
+
+			textarea{
+				width:100%;
+				height:100px;
+			}
+
+			.title{
+				color:#eee;
+				font-weight:bold;
+			}
+
+			input[type='button']{
+				width:70px;
+				margin-right:5px;
+			}
+		}
 	}
 
 }

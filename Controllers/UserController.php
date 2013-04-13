@@ -98,13 +98,32 @@ class UserController extends AbstractController{
 						}
 				    break;
 				    case "newUser":
-				    	if($_SESSION['user']->newUser($this->POST)){
-				    		$this->view = "Login";
-				    		$this->vars['notifications'] = "Please log into your new account";
-				    	}else{
-				    		$this->view = "Signup";
-				    		$this->vars['notifications'] = "That username is already in use";
-				    	}
+				    require_once "Lib/recaptchalib.php";
+						logThis("capta");
+						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
+						if ($_POST["recaptcha_response_field"]) {
+								logThis("inside post response capta");
+								$resp = recaptcha_check_answer ($privatekey,
+								$_SERVER["REMOTE_ADDR"],
+								$_POST["recaptcha_challenge_field"],
+								$_POST["recaptcha_response_field"]);
+							if ($resp->is_valid) {
+								$loginResult = $_SESSION['user']->login($this->POST['fldUsername'], $this->POST['fldPassword']);
+						    	if($_SESSION['user']->newUser($this->POST)){
+						    		$this->view = "Login";
+						    		$this->vars['notifications'] = "Please log into your new account";
+						    	}else{
+						    		$this->view = "Signup";
+						    		$this->vars['notifications'] = "That username is already in use";
+						    	}
+						    }else{
+						    	$this->view = "Signup";
+						    		$this->vars['notifications'] = "captcha failed";
+						    }
+						}else{
+							$this->view = "Signup";
+						    $this->vars['notifications'] = "Don't forget to enther the captcha!";
+						}
 				    break;
 				    case "output":
 				    	if($actions['output'] == "json"){

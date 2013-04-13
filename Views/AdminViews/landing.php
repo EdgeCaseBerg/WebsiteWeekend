@@ -71,6 +71,14 @@
         <h3>Room Sign In</h3>
       </a>
     </li>
+    <li>
+      <h2>Crew Projects</h2>
+      <a href="<?= BASEDIR ?>Admin/?projects=display">
+        <p>
+          Create, edit, and delete Crew Projects. Use github and version control!
+        </p>
+        <h3>Manage Projects</h3>
+    </li>
   </ul>
 
 </div>

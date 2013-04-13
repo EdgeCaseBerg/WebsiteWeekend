@@ -5,6 +5,7 @@ require_once "Models/NewsBundle.php";
 require_once "Models/Hours.php";
 require_once "Models/Contact.php";
 require_once "Models/Member.php";
+require_once "Models/Projects.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -358,6 +359,26 @@ class AdminController extends AbstractController{
 								$this->vars['startLimit'] = $start;
 								$this->view = 'AdminViews/member';
 								break;
+						}
+						break;
+					case 'projects':
+						switch ($actions['projects']){
+							case 'new':
+								$modelObj = new Projects($this->view);
+								$this->view = 'json';
+								break;
+
+							case 'modified':
+								$modelObj = new Projects($this->view);
+								$this->view = 'json';
+								break;
+
+							default:
+								$modelObj = new Projects($this->view);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$this->view = 'AdminViews/Projects';
+								break;
+
 						}
 						break;
 

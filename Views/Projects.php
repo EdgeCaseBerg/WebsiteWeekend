@@ -35,13 +35,13 @@ $thisUTF8.addClass("utf8Active");
 		<p>
 			&nbsp; &nbsp; &nbsp;<span class="firstLetter">T</span>he 
 			CS Crew prides itself on providing a place where students can work on projects and gain experience
-			that they wouldn't get in the classroom. Our lab's whiteboards are full of design ideas and the scracthings
-			of beginning mad scientists. 
+			that they wouldn't get in the classroom. Our lab's whiteboards are full of design ideas and the scribblings
+			of mad-scientists-to-be's. 
 		</p>
 		<p>
 			&nbsp; &nbsp; &nbsp;At any given time there are dozens of CS-Crew projects
 			in progress. Click on a project see a description and any contact information the
-			students involved have placed into it.
+			students involved have provided.
 		</p>
 	</li>
 
@@ -73,7 +73,7 @@ $thisUTF8.addClass("utf8Active");
 		  						<td><?= $project['status']; ?></td>
 		  					</tr>
 		  				<?
-		  				if(preg_match('/github/', $project['url'])){
+		  				if(preg_match('/github/', $project['url']) && preg_match('/atom/', $project['url'])){
 		  					//We have a git hub url here, so lets pull it's latest commit
 		  					//Show the last time updated, and some of the commit and make it a link to the commit
 		  					$fh = file_get_contents($project['url'], 'r');

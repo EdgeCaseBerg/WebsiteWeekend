@@ -6,29 +6,7 @@
 <script type="text/javascript" src="../Views/js/file_upload.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		/*
-		$('.save').click(function(){
-			var title=$("input#story-title").val();
-			var html = $("textarea#story-html").val();
-			if(validate(html) && validate(title)){
-				$.ajax({
-					type: "POST",
-					url: "<?php echo BASEDIR.'Admin/?news=save'?>",
-					data: {title: title, html: html},
-					success: function(){
-						console.log('success');
-					},
-					error: function(){
-						console.log('there was an error');
-					}
-				});
-			}else{
-
-			}
-			
-		});
-		*/
-
+	
 		function validate(input){
 			input = input.trim();
 			if(input.length>0){

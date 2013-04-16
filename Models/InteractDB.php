@@ -195,7 +195,6 @@ class InteractDB{
 	public function customStatement($query){
 		// logThis($query);
 		$connection = $this->connection;
-		logThis($connection);
 			try{
 				// var_dump($query);
 				$stmt = $connection->prepare($query);

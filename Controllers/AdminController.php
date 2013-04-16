@@ -5,6 +5,8 @@ require_once "Models/NewsBundle.php";
 require_once "Models/Hours.php";
 require_once "Models/Contact.php";
 require_once "Models/Member.php";
+require_once "Models/Image.php";
+require_once "Models/ImageBundle.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -357,6 +359,63 @@ class AdminController extends AbstractController{
 								$this->vars['members'] = $modelObj->getMembersAdmin($start,15);
 								$this->vars['startLimit'] = $start;
 								$this->view = 'AdminViews/member';
+								break;
+						}
+						break;
+
+					case "frontPage":
+						switch($actions['frontPage']){
+							case "galleria":
+								$imageBundle = new ImageBundle();
+								$this->vars['images'] = $imageBundle->retrieveAll();
+								$this->vars['galleriaData'] = $imageBundle->galleriaData();
+								$this->view = 'AdminViews/galleriaFrontPage';	
+								break;
+							case "newGalleriaImage":
+								$imageBundle= new ImageBundle();
+								$this->vars['images']=$imageBundle->retrieveAll();
+								$this->view = 'AdminViews/newGalleriaImage';
+								break;
+							case "uploadGalleriaImage":
+								logThis($_FILES);
+								$this->vars['imagePath'] = '';
+								if(isset($_FILES['new-image'])){
+									$picName = $_FILES['new-image']['name'];
+									$path= "Views/images/gallery/";
+									$name = array_shift(explode('.', $picName,-1));
+									logThis($name);
+									$ext = end(explode('.', $picName));
+									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
+										$ext = '.'.$ext;	
+										$wholeName = $path.$name.$ext;
+										logThis($wholeName);
+										$i = 1;
+										while(file_exists($wholeName)){
+											logThis($i);
+											$wholeName = $path.$name.$i.$ext;
+											$i++;
+										}
+										move_uploaded_file($_FILES["new-image"]["tmp_name"],$wholeName);
+										$this->vars['imagePath'] = $wholeName;
+									}
+								}
+								$this->view = 'json';
+								break;
+							case "saveGalleriaOrder":
+								logThis($_POST);
+								$IDs = explode(',', $_POST['order']);
+								$i=1;
+								foreach($IDs as $id){
+									$image = new Image();
+									$image->initById($id);
+									$image->setSortOrder($i);
+									$image->save();
+									$i++;
+								}
+								$this->var['success']=true;
+								$this->view = 'json';
+								break;
+							default:
 								break;
 						}
 						break;

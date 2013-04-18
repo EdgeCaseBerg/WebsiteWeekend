@@ -80,12 +80,12 @@ $thisUTF8.addClass("utf8Active");
 		  					<tr class="projectRow" rel="<?=$project['pkID']; ?>">
 		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="team" ><?= $project['team']; ?></td>
 		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="projName"><?= $project['projName']; ?></td>
-		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="url"><a href="<?= $project['url']; ?>"><?= $project['url']; ?></td>
+		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="url"><?= $project['url']; ?></td>
 		  						<td rel="<?=$project['pkID']; ?>" class="edit" field="status"><?= $project['status']; ?></td>
 		  						<td><a href="" onclick="return false;" class="delete" rel="<?=$project['pkID']; ?>" >Delete</a></td>
 		  					</tr>
-		  					<tr class="projectRow" rel="<?=$project['pkID']; ?>" field="description">
-		  						<td colspan="5" rel="<?=$project['pkID']; ?>" class="edit"><?= $project['description'] ?></td>
+		  					<tr class="projectRow" rel="<?=$project['pkID']; ?>" >
+		  						<td colspan="5" rel="<?=$project['pkID']; ?>" field="description" class="edit"><?= $project['description'] ?></td>
 		  					</tr>
 		  				<?
 		  			}

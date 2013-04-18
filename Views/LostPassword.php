@@ -2,7 +2,7 @@
 ?>
 
 <div class="loginContain">
-	<form action="<? echo BASEDIR; ?>User/?doLogin=yes" method="post">
+	<form action="<? echo BASEDIR; ?>User/?lostPassword=yes" method="post">
 		<ul>
 			<li class="error">
 				<? if(isset($_SESSION['notifications'])){
@@ -12,10 +12,6 @@
 			</li>
 			<li><b>Email</b></li>
 			<li><input type="text" name="fldEmail" class="textInput"></li>
-			<li><b>Password</b></li>
-			<li><input type="password" name="fldPassword" class="textInput"></li>
-			
-
 
 <li>
  <script type="text/javascript"
@@ -32,9 +28,7 @@
 </li>
 
 			<li style="margin-top:10px;"><input type="submit" value="submit" class="submitButton"><input type="button" value="clear" class="submitButton"></li>
-  		</ul>
-  	</form>
-  	<li>
-  		<a href="<? echo BASEDIR; ?>Default/?page=lostPassword">Lost Password?</a>
-  	</li>
+		</ul>
+	</form>
+
 </div>

@@ -370,7 +370,7 @@ class AdminController extends AbstractController{
 								$cleaner = new CleanIn();
 								$team = $cleaner->clean($_POST['team']);
 								$projName = $cleaner->clean($_POST['projName']);
-								$url = urldecode($_POST['url']);
+								$url = $modelObj->addGithubFeed(urldecode($_POST['url']));
 								$status = $cleaner->clean($_POST['status']);
 								$description = $cleaner->clean($_POST['description']);
 								//Remove single qoutes
@@ -387,6 +387,9 @@ class AdminController extends AbstractController{
 								$field = $_POST['field'];
 								$cleaner = new CleanIn();
 								$newData = $cleaner->clean($_POST["$field"]);
+								if($field == 'url'){
+									$newData = $modelObj->addGithubFeed($newData);
+								}
 								$this->vars['success'] = $modelObj->updateField($id,$field,$newData);
 								$this->view = 'json';
 								break;

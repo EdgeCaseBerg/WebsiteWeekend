@@ -40,7 +40,7 @@ class Projects{
 
 	public function updateField($id,$field,$newData){
 		$dbWrapper = new InteractDB();
-		$query = "UPDATE tblProjects SET '$field' = '$newData' WHERE pkID=$id";
+		$query = "UPDATE tblProjects SET $field = '$newData' WHERE pkID=$id";
 		$dbWrapper->customStatement($query);
 		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
 			//A 2053 means it worked... weird but true

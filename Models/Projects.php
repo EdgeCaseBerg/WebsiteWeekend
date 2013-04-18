@@ -29,8 +29,7 @@ class Projects{
 
 			//Add the /commits/master.atom to a github link that doesn't have it.
 			//Regex for an ending slash /
-			logThis(preg_match('//$/', $url) ? 'y' : 'n');
-			if(preg_match('//$/', $url)){
+			if(preg_match('/\/$/', $url)){
 				return $url . 'commits/master.atom';
 			}else{
 				//Hopefully there's a master branch

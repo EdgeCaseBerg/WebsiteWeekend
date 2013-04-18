@@ -5,6 +5,8 @@ require_once "Models/NewsBundle.php";
 require_once "Models/Hours.php";
 require_once "Models/Contact.php";
 require_once "Models/Member.php";
+require_once "Models/Projects.php";
+require_once "Views/lib/CleanIn.php";
 
 class AdminController extends AbstractController{
 	private $POST;
@@ -358,6 +360,54 @@ class AdminController extends AbstractController{
 								$this->vars['startLimit'] = $start;
 								$this->view = 'AdminViews/member';
 								break;
+						}
+						break;
+					case 'projects':
+						switch ($actions['projects']){
+							case 'new':
+								$modelObj = new Projects($this->view);
+								//Do some sanity checks on the value
+								$cleaner = new CleanIn();
+								$team = $cleaner->clean($_POST['team']);
+								$projName = $cleaner->clean($_POST['projName']);
+								$url = $modelObj->addGithubFeed(urldecode($_POST['url']));
+								$status = $cleaner->clean($_POST['status']);
+								$description = $cleaner->clean($_POST['description']);
+								//Remove single qoutes
+								$description = str_replace($description, "'", '');
+								$this->vars['success'] = $modelObj->addProject($team,$projName,$url,$status,$description);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$this->view = 'AdminViews/Projects';
+								break;
+
+							case 'edit':
+								$modelObj = new Projects($this->view);
+								$this->vars['fieldUpdated'] = $_POST['field'];
+								$id = $_POST['id'];
+								$field = $_POST['field'];
+								$cleaner = new CleanIn();
+								$newData = $cleaner->clean($_POST["$field"]);
+								if($field == 'url'){
+									$newData = $modelObj->addGithubFeed($newData);
+								}
+								$this->vars['success'] = $modelObj->updateField($id,$field,$newData);
+								$this->view = 'json';
+								break;
+
+							case 'delete':
+								$modelObj = new Projects($this->view);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$cleaner = new CleanIn();
+								$id = $cleaner->clean($_POST['id']);
+								$this->vars['success'] = $modelObj->deleteProject($id);
+								$this->view = 'json';
+								break;
+							default:
+								$modelObj = new Projects($this->view);
+								$this->vars['projects'] = $modelObj->getProjects();
+								$this->view = 'AdminViews/Projects';
+								break;
+
 						}
 						break;
 

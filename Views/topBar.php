@@ -16,7 +16,7 @@
         </a>
       </li>             
       <li>
-        <a class="navLinks projectsLink" href=<? echo "'".BASEDIR."Default/?page=projects'";?>>
+        <a class="navLinks projectsLink" href=<? echo "'".BASEDIR."Projects/?display=all'";?>>
           <div class="utf8 left"><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>
           Projects
           <div class="utf8 right"><!--[if !IE]> -->&#10095;<!-- <![endif]--></div>

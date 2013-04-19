@@ -6,6 +6,7 @@ require_once "Models/Hours.php";
 require_once "Models/Contact.php";
 require_once "Models/Member.php";
 require_once "Models/Projects.php";
+require_once "Models/Tutorial.php";
 require_once "Views/lib/CleanIn.php";
 
 class AdminController extends AbstractController{
@@ -408,6 +409,25 @@ class AdminController extends AbstractController{
 								$this->view = 'AdminViews/Projects';
 								break;
 
+						}
+						break;
+
+					case "tutorial":
+						switch ($actions['tutorial']) {
+							case 'add':
+								//Clean everything...
+								$cleaner = new CleanIn();
+								$url = urlencode($_POST['url']);
+								$title = str_replace( "'",'', $cleaner->clean($_POST['title']));
+								$modelObj = new Tutorial($this->view);
+								$modelObj->addTutorial($url,$title);
+								//No break, fall into default
+							default:
+								$this->view = "AdminViews/tutorial";
+								$modelObj = new Tutorial($this->view);
+								$this->vars['tutorials'] = $modelObj->getAllTutorials();
+								logThis($this->vars['tutorials']);
+								break;
 						}
 						break;
 

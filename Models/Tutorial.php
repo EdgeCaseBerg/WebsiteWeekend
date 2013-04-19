@@ -10,8 +10,8 @@ class Tutorial{
 
 	}
 
-	public function addTutorial($url,$title,$cat){
-		$info = array('tableName' => 'tblTutorials','pkTutorialId'=>date('U'),'fldURL' => $url, 'fldTitle' => $title,'fldCategory'=>$cat);
+	public function addTutorial($url,$title){
+		$info = array('tableName' => 'tblTutorials','pkTutorialId'=>date('U'),'fldURL' => $url, 'fldTitle' => $title);
 		$dbWrapper = new InteractDB('insert',$info);	}
 
 	public function getTutorials(){
@@ -23,9 +23,10 @@ class Tutorial{
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();
 		foreach ($tuts as $tut) {
-			# code...
+			//Append each tutorial into it's respective category
+			$tutorials[$tut['cat']][] = $tut;
 		}
-		return $dbWrapper->returnedRows;
+		return $tutorials;
 
 	}
 

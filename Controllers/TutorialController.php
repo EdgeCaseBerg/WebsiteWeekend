@@ -49,6 +49,7 @@ class TutorialController extends AbstractController{
 						$this->view = "Tutorial";
 						$modelObj = new Tutorial($this->view);
 						$this->vars['tutorials'] = $modelObj->getTutorials();
+						logThis($this->vars['tutorials']);
 					break;
 				}
 			}

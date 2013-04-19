@@ -3,7 +3,7 @@ require_once "topBar.php";
 
 function addHTTP($url){
 	//Do we start with http://?
-	if(preg_match('^http:\/\/', $url)){
+	if(preg_match('/^http:\/\//', $url)){
 		return $url;
 	}else{
 		return 'http://' . $url;
@@ -23,8 +23,8 @@ function addHTTP($url){
 	we'll post it below! Don't be shy! 
 </p>
 <form method="POST" action="<?= BASEDIR . 'Tutorial/?add=true'; ?>">
-	<input type="text" name="url" />
-	<input type="text" name="title" />
+	<label for="url">URL</label><input type="text" name="url" />
+	<label for="title">Title</label><input type="text" name="title" />
 	<input type="submit" value="Help out!" />
 </form>
 
@@ -32,8 +32,12 @@ function addHTTP($url){
 	<ul>
 		<?php
 		if(isset($this->vars['tutorials'])){
-			foreach ($this->vars['tutorials'] as $tutorial) {
-				echo '<li><a href="' . addHTTP(urldecode($tutorial['url'])) . '">' . $tutorial['title'] . '</a></li>';
+			foreach ($this->vars['tutorials'] as $key => $cat) {
+				echo '<ul class="tutCat"><li><h3>'.$key.'</h3>';
+				foreach ($cat as $tutorial) {
+					echo '<li><a href="' . addHTTP(urldecode($tutorial['url'])) . '">' . $tutorial['title'] . '</a></li>';	
+				}
+				echo '</ul></li>';
 			}	
 		}else{
 			echo '<li>No Tutorials! Why don\'t you submit one?</li>';

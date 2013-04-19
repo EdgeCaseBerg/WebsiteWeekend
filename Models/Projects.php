@@ -7,7 +7,6 @@ class Projects{
 
 	function __construct($query){
 		$this->view = $query;
-
 	}
 
 	public function getProjects(){

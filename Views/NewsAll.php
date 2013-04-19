@@ -46,6 +46,7 @@
 
 	</div> <!-- end csCrewNews -->
 
+	<!--
 	<div id="cemsNews" class="span4">
 		<h1>CEMS News</h1>
 		<hr>
@@ -57,7 +58,8 @@
 				<span class="readMore"><a href="">Read More</a></span>
 			</p>
 		</div> <!-- end cemsNewsPost -->
-
+		
+		<!--
 		<div class="cemsNewsPost">
 			<img src=""/>
 			<p>

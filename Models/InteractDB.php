@@ -204,7 +204,7 @@ class InteractDB{
 			//logThis($stmt);
 			$this->returnedRows = $stmt->fetchAll();
 		}catch (Exception $e){
-			//logThis($e);
+			logThis($e);
 			$this->error = true;
 			$this->errorCondition = $e;
 		}	

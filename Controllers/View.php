@@ -11,7 +11,12 @@ class View{
 
         $this->view = $view;
         // $this->view = "Stats1";
-        $this->display();
+        if(isset($_SESSION['error']) && $_SESSION['error'] == false){
+            $this->display();
+        }else{
+            $_SESSION['error'] = false;
+            header("location: ".BASEDIR."Error/");
+        }
     }
 
 

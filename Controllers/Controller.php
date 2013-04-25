@@ -66,10 +66,10 @@ class Controller{
 			// if there is an associated controller, make an instance of that object
 			// perform the requested action, and return the data, otherwise drop into 
 			// the default model.
-			if($controller == "AdminController" && ($_SESSION['user']->getUserAuth() < 3)){
+			/*if($controller == "AdminController" && ($_SESSION['user']->getUserAuth() < 3)){
 				header("location: ".BASEDIR."Default/"); 
 				exit;
-			}else{
+			}else*/{
 				if(file_exists("Controllers/".$controller.".php")){ // check if a file exists in the controller dir
 					include "Controllers/".$controller.".php";
 					$controllerObj = new $controller($this->routerObj->getActions(), $this->POST);

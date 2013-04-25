@@ -78,6 +78,16 @@
           Create, edit, and delete Crew Projects. Use github and version control!
         </p>
         <h3>Manage Projects</h3>
+      </a>
+    </li>
+    <li>
+      <h2>Tutorials</h2>
+      <a href="<?= BASEDIR ?>Admin/?tutorial=display">
+        <p>
+          Create, publish, and categorize user-submitted tutorials.
+        </p>
+        <h3>Publish Tutorials</h3>
+      </a>
     </li>
   </ul>
 

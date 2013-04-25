@@ -78,18 +78,21 @@ class UserController extends AbstractController{
 									header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID());
 									exit;
 								}else{
+									logThis("well fuck this 3");
 									$_SESSION['notifications'] = "login Failed";
 									header("location: ".BASEDIR."Default/?page=login"); 
 									exit;
 								}
 							} else {
 								// invalid captcha
+								logThis("well fuck this");
 								$_SESSION['notifications'] = "Incorrect Captcha";
 								header("location: ".BASEDIR."Default/?page=login"); 
 								exit;
 							}
 						}else{
 							// no captcha data
+							logThis("well fuck this times 2");
 							$_SESSION['notifications'] = "Please Complete the Capcha";
 							header("location: ".BASEDIR."Default/?page=login"); 
 							exit;

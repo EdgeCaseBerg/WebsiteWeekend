@@ -29,7 +29,7 @@ include "topBar.php";
         </li>
         <li class="tools">
           <ul>
-            <li><span class="shiftArrow">&#8674;</span>Tutorials</li>
+            <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
             <li><span class="shiftArrow">&#8674;</span>Code</li>
             <li><span class="shiftArrow">&#8674;</span>Books</li>
             <li><span class="shiftArrow">&#8674;</span>Articles</li>

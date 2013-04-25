@@ -208,6 +208,7 @@ class InteractDB{
 			$this->error = true;
 			$this->errorCondition = $e;
 		}	
+
 	} // customStatement
 
 	public function getError(){

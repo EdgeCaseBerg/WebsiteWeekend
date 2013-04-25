@@ -442,8 +442,9 @@ class AdminController extends AbstractController{
 								$cleaner = new CleanIn();
 								$url = urlencode($_POST['url']);
 								$title = str_replace( "'",'', $cleaner->clean($_POST['title']));
+								$cat = str_replace( "'",'', $cleaner->clean($_POST['cat']));
 								$modelObj = new Tutorial($this->view);
-								$modelObj->addTutorial($url,$title);
+								$modelObj->addAdminTutorial($url,$title,$cat);
 								//No break, fall into default
 							default:
 								$this->view = "AdminViews/tutorial";

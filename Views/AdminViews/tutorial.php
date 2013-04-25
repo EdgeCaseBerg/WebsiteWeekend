@@ -16,16 +16,17 @@ function addHTTP($url){
 
 <h2>Tutorials</h2>
 <p>
-	When in the course of Computer Science it becomes necessary to google 
-	or search stack overflow, we often find tutorials. Sharing is caring, and
-	sometimes we find cool things that we care about and want to share. Use
-	the form below to submit your tutorials, we'll review it and if it's useful
-	we'll post it below! Don't be shy! 
+	Use this administrative console to manage the tutorials. By checking the published checkbox you enable the tutorial to be shown on the webpage. 
+	Simply click one of the text fields to modify it. Do not use apostraphes, they will be stripped.
 </p>
-<form method="POST" action="<?= BASEDIR . 'Tutorial/?add=true'; ?>">
+<p>
+
+</p>
+<form method="POST" action="<?= BASEDIR . 'Admin/?tutorial=add'; ?>">
 	<label for="url">URL</label><input type="text" name="url" />
 	<label for="title">Title</label><input type="text" name="title" />
-	<input type="submit" value="Help out!" />
+	<label for="cat">Category</label><input type="text" name="cat" />
+	<input type="submit" value="Add tutorial" />
 </form>
 
 <div id="tutorials">

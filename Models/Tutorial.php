@@ -15,6 +15,11 @@ class Tutorial{
 		$dbWrapper = new InteractDB('insert',$info);	
 	}
 
+	public function addAdminTutorial($url,$title,$cat){
+		$info = array('tableName' => 'tblTutorials','pkTutorialId'=>date('U'),'fldURL' => $url, 'fldTitle' => $title,'fldCategory' => $cat);
+		$dbWrapper = new InteractDB('insert',$info);	
+	}
+
 	public function updateTutorial($update,$data,$id){
 		switch ($update) {
 			case 'url':

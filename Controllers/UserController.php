@@ -61,17 +61,17 @@ class UserController extends AbstractController{
 					break; 
 					case "doLogin":
 						// perform a login
-						require_once "Lib/recaptchalib.php";
-						// capcha shit
-						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
-						if ($_POST["recaptcha_response_field"]) {
-								logThis("inside post response capta");
-								$resp = recaptcha_check_answer ($privatekey,
-								$_SERVER["REMOTE_ADDR"],
-								$_POST["recaptcha_challenge_field"],
-								$_POST["recaptcha_response_field"]);
-							if ($resp->is_valid) {
-								// capcha validated
+						// require_once "Lib/recaptchalib.php";
+						// // capcha shit
+						// $privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
+						// if ($_POST["recaptcha_response_field"]) {
+						// 		logThis("inside post response capta");
+						// 		$resp = recaptcha_check_answer ($privatekey,
+						// 		$_SERVER["REMOTE_ADDR"],
+						// 		$_POST["recaptcha_challenge_field"],
+						// 		$_POST["recaptcha_response_field"]);
+						// 	if ($resp->is_valid) {
+						// 		// capcha validated
 								$loginResult = $_SESSION['user']->login($this->POST['fldEmail'], $this->POST['fldPassword']);
 								if($loginResult){
 									// login validated
@@ -82,18 +82,18 @@ class UserController extends AbstractController{
 									header("location: ".BASEDIR."Default/?page=login"); 
 									exit;
 								}
-							} else {
+						// 	} else {
 								// invalid captcha
-								$_SESSION['notifications'] = "Incorrect Captcha";
-								header("location: ".BASEDIR."Default/?page=login"); 
-								exit;
-							}
-						}else{
-							// no captcha data
-							$_SESSION['notifications'] = "Please Complete the Capcha";
-							header("location: ".BASEDIR."Default/?page=login"); 
-							exit;
-						}
+								// $_SESSION['notifications'] = "Incorrect Captcha";
+								// header("location: ".BASEDIR."Default/?page=login"); 
+								// exit;
+							// }
+						// }else{
+						// 	// no captcha data
+						// 	$_SESSION['notifications'] = "Please Complete the Capcha";
+						// 	header("location: ".BASEDIR."Default/?page=login"); 
+						// 	exit;
+						// }
 					break;
 					case "lostPassword":
 						require_once "Lib/recaptchalib.php";

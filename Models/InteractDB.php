@@ -15,7 +15,6 @@ class InteractDB{
 	public $dsn = null;	// for PDO
 	public $error = false; // if we catch an error set to true 
 	public $errorCondition;
-	
 	public $connection = null;
 	public $action = null;			// this is the action to be performed on the DB (SELECT INSERT etc)
 	public $numberEntries = null;	// this is the number of total items to be acted upon
@@ -25,6 +24,10 @@ class InteractDB{
 
 	function __construct($action = null, $data = null){
 		// logThis('InteractDB called');
+		if (!defined('PDO::ATTR_DRIVER_NAME')) {
+			$_SESSION['error'] = true;
+			$_SESSION['fail_message'] = "PDO Not Installed";
+		}
 		$this->dsn = "mysql:dbname=".DATABASE_NAME.";host=".DATABASE_HOST;
 		$this->data = $data;
 		$this->connection = $this->dbConnect();
@@ -65,6 +68,7 @@ class InteractDB{
 			$this->errorCondition = $err;
 			logThis($this->errorCondition);
 			$_SESSION['error'] = true;
+			$_SESSION['fail_message'] = "DB Connect Failed";
 		}	// if we cant connect, return null	
 	} // end dbConnect
 

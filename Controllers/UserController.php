@@ -96,36 +96,13 @@ class UserController extends AbstractController{
 						}
 					break;
 					case "lostPassword":
-						require_once "Lib/recaptchalib.php";
-						// captcha shit
-						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
-						if ($_POST["recaptcha_response_field"]) {
-								// captcha data posted
-								$resp = recaptcha_check_answer ($privatekey,
-								$_SERVER["REMOTE_ADDR"],
-								$_POST["recaptcha_challenge_field"],
-								$_POST["recaptcha_response_field"]);
-							if ($resp->is_valid) {
-								// captcha validated
-								if(isset($_POST['fldEmail'])){
-									// perform our lost password
-									$_SESSION['user']->lostPassword($_POST['fldEmail']);
-								}else{
-									# set the error code so that we can display it
-									$_SESSION['notifications'] = "You forgot to enter your email";
-									header("location: ".BASEDIR."Default/?page=lostPassword");
-									exit;
-								}
-							} else {
-								// cpatcha failed
-								$_SESSION['notifications'] = "Captcha Invalid";
-								header("location: ".BASEDIR."Default/?page=lostPassword");
-								exit;
-							}
+						if(isset($_POST['fldEmail'])){
+							// perform our lost password
+							$_SESSION['user']->lostPassword($_POST['fldEmail']);
 						}else{
-							// no captcha data
-							$_SESSION['notifications'] = "Please complete the captcha";
-							header("location: ".BASEDIR."Default/?page=lostPassword"); 
+							# set the error code so that we can display it
+							$_SESSION['notifications'] = "You forgot to enter your email";
+							header("location: ".BASEDIR."Default/?page=lostPassword");
 							exit;
 						}
 					break;

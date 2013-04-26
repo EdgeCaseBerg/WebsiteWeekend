@@ -11,7 +11,7 @@ class View{
 
         $this->view = $view;
         // $this->view = "Stats1";
-        if(isset($_SESSION['error']) && $_SESSION['error'] == false){
+        if(!isset($_SESSION['error']) || $_SESSION['error'] == false){
             $this->display();
         }else{
             $_SESSION['error'] = false;

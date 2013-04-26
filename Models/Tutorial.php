@@ -43,6 +43,12 @@ class Tutorial{
 
 	public function publishTutorial($id,$pubbed){
 		logThis($pubbed);
+		if($pubbed===false){
+			$pubbed = '1';
+		}else{
+			$pubbed = '0';
+		}
+		logThis($pubbed);
 		$info = array('tableKeyName' => 'pkTutorialId', 'tableKey'=>$id,'tableName'=>'tblTutorials',"fldPublished"=>$pubbed);
 		$dbWrapper = new InteractDB('update',$info);
 		//Always executes... and no way to see if it worked.

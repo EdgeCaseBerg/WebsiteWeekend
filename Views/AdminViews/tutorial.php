@@ -29,7 +29,7 @@ function addHTTP($url){
 	<input type="submit" value="Add tutorial" />
 </form>
 
-<div id="tutorials">
+<div id="tutorialsAdmin">
 	<ul>
 		<?php
 		if(isset($this->vars['tutorials'])){

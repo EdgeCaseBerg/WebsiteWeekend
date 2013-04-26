@@ -20,6 +20,13 @@ class Tutorial{
 		$dbWrapper = new InteractDB('insert',$info);	
 	}
 
+	public function deleteTutorial($id){
+		$dQuery = 'DELETE FROM tblTutorials WHERE pkTutorialId ="'.$id.'"';
+		logThis($dQuery);
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($dQuery);
+	}
+
 	public function updateTutorial($update,$data,$id){
 		switch ($update) {
 			case 'url':

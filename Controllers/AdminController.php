@@ -179,7 +179,6 @@ class AdminController extends AbstractController{
 									$news->initById($_POST['id']);
 									if(is_int($news->getId())){
 										$news->setIsPublished($_POST['is_published']);
-										logThis($news->getIsPublished());
 										$news->save();
 										$this->vars['success']=true;	
 									}										
@@ -429,7 +428,6 @@ class AdminController extends AbstractController{
 								}else{
 									$this->vars['success'] = false;
 								}
-								logThis($this->vars['success']?'y':'n');
 								break;
 							case 'publish':
 								$modelObj = new Tutorial($this->view);

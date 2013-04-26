@@ -61,16 +61,16 @@ class UserController extends AbstractController{
 					break; 
 					case "doLogin":
 						// perform a login
-						// require_once "Lib/recaptchalib.php";
-						// // capcha shit
-						// $privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
-						// if ($_POST["recaptcha_response_field"]) {
-						// 		logThis("inside post response capta");
-						// 		$resp = recaptcha_check_answer ($privatekey,
-						// 		$_SERVER["REMOTE_ADDR"],
-						// 		$_POST["recaptcha_challenge_field"],
-						// 		$_POST["recaptcha_response_field"]);
-						// 	if ($resp->is_valid) {
+						require_once "Lib/recaptchalib.php";
+						// capcha shit
+						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
+						if ($_POST["recaptcha_response_field"]) {
+								logThis("inside post response capta");
+								$resp = recaptcha_check_answer ($privatekey,
+								$_SERVER["REMOTE_ADDR"],
+								$_POST["recaptcha_challenge_field"],
+								$_POST["recaptcha_response_field"]);
+							if ($resp->is_valid) {
 						// 		// capcha validated
 								$loginResult = $_SESSION['user']->login($this->POST['fldEmail'], $this->POST['fldPassword']);
 								if($loginResult){
@@ -78,53 +78,31 @@ class UserController extends AbstractController{
 									header('location: '.BASEDIR.'User/?home='.$_SESSION['user']->getUserID());
 									exit;
 								}else{
-									logThis("well fuck this 3");
 									$_SESSION['notifications'] = "login Failed";
 									header("location: ".BASEDIR."Default/?page=login"); 
 									exit;
 								}
-								// $_SESSION['notifications'] = "Incorrect Captcha";
-								// header("location: ".BASEDIR."Default/?page=login"); 
-								// exit;
-							// }
-						// }else{
-						// 	// no captcha data
-						// 	$_SESSION['notifications'] = "Please Complete the Capcha";
-						// 	header("location: ".BASEDIR."Default/?page=login"); 
-						// 	exit;
-						// }
-					break;
-					case "lostPassword":
-						require_once "Lib/recaptchalib.php";
-						// captcha shit
-						$privatekey = "6Leq0N8SAAAAAOu25RDhsEdXFLkpCWmms2ekBuKW";
-						if ($_POST["recaptcha_response_field"]) {
-								// captcha data posted
-								$resp = recaptcha_check_answer ($privatekey,
-								$_SERVER["REMOTE_ADDR"],
-								$_POST["recaptcha_challenge_field"],
-								$_POST["recaptcha_response_field"]);
-							if ($resp->is_valid) {
-								// captcha validated
-								if(isset($_POST['fldEmail'])){
-									// perform our lost password
-									$_SESSION['user']->lostPassword($_POST['fldEmail']);
-								}else{
-									# set the error code so that we can display it
-									$_SESSION['notifications'] = "You forgot to enter your email";
-									header("location: ".BASEDIR."Default/?page=lostPassword");
-									exit;
-								}
 							} else {
-								// cpatcha failed
-								$_SESSION['notifications'] = "Captcha Invalid";
-								header("location: ".BASEDIR."Default/?page=lostPassword");
+								// invalid captcha
+								$_SESSION['notifications'] = "Incorrect Captcha";
+								header("location: ".BASEDIR."Default/?page=login"); 
 								exit;
 							}
 						}else{
 							// no captcha data
-							$_SESSION['notifications'] = "Please complete the captcha";
-							header("location: ".BASEDIR."Default/?page=lostPassword"); 
+							$_SESSION['notifications'] = "Please Complete the Capcha";
+							header("location: ".BASEDIR."Default/?page=login"); 
+							exit;
+						}
+					break;
+					case "lostPassword":
+						if(isset($_POST['fldEmail'])){
+							// perform our lost password
+							$_SESSION['user']->lostPassword($_POST['fldEmail']);
+						}else{
+							# set the error code so that we can display it
+							$_SESSION['notifications'] = "You forgot to enter your email";
+							header("location: ".BASEDIR."Default/?page=lostPassword");
 							exit;
 						}
 					break;

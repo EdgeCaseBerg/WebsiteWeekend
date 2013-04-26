@@ -6,7 +6,7 @@
  	private $userAgent;
  	private $clientIP;
  	private $controller = false;
- 	private $model = "defailt model requested";
+ 	private $model = "default model requested";
  	private $action = array();
 
 

@@ -64,6 +64,7 @@ class InteractDB{
 			$this->error = true;
 			$this->errorCondition = $err;
 			logThis($this->errorCondition);
+			$_SESSION['error'] = true;
 		}	// if we cant connect, return null	
 	} // end dbConnect
 

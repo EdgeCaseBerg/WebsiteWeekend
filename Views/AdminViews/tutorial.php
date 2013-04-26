@@ -36,7 +36,7 @@ function addHTTP($url){
 			foreach ($this->vars['tutorials'] as $key => $cat) {
 				echo '<li><ul class="tutCat"><h3>'.$key.'</h3>';
 				foreach ($cat as $tutorial) {
-					echo '<li><div> <span class="edit" rel="url" ref="'.$tutorial['id'].'">' . (urldecode($tutorial['url'])) . '</span><br/><span class="edit" rel="title" ref="'.$tutorial['id'].'">' . $tutorial['title'] . '</span><br/><span class="edit" rel="cat" ref="'.$tutorial['id'].'">'.$tutorial['cat'].'</span><br />Published:<input type="checkbox" class="publish" ref="'.$tutorial['id'].'" name="published" '. ($tutorial['published'] ? 'checked' : '') .'></div></li>';	
+					echo '<li><div rel="'.$tutorial['id'].'"> <span class="edit" rel="url" ref="'.$tutorial['id'].'">' . (urldecode($tutorial['url'])) . '</span><br/><span class="edit" rel="title" ref="'.$tutorial['id'].'">' . $tutorial['title'] . '</span><br/><span class="edit" rel="cat" ref="'.$tutorial['id'].'">'.$tutorial['cat'].'</span><br />Published:<input type="checkbox" class="publish" ref="'.$tutorial['id'].'" name="published" '. ($tutorial['published'] ? 'checked' : '') .'><br /><a class="deleteTut" href="'.BASEDIR.'Admin/tutorial=delete" onclick="return false;" ref="'.$tutorial['id'].'">Delete</a></div></li>';
 				}
 				echo '</ul></li>';
 			}	
@@ -51,6 +51,16 @@ function addHTTP($url){
 
 
 <script>
+	$('.deleteTut').bind('click',function(){
+		$.ajax({
+			type: "POST",
+			url: "<?= BASEDIR ?>Admin/?tutorial=delete",
+			data: "id="+$(this).attr('ref'),
+			success: function(data){
+				$('.tutCat li div[rel="'+data.id+'"]').hide();
+			}
+		});
+	});
 	$('.publish').bind('click',function(){
 		$.ajax({
 			type: "POST",

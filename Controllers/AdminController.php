@@ -465,6 +465,15 @@ class AdminController extends AbstractController{
 								$this->var['success']=true;
 								$this->view = 'json';
 								break;
+							case "deleteGalleriaImage":
+								$image = new Image();
+								$image->initById($_POST['id']);
+								$imagePath = "Views/images/gallery/".$image->getPath();
+								unlink($imagePath);
+								$image->delete();
+								$this->var = "true";
+								$this->view = 'json';
+								break;
 							default:
 								break;
 						}
@@ -494,7 +503,6 @@ class AdminController extends AbstractController{
 								$this->view = 'json';
 								break;
 							case 'delete':
-								logThis('hey');
 								$modelObj = new Tutorial($this->view);
 								$modelObj->deleteTutorial($_POST['id']);
 								$this->view = 'json';

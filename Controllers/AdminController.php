@@ -435,6 +435,13 @@ class AdminController extends AbstractController{
 								$this->vars['success'] = true;
 								$this->view = 'json';
 								break;
+							case 'delete':
+								logThis('hey');
+								$modelObj = new Tutorial($this->view);
+								$modelObj->deleteTutorial($_POST['id']);
+								$this->view = 'json';
+								$this->vars['id'] = $_POST['id'];
+								break;
 							case 'add':
 								//Clean everything...
 								$cleaner = new CleanIn();

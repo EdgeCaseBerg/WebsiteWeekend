@@ -19,6 +19,7 @@
  	}
 
  	function parseURL($requestURL){
+ 		// logThis($requestURL);
  		$requestArr = parse_url($requestURL);// takes the URL and parses it into an array indexed by (scheme, host, user, password, path, query) 		
  		$urlPath = explode("/", $requestArr['path']); //  this is for parsing urls like /users/ tells us which class we need
 		if (isset($requestArr['query'])){
@@ -37,7 +38,11 @@
 
 
 		// // the following trims the leading and following "/" off of the path
-		$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
+		$dirTrim = str_replace("/~cscrew" ,"",$requestArr['path']);
+		$dirTrim = str_replace("/" ,"",$dirTrim);
+		// $dirTrim = str_replace("~cscrew" ,"",$requestArr['path']);
+		// $dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
+		logThis($dirTrim);
 		
 		
 		if(isset($urlPath[1+array_search($dirTrim, $urlPath)])){

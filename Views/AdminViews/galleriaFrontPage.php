@@ -48,7 +48,7 @@
 						echo '<td>'.$image->getPath().'</td>';
 						echo '<td>'.$image->getTitle().'</td>';
 						echo '<td>'.$image->getDescription().'</td>';
-						echo '<td class="center"><a class="delete" data="'.$image->getId().'"Delete</a> | <a href="'.BASEDIR.'Views/images/gallery/'.$image->getPath().'" rel="lightbox" title="'.$image->getTitle().'">View</a></td>';
+						echo '<td class="center"><a class="delete" data="'.$image->getId().'">Delete</a> | <a href="'.BASEDIR.'Views/images/gallery/'.$image->getPath().'" rel="lightbox" title="'.$image->getTitle().'">View</a></td>';
 						echo '</tr>';
 					}
 				?>

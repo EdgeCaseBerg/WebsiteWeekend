@@ -23,9 +23,7 @@ class NewsBundle{
 	public function retrieveAllPublished(){
 		$dbObject= new InteractDB();
 		$select = "SELECT * FROM tblNews WHERE is_published = 1 ORDER BY created_at";
-		logThis($select);
-		$dbObject->customStatement($select); 
-		logThis($dbObject->returnedRows);
+		$dbObject->customStatement($select);
 		$newsArray = array();
 		foreach(array_reverse($dbObject->returnedRows) as $story){
 			$news = new News();

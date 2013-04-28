@@ -26,6 +26,7 @@
 							  'description' => $image->getDescription());
 				array_push($jsonArray, $tempImage);
 			}
+			logThis($jsonArray);
 			return json_encode($jsonArray);
 		}
 	}

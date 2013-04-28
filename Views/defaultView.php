@@ -44,14 +44,6 @@ include "topBar.php";
       </p>
       <div class="row galleryContain">
          <div id="galleria" class="span4">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/1.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/2.jpg" data-title="Another title" data-description="My <em>HTML</em> description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/3.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/4.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/5.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/6.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/7.jpg" data-title="My title" data-description="My description">
-          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/8.jpg" data-title="My title" data-description="My description">
         </div>
       </div>
   </div>
@@ -69,7 +61,7 @@ include "topBar.php";
       <h2>News</h2>
 <?
     echo '<div id="postContainer" class="row-fluid">';
-    foreach($this->vars as $newsPost){
+    foreach($this->vars['news'] as $newsPost){
       $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
         echo '<p class="newsItem">';
         echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
@@ -99,7 +91,11 @@ $(document).ready(function(){
 
 // fire up the gallery plugin
   var basedir = <? echo "'".BASEDIR."'"; ?>;
+  var initData = <?php echo $this->vars["galleria"];?>;
   Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
+  Galleria.configure({
+    dataSource: initData
+  });
   Galleria.run('#galleria');
 
 });

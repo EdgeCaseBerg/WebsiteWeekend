@@ -69,15 +69,32 @@ class Image{
 		return $this->sort_order;
 	}
 
+	public function retrieveHighestSortOrder(){
+		$query = "SELECT COUNT(id) FROM tblFrontPageImages";
+		$dbObject = new InteractDB();
+		$dbObject->customStatement($query);
+		if(sizeof($dbObject->returnedRows) > 0){
+			$this->sort_order = ($dbObject->returnedRows[0][0] + 1);
+		}else{
+			$this->sort_order = 1;
+		}
+		
+	}
+
 	public function save(){
 		if($this->id !== null){
 			$query= 'UPDATE tblFrontPageImages SET sort_order="'.$this->sort_order.'", title="'.$this->title.'", description="'.$this->description.'" WHERE id="'.$this->id.'"';
 			$dbObject = new InteractDB();
 			$dbObject->customStatement($query);
 		}else{
-			$query = "";
+			$this->retrieveHighestSortOrder();
+			if($this->path != null && $this->title!=null && $this->description!=null && $this->sort_order != null){
+				$query = "INSERT INTO tblFrontPageImages (path, title, description, sort_order) VALUES ('".$this->path."', '".$this->title."', '".$this->description."', '".$this->sort_order."')";
+				$dbObject = new InteractDB();
+				$dbObject->customStatement($query);
+			}
 		}
-	}			
+	}	
 }
 
 ?>

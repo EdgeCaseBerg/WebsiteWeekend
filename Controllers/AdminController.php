@@ -36,7 +36,6 @@ class AdminController extends AbstractController{
 		// controller and perfomrs them if they exist
 		$children = array_keys($actions);
 		$methods = array_values($actions);
-
 		if(count($children) != count($methods)){
 			// if there are a different number of actions than variables
 			// throw an error
@@ -426,21 +425,17 @@ class AdminController extends AbstractController{
 								$this->view = 'AdminViews/newGalleriaImage';
 								break;
 							case "uploadGalleriaImage":
-								logThis($_FILES);
 								$this->vars['imagePath'] = '';
 								if(isset($_FILES['new-image'])){
 									$picName = $_FILES['new-image']['name'];
 									$path= "Views/images/gallery/";
 									$name = array_shift(explode('.', $picName,-1));
-									logThis($name);
 									$ext = end(explode('.', $picName));
 									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
 										$ext = '.'.$ext;	
 										$wholeName = $path.$name.$ext;
-										logThis($wholeName);
 										$i = 1;
 										while(file_exists($wholeName)){
-											logThis($i);
 											$wholeName = $path.$name.$i.$ext;
 											$i++;
 										}
@@ -450,8 +445,15 @@ class AdminController extends AbstractController{
 								}
 								$this->view = 'json';
 								break;
+							case "saveGalleriaImageAttr":
+								$image = new Image();
+								$image->setTitle($_POST['image-title']);
+								$image->setPath($_POST['image-path']);
+								$image->setDescription($_POST['image-description']);
+								$image->save();
+								header("location: ". BASEDIR."Admin/?frontPage=galleria");
+								break;
 							case "saveGalleriaOrder":
-								logThis($_POST);
 								$IDs = explode(',', $_POST['order']);
 								$i=1;
 								foreach($IDs as $id){

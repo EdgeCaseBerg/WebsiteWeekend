@@ -8,8 +8,7 @@ include 'Views/topBar.php';
 		<input type="file" name="new-image" id="new-image" accept="image/*"></input>
 	</form>
 	<img src="" id="image-preview">
-	<form method="post" action="">
-		<input type="hidden" name="image-id" id="image-id" value="">
+	<form method="post" action="<?php echo BASEDIR;?>Admin/?frontPage=saveGalleriaImageAttr" id="save-image-attr">
 		<input type="hidden" name="image-path" id="image-path" value=""></input>
 		<label for="image-title">Title:</label>
 		<input type="text" name="image-title" id="image-title"></input><br />
@@ -30,8 +29,7 @@ $(document).ready(function(){
 			url: basedir+"Admin/?frontPage=uploadGalleriaImage",
 			data: {output: 'json'},
 			success: function(response){
-				console.log('success');
-				console.log(response);
+				//This is done because the plugin wraps return in<pre> tags
 				response = response.split('>');
 				if(response.length>1){
 					response = response[1].split('</pre');
@@ -40,8 +38,10 @@ $(document).ready(function(){
 					response = response[0];
 				}
 				response = $.parseJSON(response);
-				console.log(response);
 				$('#image-preview').attr('src',basedir+response['imagePath']);
+				var path = response['imagePath'].split("/").pop();
+
+				$('#image-path').attr("value",path);
 				$('#upload-new-image').hide();
 				$('#new-image').val("");
 				$('#image-preview').show();
@@ -50,6 +50,20 @@ $(document).ready(function(){
 				console.log('error');
 			}
 		}).submit();
+	});
+
+
+	$('.save').live('click', function(){
+		//validate stuff
+		var path = $('#image-path').attr("value");
+		var title = $('#image-title').val();
+		var description = $('#image-description').val();
+		//submit
+		if(path != '' && title!='' && description!=''){
+			$('#save-image-attr').submit();
+		}
+		
+	
 	});
 });
 </script>

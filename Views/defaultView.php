@@ -42,7 +42,17 @@ include "topBar.php";
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
         mollit anim id est laborum.
       </p>
-      <div class="row">
+      <div class="row galleryContain">
+         <div id="galleria" class="span4">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/1.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/2.jpg" data-title="Another title" data-description="My <em>HTML</em> description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/3.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/4.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/5.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/6.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/7.jpg" data-title="My title" data-description="My description">
+          <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/8.jpg" data-title="My title" data-description="My description">
+        </div>
       </div>
   </div>
   
@@ -86,6 +96,13 @@ $(document).ready(function(){
   if($(window).width()>480){
     $('.row1 .containCell').css({'height' : maxR1Height+40});
   }
+
+// fire up the gallery plugin
+  var basedir = <? echo "'".BASEDIR."'"; ?>;
+  Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
+  Galleria.run('#galleria');
+
+});
 </script>
 
 

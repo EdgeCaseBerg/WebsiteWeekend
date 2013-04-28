@@ -34,6 +34,7 @@ class UserController extends AbstractController{
 				// do --> for every action perform the switch statement
 				switch ($value) {
 					case "home":
+						$this->vars = $_SESSION['user']->getProfile();
 						$this->view = 'Profile';
 					break;
 					case "settings":

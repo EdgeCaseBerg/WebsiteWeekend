@@ -13,7 +13,7 @@ include "topBar.php";
 ?>
 
 
-<div class="row-fluid">
+<div class="row-fluid defaultViewNest">
   <div class="span1">
     <ul>
       <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
@@ -52,6 +52,29 @@ include "topBar.php";
           <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/6.jpg" data-title="My title" data-description="My description">
           <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/7.jpg" data-title="My title" data-description="My description">
           <img alt="img" src="<? echo BASEDIR; ?>Views/images/gallery/8.jpg" data-title="My title" data-description="My description">
+        </div>
+        <div class="span6">
+        <p>We need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.
+      </p>
+      <p>
+        We need a nice long paragraph of stuff to go here.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit 
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.
+      </p>
         </div>
       </div>
   </div>

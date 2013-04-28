@@ -5,7 +5,7 @@ f<?php
 **/
 require_once "topBar.php";
 
-var_dump($this->vars['profile']);
+// var_dump($this->vars['profile']);
 ?>
 
 <script type="text/javascript">
@@ -57,13 +57,13 @@ $(document).ready(function(){
 			</div>
 			<div class="row-fluid profileDataNest">
 				<div class="span12 profileName">
-					Joshua Dickerson
+					<?= $this->vars['profile']['fldFirstName']." ".$this->vars['profile']['fldLastName']; ?>
 				</div>
 				<div class="span12 profileStanding">
-					Junior
+					<?= $this->vars['profile']['fldClassStanding']; ?>
 				</div>
 				<div class="span12 profileMajor">
-					BS CS-CSIS
+					<?= $this->vars['profile']['fldMajor']; ?>
 				</div>
 			</div>
 		</div>

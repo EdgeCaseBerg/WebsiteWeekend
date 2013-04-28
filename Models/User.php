@@ -138,7 +138,9 @@ class UserModel{
 			'fldFacebookURL'=>$this->cleaner->clean($POST['facebook']),
 			'fldTumblrURL'=>$this->cleaner->clean($POST['tumblr']),
 			'fldLinkedinURL'=>$this->cleaner->clean($POST['linkedin']),
-			'fldGoogleURL'=>$this->cleaner->clean($POST['google'])
+			'fldGoogleURL'=>$this->cleaner->clean($POST['google']),
+			'fldClassStanding'=>$this->cleaner->clean($POST['class_standing']),
+			'fldMajor'=>$this->cleaner->clean($POST['major'])
 		);
 
 		// if we uploaded a user image

@@ -79,6 +79,10 @@ class Controller{
 
 				} // end nested if-else
 			}
+		}else{
+			require_once "Controllers/DefaultController.php";
+			$controllerObj = new DefaultController();
+			if($controllerObj->getVars()){$this->vars = $controllerObj->getVars();}
 		}
 	} // end getModelData()
 

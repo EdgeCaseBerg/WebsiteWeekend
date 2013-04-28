@@ -4,15 +4,20 @@ class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
 	private $view = "defaultView";
+	public $vars;
 
 	function __construct($actions = null, $POST = null){
+		require_once "Models/DefaultModel.php";
+		$modelObj = new DefaultModel("defaultView");
+		$this->vars = $modelObj->getVars();
+		
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
 
 	 }
 
-	function parseAction($actions){
+	function parseAction($actions = null){
 		// takes the actions to be performed on the 
 		// controller and perfomrs them if they exist
 		$children = array_keys($actions);
@@ -59,6 +64,11 @@ class DefaultController extends AbstractController{
 							case "help":
 								//Send em to the hours page
 								header('Location: '. BASEDIR . 'Hours/');
+								break;
+							default:
+								require_once "Models/DefaultModel.php";
+								$modelObj = new DefaultModel("defaultView");
+								$this->vars = $modelObj->getVars();
 								break;
 						}
 					break;

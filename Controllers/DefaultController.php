@@ -1,5 +1,7 @@
 <?php
 require_once "AbstractController.php";
+require_once "Models/Image.php";
+require_once "Models/ImageBundle.php";
 class DefaultController extends AbstractController{
 	private $POST;
 	private $actions;
@@ -9,8 +11,10 @@ class DefaultController extends AbstractController{
 	function __construct($actions = null, $POST = null){
 		require_once "Models/DefaultModel.php";
 		$modelObj = new DefaultModel("defaultView");
-		$this->vars = $modelObj->getVars();
+		$this->vars['news'] = $modelObj->getVars();
 		
+		$imageBundle = new ImageBundle();
+		$this->vars['galleria'] = $imageBundle->galleriaData();
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	$this->parseAction($this->actions);
@@ -68,7 +72,7 @@ class DefaultController extends AbstractController{
 							default:
 								require_once "Models/DefaultModel.php";
 								$modelObj = new DefaultModel("defaultView");
-								$this->vars = $modelObj->getVars();
+								$this->vars['news'] = $modelObj->getVars();
 								break;
 						}
 					break;

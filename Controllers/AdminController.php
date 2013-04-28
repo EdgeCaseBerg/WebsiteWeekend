@@ -8,7 +8,8 @@ require_once "Models/Member.php";
 require_once "Models/Projects.php";
 require_once "Models/Tutorial.php";
 require_once "Views/lib/CleanIn.php";
-
+require_once "Models/Image.php";
+require_once "Models/ImageBundle.php";
 class AdminController extends AbstractController{
 	private $POST;
 	private $actions;
@@ -36,7 +37,6 @@ class AdminController extends AbstractController{
 		// controller and perfomrs them if they exist
 		$children = array_keys($actions);
 		$methods = array_values($actions);
-
 		if(count($children) != count($methods)){
 			// if there are a different number of actions than variables
 			// throw an error
@@ -410,7 +410,65 @@ class AdminController extends AbstractController{
 
 						}
 						break;
-
+					case "frontPage":
+						switch($actions['frontPage']){
+							case "galleria":
+								$imageBundle = new ImageBundle();
+								$this->vars['images'] = $imageBundle->retrieveAll();
+								$this->vars['galleriaData'] = $imageBundle->galleriaData();
+								$this->view = 'AdminViews/galleriaFrontPage';	
+								break;
+							case "newGalleriaImage":
+								$imageBundle= new ImageBundle();
+								$this->vars['images']=$imageBundle->retrieveAll();
+								$this->view = 'AdminViews/newGalleriaImage';
+								break;
+							case "uploadGalleriaImage":
+								$this->vars['imagePath'] = '';
+								if(isset($_FILES['new-image'])){
+									$picName = $_FILES['new-image']['name'];
+									$path= "Views/images/gallery/";
+									$name = array_shift(explode('.', $picName,-1));
+									$ext = end(explode('.', $picName));
+									if($ext === 'jpeg' || $ext === 'jpg' ||$ext === 'png' || $ext === 'gif'){
+										$ext = '.'.$ext;	
+										$wholeName = $path.$name.$ext;
+										$i = 1;
+										while(file_exists($wholeName)){
+											$wholeName = $path.$name.$i.$ext;
+											$i++;
+										}
+										move_uploaded_file($_FILES["new-image"]["tmp_name"],$wholeName);
+										$this->vars['imagePath'] = $wholeName;
+									}
+								}
+								$this->view = 'json';
+								break;
+							case "saveGalleriaImageAttr":
+								$image = new Image();
+								$image->setTitle($_POST['image-title']);
+								$image->setPath($_POST['image-path']);
+								$image->setDescription($_POST['image-description']);
+								$image->save();
+								header("location: ". BASEDIR."Admin/?frontPage=galleria");
+								break;
+							case "saveGalleriaOrder":
+								$IDs = explode(',', $_POST['order']);
+								$i=1;
+								foreach($IDs as $id){
+									$image = new Image();
+									$image->initById($id);
+									$image->setSortOrder($i);
+									$image->save();
+									$i++;
+								}
+								$this->var['success']=true;
+								$this->view = 'json';
+								break;
+							default:
+								break;
+						}
+						break;
 					case "tutorial":
 						switch ($actions['tutorial']) {
 							case 'edit':

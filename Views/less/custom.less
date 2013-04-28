@@ -1247,10 +1247,10 @@ table{
 	margin-bottom: 15px;
 	clear:both;
 	a{
-		color:#bbb;
+		color:@uvm-green;
 	}
 	a:hover{
-		color:@uvm-green;
+		color:#bbb;
 		text-decoration: none;
 	}
 }
@@ -1861,6 +1861,78 @@ table{
 			}
 			vertical-align: top;
 			width: 15%;
+		}
+	}
+}			
+
+/* --------- Admin Front Page Images--------- */
+#top-content{
+	padding: 5% 5% 0 5%;
+	h3{
+		font-family:@headerFont;
+	}
+	#galleria-content{
+		margin-left:0px;
+		width: 45%;
+		float:left;
+		#galleria{
+			text-align:center;
+			height:300px;
+		}
+	}
+	#image-list-container{
+		width:45%;
+		float:right;
+	}	
+}
+
+#image-table-container{
+	margin-left: 0px;
+	padding:0 5% 0 5%;
+
+	#image-table_length{
+		float:left;
+		width:49%;
+		font-family:@headerFont;
+	}
+	#image-table_filter{
+		float:right;
+		width:49%;
+		label{
+			text-align:right;
+			font-family:@headerFont;
+			float:right;
+			input{
+				float:right;
+			}
+		}
+	}
+	table{
+		width:100%;
+	}
+	thead{
+		border: 1px solid black;
+		th{
+			font-family:@headerFont;
+		}
+	}
+	tr.even{
+		background-color: #ddd;
+	}
+	tr.odd{
+
+	}
+	td.center{
+		text-align:center;
+	}
+	tr{
+		a{
+			color: @uvm-green;
+			font-size: 130%;
+		}
+		a:hover{
+			color: #bbb;
+			text-decoration: none;
 		}
 		ul{
 			li{

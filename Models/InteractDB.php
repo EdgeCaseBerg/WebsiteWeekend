@@ -204,6 +204,7 @@ class InteractDB{
 	public function customStatement($query){
 		// logThis($query);
 		$connection = $this->connection;
+
 		if(!$this->error){
 			try{
 				// var_dump($query);

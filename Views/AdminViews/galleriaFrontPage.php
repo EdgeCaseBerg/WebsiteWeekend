@@ -12,13 +12,6 @@
 			<h3>Galleria Preview</h3>
 			<div id="galleria">
 
-			<?php
-
-				// foreach ($this->vars['images'] as $image) {
-				// 	echo '<img alt="img" src="'.BASEDIR.'Views/images/gallery/'.$image->getPath().'" data-title="'.$image->getTitle().'" data-description="'.$image->getDescription().'">';
-				// }
-
-			?>
 			</div>
 		</div>
 		<div id="image-list-container">
@@ -55,7 +48,7 @@
 						echo '<td>'.$image->getPath().'</td>';
 						echo '<td>'.$image->getTitle().'</td>';
 						echo '<td>'.$image->getDescription().'</td>';
-						echo '<td class="center"><a class="delete">Delete</a> | <a href="'.BASEDIR.'Views/images/gallery/'.$image->getPath().'" rel="lightbox" title="'.$image->getTitle().'">View</a></td>';
+						echo '<td class="center"><a class="delete" data="'.$image->getId().'"Delete</a> | <a href="'.BASEDIR.'Views/images/gallery/'.$image->getPath().'" rel="lightbox" title="'.$image->getTitle().'">View</a></td>';
 						echo '</tr>';
 					}
 				?>
@@ -140,6 +133,9 @@ $(document).ready(function(){
 			gallery.splice(startIndex,1);
 		}
 	}
-
+	$(".delete").live('click', function(){
+		var id = $this.attr("data");
+		console.log();
+	});
 });
 </script>

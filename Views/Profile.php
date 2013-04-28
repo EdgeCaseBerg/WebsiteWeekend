@@ -4,97 +4,17 @@ f<?php
 *  Profile.php displays the user's profile
 **/
 require_once "topBar.php";
+
+// var_dump($this->vars['profile']);
 ?>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	var base= "<?= BASEDIR ?>";
-	<?
-		if(isset($_GET['showUserProfile'])){
-	?>
-		
-		var query = base+"User/?showUserProfile="+<? echo $_GET['showUserProfile']; ?>+"&output=json";
-	<?	}else{ ?>
-	// grab our profile data from our model object via AJAX
-	var query =base+"User/?showUserProfile="+<?= $_SESSION['user']->getUserID() ?>+"&output=json";
-	<? } ?>
-	
-	$.ajax({
-			url: query,
-			type: "POST",
-			success: function(data){
-				profileData = data.profile;
-				console.log(data);
-				langData = data.langs;
-				console.log(langData);
-				// set our inputs full of data from the DB
-				if(profileData['fldAboutMe']!= "" && typeof profileData['fldAboutMe'] != "undefined"){
-					$('.descripText').text(profileData['fldAboutMe']);
-				}else{
-					$('.descripText').text("You haven't added an 'about me' to your profile");
-				}
-				// if there is a loaded image, show it, otherwise show the default
-				
-				if(typeof profileData['fldProfileImage']  == "undefined"){
-					data['fldProfileImage'] = "";
-				}
-				if(profileData['fldProfileImage'] != "" && typeof profileData['fldProfileImage'] != "undefined"){
-					var basedir = <? echo "'".BASEDIR."'"; ?>;
-					var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+profileData['fldProfileImage']+"'>"
-					$('.profilePicNest').html(imgStr);
-				}else{
-					$('.profilePicNest').html("<img class='avatar'>");
-				}
-				if(typeof profileData['fldFirstName']  == "undefined"){
-					profileData['fldFirstName'] = "";
-				}
-				if(profileData['fldFirstName']!= ""){
-				}
-				if(typeof profileData['fldLastName']  == "undefined"){
-					profileData['fldLastName'] = "";
-				}
-				if(profileData['fldLastName']!= ""){
-				}
-				// for our profile title
-				if(profileData['fldLastName']!= "" && profileData['fldFirstName']!= ""){
-					$('.contentHeader').text(profileData['fldFirstName']+" "+profileData['fldLastName']);
-				}
-				if(profileData['fldPersonalURL']!= "" && typeof profileData['fldPersonalURL'] != "undefined"){
-					$('.personalURL').html("<a href='"+profileData['fldPersonalURL']+"'>"+profileData['fldPersonalURL']+"</a>");
-				}
-				// social shit
-				if(profileData['fldGitURL']!= "" && typeof profileData['fldGitURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+profileData['fldGitURL']+
-						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/git.png'></a>");
-				}
-				if(profileData['fldTwitterURL']!= "" && typeof profileData['fldTwitterURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+profileData['fldTwitterURL']+
-						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png'></a>");
-				}
-				if(profileData['fldFacebookURL']!= "" && typeof profileData['fldFacebookURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+profileData['fldFacebookURL']+
-						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png'></a>");
-				}
-				if(profileData['fldLinkedinURL']!= "" && typeof profileData['fldLinkedinURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+profileData['fldLinkedinURL']+
-						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png'></a>");
-				}
-				if(profileData['fldGoogleURL']!= "" && typeof profileData['fldGoogleURL'] != "undefined"){
-					$('.social').append("<a target='_blank' href='"+profileData['fldGoogleURL']+
-						"'><img alt='img' class='icon' src='"+base+"Views/css/fonts/icons/elegantmediaicons/PNG/google.png'></a>");
-				}
-				for(var ii=0; ii<langData.length; ii++){
-					if(ii == langData.length-1){
-						$('.expertiseList').append(langData[ii].language);
-					}else{
-						$('.expertiseList').append(langData[ii].language+", ");
-					}
-				}
-			}
-		});
 });
 </script>
 
+<!-- 
 <div class="profileContain">
 	<div class="contentHeader">
 	</div>
@@ -120,5 +40,70 @@ $(document).ready(function(){
 			</div>
 		</li>
 	</ul>
+</div> -->
+
+
+<div class="profileContain">
+	<div class="row-fluid">
+		<div class="span12">
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span2">
+			<div class="row-fluid">
+				<div class="span12">
+					<img class="imageDialog" src=<? echo "'".BASEDIR."Views/images/profile_images/".$this->vars['profile']['fldProfileImage']."'>\n"; ?>
+				</div>
+			</div>
+			<div class="row-fluid profileDataNest">
+				<div class="span12 profileName">
+					<?= $this->vars['profile']['fldFirstName']." ".$this->vars['profile']['fldLastName']; ?>
+				</div>
+				<div class="span12 profileStanding">
+					<?= $this->vars['profile']['fldClassStanding']; ?>
+				</div>
+				<div class="span12 profileMajor">
+					<?= $this->vars['profile']['fldMajor']; ?>
+				</div>
+			</div>
+		</div>
+		<div class="span8">
+			<span class="contentHeader firstHeader">About Me</span>
+			<div class="span12">
+					<?= $this->vars['profile']['fldAboutMe']; ?>
+			</div>
+			<span class="contentHeader">Expertise</span>
+			<div class="span12">
+					<?= $this->vars['profile']['fldAboutMe']; ?>
+			</div>
+		</div>
+		<div class="span2">
+<?
+				$output = "";
+				if(isset($this->vars['profile']['fldGitURL']) && $this->vars['profile']['fldGitURL']!= "" && $this->vars['profile']['fldGitURL'] != null){
+					$output .= "<a target='_blank' href='".$this->vars['profile']['fldGitURL']."'>";
+					$output .="<img alt='img' class='icon socialIcon' src='".BASEDIR."Views/css/fonts/icons/elegantmediaicons/PNG/git.png'></a>\n";
+				}
+				if(isset($this->vars['profile']['fldTwitterURL']) && $this->vars['profile']['fldTwitterURL']!= "" && $this->vars['profile']['fldTwitterURL'] != null){
+					$output .= "<a target='_blank' href='".$this->vars['profile']['fldTwitterURL']."'>";
+					$output .= "<img alt='img' class='icon socialIcon' src='".BASEDIR."Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png'></a>\n";
+				}
+				if(isset($this->vars['profile']['fldFacebookURL']) && $this->vars['profile']['fldFacebookURL']!= "" && $this->vars['profile']['fldFacebookURL'] != null){
+					$output .= "<a target='_blank' href='".$this->vars['profile']['fldFacebookURL']."'>";
+					$output .= "<img alt='img' class='icon socialIcon' src='".BASEDIR."Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png'></a>\n";
+				}
+				if(isset($this->vars['profile']['fldLinkedinURL']) && $this->vars['profile']['fldLinkedinURL']!= "" && $this->vars['profile']['fldLinkedinURL'] != null){
+					$output .= "<a target='_blank' href='".$this->vars['profile']['fldLinkedinURL']."'>";
+					$output .= "<img alt='img' class='icon socialIcon' src='".BASEDIR."Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png'></a>\n";
+				}
+				if(isset($this->vars['profile']['fldGoogleURL']) && $this->vars['profile']['fldGoogleURL']!= "" && $this->vars['profile']['fldGoogleURL'] != null){
+					$output .= "<a target='_blank' href='".$this->vars['profile']['fldGoogleURL']."'>";
+					$output .= "<img alt='img' class='icon socialIcon' src='".BASEDIR."Views/css/fonts/icons/elegantmediaicons/PNG/google.png'></a>\n";
+				}
+
+				echo $output;
+?>
+		</div>
+	</div>
 </div>
 

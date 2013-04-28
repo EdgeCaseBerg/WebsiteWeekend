@@ -41,7 +41,6 @@ class TutorialController extends AbstractController{
 						$cleaner = new CleanIn();
 						$url = urlencode($_POST['url']);
 						$title = str_replace( "'",'', $cleaner->clean($_POST['title']));
-						logThis($title);
 						$modelObj = new Tutorial($this->view);
 						$modelObj->addTutorial($url,$title);
 						//No break, fall into default
@@ -49,7 +48,6 @@ class TutorialController extends AbstractController{
 						$this->view = "Tutorial";
 						$modelObj = new Tutorial($this->view);
 						$this->vars['tutorials'] = $modelObj->getTutorials();
-						logThis($this->vars['tutorials']);
 					break;
 				}
 			}

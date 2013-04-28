@@ -94,6 +94,7 @@ class UserModel{
 		require_once "Models/Jack.php";
 		$jack = new Jack();
 		$returnArr['memberLangs'] = $jack->getMemberLangs();
+		$this->vars = $returnArr;
 		return $returnArr;
 	} // end getProfile
 
@@ -137,7 +138,9 @@ class UserModel{
 			'fldFacebookURL'=>$this->cleaner->clean($POST['facebook']),
 			'fldTumblrURL'=>$this->cleaner->clean($POST['tumblr']),
 			'fldLinkedinURL'=>$this->cleaner->clean($POST['linkedin']),
-			'fldGoogleURL'=>$this->cleaner->clean($POST['google'])
+			'fldGoogleURL'=>$this->cleaner->clean($POST['google']),
+			'fldClassStanding'=>$this->cleaner->clean($POST['class_standing']),
+			'fldMajor'=>$this->cleaner->clean($POST['major'])
 		);
 
 		// if we uploaded a user image
@@ -167,8 +170,8 @@ class UserModel{
 	} // end updateProfile()
 
 	public function lostPassword($email){
-		require_once "Controllers/JackController";
-		$jack = new JackConreoller();
+		require_once "Controllers/JackController.php";
+		$jack = new JackController();
 		// get a random hash to send to the user
 		$hash = $jack->generateRandomString();
 		// drop the hash in the DB
@@ -188,9 +191,12 @@ class UserModel{
 		$body .= "<br />Thanks,<br />-Crew";
 
 		if(mail($to, $subject, $body)){
-
+			// mail worked, prolly want to do something different here
+			header("location: ".BASEDIR."Default/");
+			exit;
 		}else{
-
+			header("location: ".BASEDIR."Default/");
+			exit;
 		}
 	}
 

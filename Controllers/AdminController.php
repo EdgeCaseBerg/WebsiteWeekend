@@ -6,6 +6,7 @@ require_once "Models/Hours.php";
 require_once "Models/Contact.php";
 require_once "Models/Member.php";
 require_once "Models/Projects.php";
+require_once "Models/Tutorial.php";
 require_once "Views/lib/CleanIn.php";
 require_once "Models/Image.php";
 require_once "Models/ImageBundle.php";
@@ -178,7 +179,6 @@ class AdminController extends AbstractController{
 									$news->initById($_POST['id']);
 									if(is_int($news->getId())){
 										$news->setIsPublished($_POST['is_published']);
-										logThis($news->getIsPublished());
 										$news->save();
 										$this->vars['success']=true;	
 									}										
@@ -410,7 +410,6 @@ class AdminController extends AbstractController{
 
 						}
 						break;
-
 					case "frontPage":
 						switch($actions['frontPage']){
 							case "galleria":
@@ -467,6 +466,53 @@ class AdminController extends AbstractController{
 								$this->view = 'json';
 								break;
 							default:
+								break;
+						}
+						break;
+					case "tutorial":
+						switch ($actions['tutorial']) {
+							case 'edit':
+								$this->view = 'json';
+								$cleaner = new CleanIn();
+								$data = $_POST['data'];
+								if($_POST['up'] == 'url'){
+									$data = urlencode($data);
+								}elseif ($_POST['up']=='title') {
+									$data = str_replace("'",'', $data);
+								}
+								$modelObj = new Tutorial($this->view);
+								if($modelObj->updateTutorial($_POST['up'],$data,$_POST['id'])){
+									$this->vars['success'] = true;
+								}else{
+									$this->vars['success'] = false;
+								}
+								break;
+							case 'publish':
+								$modelObj = new Tutorial($this->view);
+								$modelObj->publishTutorial($_POST['id'],$_POST['pub']);
+								$this->vars['success'] = true;
+								$this->view = 'json';
+								break;
+							case 'delete':
+								logThis('hey');
+								$modelObj = new Tutorial($this->view);
+								$modelObj->deleteTutorial($_POST['id']);
+								$this->view = 'json';
+								$this->vars['id'] = $_POST['id'];
+								break;
+							case 'add':
+								//Clean everything...
+								$cleaner = new CleanIn();
+								$url = urlencode($_POST['url']);
+								$title = str_replace( "'",'', $cleaner->clean($_POST['title']));
+								$cat = str_replace( "'",'', $cleaner->clean($_POST['cat']));
+								$modelObj = new Tutorial($this->view);
+								$modelObj->addAdminTutorial($url,$title,$cat);
+								//No break, fall into default
+							default:
+								$this->view = "AdminViews/tutorial";
+								$modelObj = new Tutorial($this->view);
+								$this->vars['tutorials'] = $modelObj->getAllTutorials();
 								break;
 						}
 						break;

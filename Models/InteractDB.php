@@ -15,7 +15,6 @@ class InteractDB{
 	public $dsn = null;	// for PDO
 	public $error = false; // if we catch an error set to true 
 	public $errorCondition;
-	
 	public $connection = null;
 	public $action = null;			// this is the action to be performed on the DB (SELECT INSERT etc)
 	public $numberEntries = null;	// this is the number of total items to be acted upon
@@ -25,6 +24,10 @@ class InteractDB{
 
 	function __construct($action = null, $data = null){
 		// logThis('InteractDB called');
+		if (!defined('PDO::ATTR_DRIVER_NAME')) {
+			$_SESSION['error'] = true;
+			$_SESSION['fail_message'] = "PDO Not Installed";
+		}
 		$this->dsn = "mysql:dbname=".DATABASE_NAME.";host=".DATABASE_HOST;
 		$this->data = $data;
 		$this->connection = $this->dbConnect();
@@ -63,6 +66,9 @@ class InteractDB{
 		}catch(PDOException $err){
 			$this->error = true;
 			$this->errorCondition = $err;
+			logThis($this->errorCondition);
+			$_SESSION['error'] = true;
+			$_SESSION['fail_message'] = "DB Connect Failed";
 		}	// if we cant connect, return null	
 	} // end dbConnect
 
@@ -94,16 +100,17 @@ class InteractDB{
 
 		// logThis($query);
 
-
-		// Prepare the query
-		try{
-			$stmt = $connection->prepare($query);
-			$stmt->execute($data);
-			$this->returnedRows = $stmt->fetchAll();
-		}catch(Exception $e){
-			$this->error = true;
-			$this->errorCondition = $e;
-			logThis($e, true, 'dbError');
+		if(!$this->error){
+			// Prepare the query
+			try{
+				$stmt = $connection->prepare($query);
+				$stmt->execute($data);
+				$this->returnedRows = $stmt->fetchAll();
+			}catch(Exception $e){
+				$this->error = true;
+				$this->errorCondition = $e;
+				logThis($e, true, 'dbError');
+			}
 		}
 	} // end selectStatement
 
@@ -127,20 +134,21 @@ class InteractDB{
 		$fieldNames = rtrim(implode($fieldName), ",");
 		$fieldValues = rtrim(implode($fieldValue), ",");
 		
-		try{
-			// Construct the query
-			$query = 'INSERT INTO '.$tableName.' ('.$fieldNames.') VALUES ('.$fieldValues.');';
-			// logThis($query);
-			// // Prepare the query
-			$stmt = $connection->prepare($query);
-			// // Execute the query
-			$stmt->execute($data);
-		}catch(Exception $e){
-			$this->error = true;
-			//logThis($e);
-			$this->errorCondition = $e;
+		if(!$this->error){
+			try{
+				// Construct the query
+				$query = 'INSERT INTO '.$tableName.' ('.$fieldNames.') VALUES ('.$fieldValues.');';
+				// logThis($query);
+				// // Prepare the query
+				$stmt = $connection->prepare($query);
+				// // Execute the query
+				$stmt->execute($data);
+			}catch(Exception $e){
+				$this->error = true;
+				//logThis($e);
+				$this->errorCondition = $e;
+			}
 		}
-
 	} // end insertStatement
 
 	private function updateStatement(){
@@ -172,22 +180,23 @@ class InteractDB{
 		foreach ($data as $key => $value) {
 		    $whereClause[] = "$key = :$key";
 		}
-			try{
-				// Construct the query
-				$query = 'UPDATE '.$tableName.' SET '.implode(', ', $whereClause).' WHERE '.$tableKeyName.' ="'.$tableKey.'";';
-				// Prepare the query
-				
-				// var_dump($query);
-				$stmt = $connection->prepare($query);
-				// var_dump($stmt);
-				// Execute the query
-				$stmt->execute($data);
-			}catch (Exception $e){
-				echo $e;
-				$this->error = true;
-				$this->errorCondition = $e;
-			}	
-
+			if(!$this->error){
+				try{
+					// Construct the query
+					$query = 'UPDATE '.$tableName.' SET '.implode(', ', $whereClause).' WHERE '.$tableKeyName.' ="'.$tableKey.'";';
+					// Prepare the query
+					
+					// var_dump($query);
+					$stmt = $connection->prepare($query);
+					// var_dump($stmt);
+					// Execute the query
+					$stmt->execute($data);
+				}catch (Exception $e){
+					echo $e;
+					$this->error = true;
+					$this->errorCondition = $e;
+				}
+			}
 		} // end error checking else clause
 	} // end insertStatement
 
@@ -195,20 +204,22 @@ class InteractDB{
 	public function customStatement($query){
 		// logThis($query);
 		$connection = $this->connection;
-		try{
-			// var_dump($query);
-			$stmt = $connection->prepare($query);
-			//logThis($stmt);
-			// Execute the query
-			$stmt->execute();
-			//logThis($stmt);
-			$this->returnedRows = $stmt->fetchAll();
-		}catch (Exception $e){
-			logThis($e);
-			$this->error = true;
-			$this->errorCondition = $e;
-		}	
 
+		if(!$this->error){
+			try{
+				// var_dump($query);
+				$stmt = $connection->prepare($query);
+				//logThis($stmt);
+				// Execute the query
+				$stmt->execute();
+				//logThis($stmt);
+				$this->returnedRows = $stmt->fetchAll();
+			}catch (Exception $e){
+				logThis($e);
+				$this->error = true;
+				$this->errorCondition = $e;
+			}
+		}
 	} // customStatement
 
 	public function getError(){

@@ -36,6 +36,12 @@ $(document).ready(function(){
 			var imgStr = "<img src='"+basedir+"Views/images/profile_images/"+data['fldProfileImage']+"'>"
 			$('.imageDialog').html(imgStr);
 		}
+		if(data['fldClassStanding']!= ""){
+			$("input[name='class_standing']").val(data['fldClassStanding']);
+		}
+		if(data['fldMajor']!= ""){
+			$("input[name='major']").val(data['fldMajor']);
+		}
 		// social shit
 		if(data['fldGitURL']!= ""){
 			$("input[name='git']").val(data['fldGitURL']);
@@ -95,6 +101,10 @@ $(document).ready(function(){
 						<li><input type="text" name="first_name" value=""></li>
 						<li><span>Last Name</span></li>
 						<li><input type="text" name="last_name" value=""></li>
+						<li><span>Class Standing</span></li>
+						<li><input type="text" name="class_standing" value=""></li>
+						<li><span>Major</span></li>
+						<li><input type="text" name="major" value=""></li>
 						<li><span>Personal Website URL</span></li>
 						<li><input type="text" name="personal_url" value=""></li>
 						<li><span>About Me</span></li>

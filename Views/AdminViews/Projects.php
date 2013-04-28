@@ -131,7 +131,7 @@ $thisUTF8.addClass("utf8Active");
  		$(this).addClass('ajax');  
  		$(this).html(' <input id="editbox" size="'+ $(this).text().length+'" type="text" value="' + $(this).text() + '">');  
   
-		$('#editbox').focus();                                        
+		$('#editbox').focus();
 	} );  
 	//Ajax call on enter
 	$('td.edit').keydown(function(event){  

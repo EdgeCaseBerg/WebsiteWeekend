@@ -870,19 +870,57 @@ table{
 	background:@nestBG;
 	border:@nestBorder;
 
+	.profileDataNest{
+		border:solid 1px #999;
+		background:#fefefe;
+
+		.span12{
+			margin:-5px 0px 0px 5px;
+		}
+
+		.profileName{
+			font-weight:bold;
+			font-size:1.2em;
+			margin-top:20px;
+		}
+
+		.profileStanding{
+
+		}
+
+		.profileMajor{
+
+		}
+	}
+
+	.span2{
+		padding:0px 0px 0px 10px;
+	}
+
+	.span8{
+		background:none;
+		.span12{
+			padding:10px;
+			border:solid 1px #ccc;
+			background-color:#fff;
+		}
+	}
+
 	ul{
 		margin:0px;
 		padding:0px;
 	}
 
 	.contentHeader{
-		width:100%;
-		text-align:center;
-		font-size:1.4em;
+		margin:2em 0em 0em 1em;
+		font-size:1.1em;
 		color:@contentHeader;
 		padding:20px 0px 0px 0px;
 		font-weight:bold;
+	}
 
+	.firstHeader{
+		margin-top:-1em;
 	}
 
 	.avatar{
@@ -901,11 +939,16 @@ table{
 		height:200px;
 
 			.profilePicNest{
-				min-height:200px;
+				min-height: 0px;
+				max-height:200px;
 				width:200px;
 				border:0px;
 				padding:0px;
 				display:inline-block;
+
+				img{
+					height:300px;
+				}
 				
 				.avatar{
 					background:url('../images/noprofile.png');
@@ -1031,7 +1074,9 @@ table{
 
 
 
-
+.socialIcon{
+	width:35px;
+}
 
 /* ---------------- EditProfile ------------------ */
 
@@ -1181,21 +1226,30 @@ table{
 		
 	}
 
-.buttonRow{
-	width:90%;
-	margin-left:4%;
+	.buttonRow{
+		width:90%;
+		margin-left:4%;
 
-	input{
-		margin:20px 0px 0px 0%;
-		height:1.9em;
-		width:10%;
-		min-width:80px;
-		font-size:1.3em;
+		input{
+			margin:20px 0px 0px 0%;
+			height:1.9em;
+			width:10%;
+			min-width:80px;
+			font-size:1.3em;
+		}
 	}
 }
 
-
-}
+/* styles shared with Profile.php */
+.imageDialog{
+			width:200px;
+			min-height:200px;
+			border:solid 1px #999;
+			margin:0px;
+			padding:0px;
+			display:inline-block;
+			background:url('../images/noprofile.png');
+		}
 
 
 
@@ -1906,6 +1960,25 @@ table{
 					width: 100%;
 				}
 			}
+			vertical-align: top;
+			width: 15%;
+		}
+		ul{
+			li{
+				display: block;
+			}
+		}
+	}
+	#tutorialsAdmin{
+		.tutCat{
+			display: inline-block;
+			h3{
+				text-align: center;
+				li{
+					width: 100%;
+				}
+			}
+			vertical-align: top;
 			width: 15%;
 
 /* --------- Admin Front Page Images--------- */
@@ -1976,6 +2049,22 @@ table{
 		a:hover{
 			color: #bbb;
 			text-decoration: none;
+		}
+		ul{
+			li{
+				display: inline;
+			}
+		}
+	}
+	.tutCat{
+		li{
+			background: #eeeeee;
+			padding: 1%;
+			width: 100%;
+		}
+		div{
+			background: #aaaaaa;
+			border: thin dashed #aaaaaa;
 		}
 	}
 }

@@ -21,6 +21,7 @@
         <li>To activate a member as a CS Crew Member simply check the Active checkbox</li>
         <li>To change a user to be an administrator give them an Auth Level of 3</li>
         <li>To ban a user set their Auth Level to Banned</li>
+        <li>To delete a user, click the delete button and comfirm. <span style="color:#ff0000">This is Permanent</span></li>
       </ul>
     </p>
     <p>
@@ -34,6 +35,7 @@
         <th>Active</th>
         <th>Auth Level</th>
         <th>Banned</th>
+        <th>Delete</th>
       </thead>
     <?php
       $i=1;
@@ -60,6 +62,7 @@
         </td>
         <?
         echo '<td name="ban" rel="'.$member['pkUserID'].'">' . ($member['auth'] < 0 ? 'Yes' : 'No') . '</td>'; 
+        echo '<td class="deleteMem" rel="'.$member['pkUserID'].'"><a href="" onclick="return false;" >Delete</a></td>';
         echo '</tr>';
         $i=$i+1;
       }
@@ -126,5 +129,23 @@
           }
       });
   });
-
+  $('.deleteMem').bind('click',function(){
+    var id = $(this).attr('rel');
+    toDel = $(this);
+    
+    //Ask to make sure
+    if(confirm("Are you sure you want to delete this user?")){
+      $.ajax({
+          type: "POST",
+          url: base+'Admin/?members=delete',
+          data: "id="+id,
+          success: function(){
+              //This will succeed. Guarantee.
+              $('#message').html('Deleted member');
+              //Remove that row
+              toDel.closest('tr').remove();
+          }
+      }); 
+    }
+  });
 </script>

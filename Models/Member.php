@@ -43,6 +43,15 @@ class Member{
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];		
 	}
+
+	public function deleteMember($id){
+		$query = 'DELETE FROM tblUserAccount WHERE pkUserID = '. $id .';';
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customStatement($query);
+		$this->vars['success'] = $dbWrapper->returnedRows;
+		logThis($this->vars);
+		return $this->vars['success'];			
+	}
 	
 	public function getView(){
 		return $this->view;

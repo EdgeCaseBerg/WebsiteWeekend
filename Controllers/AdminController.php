@@ -337,6 +337,10 @@ class AdminController extends AbstractController{
 								break;
 							case 'delete':
 								//ajax handler
+								$this->view = 'json';
+								$id = $_POST['id'];
+								$modelObj = new Member('AdminViews/member');
+								$this->vars['success']=$modelObj->deleteMember($id);
 								break;
 							case 'changeAuth':
 								//ajax handler

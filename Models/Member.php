@@ -13,7 +13,7 @@ class Member{
 	}
 
 	public function getMembers($start=0,$limit=10){
-		$query = "SELECT fldProfileImage as image,fldFirstName as fname,fldLastName as lname,fldPersonalURL as url, fldEmail as email,fldAboutMe as aboutme FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID AND ta.active=1 LIMIT $start , $limit;";		
+		$query = "SELECT pkUserId as profLink, fldProfileImage as image,fldFirstName as fname,fldLastName as lname,fldPersonalURL as url, fldEmail as email,fldAboutMe as aboutme FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID AND ta.active=1 LIMIT $start , $limit;";		
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['info'] = $dbWrapper->returnedRows;
@@ -49,7 +49,6 @@ class Member{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$this->vars['success'] = $dbWrapper->returnedRows;
-		logThis($this->vars);
 		return $this->vars['success'];			
 	}
 	

@@ -100,7 +100,6 @@
 		}
  
 		public function generatePath(){
-			logThis('Im in generate path');
 			if($this->path === null){
 				$dbObject= new InteractDB('select', array('tableName'=>'tblNews', 'title'=> $this->title));
 				if(count($dbObject->returnedRows)>0){
@@ -123,7 +122,6 @@
 		public function save(){
 			if($this->id !== null){
 				$statement = 'UPDATE tblNews SET image= "'.$this->image.'", is_published= "'.$this->is_published.'" WHERE id= "'. $this->id . '"';
-				logThis($statement);
 			}else{
 				$this->created_at =  date('Y-m-d H:i:s');
 				$values = "'".$this->title."', '".$this->created_at."', '".$this->path."', '".$this->image."'";

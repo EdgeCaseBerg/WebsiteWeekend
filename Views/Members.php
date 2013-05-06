@@ -33,11 +33,13 @@ $thisUTF8.addClass("utf8Active");
 		    		echo '<div class="row">';
 		    		foreach ($this->vars['members'] as $member) {
 			    		echo '<div class="span3">';
+			    			echo '<a href="'. BASEDIR . 'User/?showUserProfile='. $member['profLink'] . '">';
 			    			if($member['image'] != ""){
 			    				echo '<img width="200" src="'. BASEDIR . 'Views/images/profile_images/' . $member['image'] .'">'	;
 			    			}else{
 			    				echo '<img width="200" height = "200" src="'. BASEDIR . 'Views/profilePics/noprofile.png">'	;
 			    			}
+			    			echo '</a>';
 			    			echo "</br><span>".$member['fname']." ". $member['lname']."</span><br />";
 			    			echo '<a href="mailto:'.$member['email'].'">Contact ' . $member['fname'] . '</a><br />';
 			    			if($member['url']!=''){

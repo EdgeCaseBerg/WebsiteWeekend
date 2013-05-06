@@ -101,7 +101,6 @@ class UserModel{
 	// called when a user updates their profile
 	public function updateProfile($POST){
 		// initialize the input sanitizer
-		logThis($POST);
 		$this->cleaner = new CleanIn();
 		// get the current user profile
 		$array = array(

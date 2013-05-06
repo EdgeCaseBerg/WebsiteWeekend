@@ -80,7 +80,6 @@
     </form>
     <?
     }
-    logThis($this->vars['startLimit']);
     if($this->vars['memberCount'] -15 > $this->vars['startLimit']){
   ?>
     <form id="next" action="<?= BASEDIR . 'Admin/?members=display' ?>" method="POST" >

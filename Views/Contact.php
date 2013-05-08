@@ -6,7 +6,7 @@ require_once "topBar.php";
 //We'll ignore the framework and just do this
 if(isset($_POST['submit'])){
 	if($_POST['submit']){
-		$to ="joshuajdickerson@gmail.com";
+		$to ="uvm.cscrew@gmail.com";
 		//Trim the last comma
 		// $to = substr($to, 0,-1);
 		$subject = "CS Crew Contact Form";
@@ -17,13 +17,15 @@ if(isset($_POST['submit'])){
 			$success = true;
 			?>
 			<script>
-				alert('Thanks for contacting us! We\'ll get back to you soon!');
+				$('.contactCover').show();
+				$('#notifier').text("Someone will be contacting you shortly");
 			</script>
 			<?
 		}else{
 			?>
 			<script>
-				alert('Your message was not sent, something must have gone wrong. Email us at cscrew@uvm.edu or uvm.cscrew@gmail.com!');
+				$('.contactCover').show();
+				$('#notifier').text('Your message was not sent, something must have gone wrong. Email us at cscrew@uvm.edu or uvm.cscrew@gmail.com!');
 			</script>
 			<?
 		}
@@ -33,9 +35,14 @@ if(isset($_POST['submit'])){
 ?>
 
 <script type="text/javascript">
-$('.contactLink').css({'color' : '#00774B'});
-var $thisUTF8 = $('a.contactLink').find('.utf8');
-$thisUTF8.addClass("utf8Active");
+$(document).ready(function(){
+	$('.contactLink').css({'color' : '#00774B'});
+	var $thisUTF8 = $('a.contactLink').find('.utf8');
+	$thisUTF8.addClass("utf8Active");
+	$('#closeContactCover').click(function(){
+		$('.contactCover').hide();
+	})
+});
 </script>
 <form action="<? echo BASEDIR;?>Default/?page=contact" method="POST">
 
@@ -78,3 +85,10 @@ $thisUTF8.addClass("utf8Active");
 	</ul>
 
 </form>
+
+<div class="contactCover">
+	<div class="contactCoverNest">
+		<div id="notifier"></div>
+		<input type="button" id="closeContactCover">
+	</div>
+</div>

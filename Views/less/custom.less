@@ -39,32 +39,83 @@
   transform: rotate(@deg);
 }
 
-@font-face {
-    font-family: 'ModernPictogramsNormal';
-    src: url('../fonts/modernpics-webfont.eot');
-    src: url('../fonts/modernpics-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/modernpics-webfont.woff') format('woff'),
-         url('../fonts/modernpics-webfont.ttf') format('truetype'),
-         url('../fonts/modernpics-webfont.svg#ModernPictogramsNormal') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
+@font-face {
+  font-family: 'Give You Glory';
+  src: url('../fonts/GiveYouGlory.ttf');
+  src: local('☺'),
+         url('../fonts/GiveYouGlory.ttf') format('woff'), url('../fonts/GiveYouGlory.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Fredoka One';
+  src: url('../fonts/FredokaOne-Regular.ttf');
+  src: local('☺'),
+         url('../fonts/FredokaOne-Regular.ttf') format('woff'), url('../fonts/FredokaOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../fonts/Syncopate-Regular.ttf');
+  src: local('☺'),
+         url('../fonts/Syncopate-Regular.ttf') format('woff'), url('../fonts/Syncopate-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../fonts/Syncopate-Bold.ttf');
+  src: local('☺'),
+         url('../fonts/Syncopate-Bold.ttf') format('woff'), url('../fonts/Syncopate-Bold.ttf') format('truetype');
+  font-weight:bold;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Regular.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Regular.ttf') format('woff'), url('../fonts/Quantico-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Bold.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Bold.ttf') format('woff'), url('../fonts/Quantico-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-BoldItalic.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-BoldItalic.ttf') format('woff'), url('../fonts/Quantico-BoldItalic.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic, oblique;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Italic.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Italic.ttf') format('woff'), url('../fonts/Quantico-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic, oblique;
 }
 
 
-
-@import url(http://fonts.googleapis.com/css?family=Baumans);
-@import url(http://fonts.googleapis.com/css?family=Quantico);
-@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
-@import url(http://fonts.googleapis.com/css?family=Give+You+Glory);
-@import url(http://fonts.googleapis.com/css?family=Syncopate);
-@import url(http://fonts.googleapis.com/css?family=Duru+Sans);
+/*@import url(http://fonts.googleapis.com/css?family=Quantico);*/
+/*@import url(http://fonts.googleapis.com/css?family=Fredoka+One);*/
+/*@import url(http://fonts.googleapis.com/css?family=Give+You+Glory);*/
+/*@import url(http://fonts.googleapis.com/css?family=Syncopate);*/
 
 
 
 body{
 	background-image:url('../images/backgrounds/zigzag.png');
-	// background:white;
+	/*background:white;*/
 	margin:0px;
 
 }
@@ -90,20 +141,6 @@ table{
 	tr{
 		cursor:pointer;
 	}
-}
-
-.admin{
-	font-family: 'ModernPictogramsNormal'; /* BYO icon font, mapped smartly */
-  content: attr(data-icon);
-  speak: none; /* Not to be trusted, but hey. */
-  font-size:1.4em;
-  float:right;
-  border:solid 1px #333;
-  margin-right:1em;
-
-  span{
-  	padding:3px 3px 3px 3px;
-  }
 }
 
 .contentHeader{

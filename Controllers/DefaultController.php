@@ -80,7 +80,12 @@ class DefaultController extends AbstractController{
 						} // end switch
 				} // end foreach
 			} // end else
-		} // end if
+		} else {
+			require_once "Models/DefaultModel.php";
+			$modelObj = new DefaultModel("defaultView");
+			$this->vars['news'] = $modelObj->getVars();
+		}
+
 
 	} // end parseAction()
 

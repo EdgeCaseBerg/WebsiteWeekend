@@ -46,6 +46,7 @@ class UserController extends AbstractController{
 					break;
 					case "updateProfile":
 						// if($_SESSION['user']->getUserAuth() > 0){
+							logThis($this->POST);
 							$_SESSION['user']->updateProfile($this->POST);
 						// }
 					break;

@@ -202,24 +202,29 @@ class InteractDB{
 
 
 	public function customStatement($query){
-		// logThis($query);
-		$connection = $this->connection;
+		// shortcutting, to temporarily fix PDO issues
+		// not secure !!
+		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+		mysqli_query($con, $query);
+		mysqli_close($con);
 
-		if(!$this->error){
-			try{
-				// var_dump($query);
-				$stmt = $connection->prepare($query);
-				//logThis($stmt);
-				// Execute the query
-				$stmt->execute();
-				//logThis($stmt);
-				$this->returnedRows = $stmt->fetchAll();
-			}catch (Exception $e){
-				logThis($e);
-				$this->error = true;
-				$this->errorCondition = $e;
-			}
-		}
+		// $connection = $this->connection;
+
+		// if(!$this->error){
+		// 	try{
+		// 		// var_dump($query);
+		// 		$stmt = $connection->prepare($query);
+		// 		//logThis($stmt);
+		// 		// Execute the query
+		// 		$stmt->execute();
+		// 		//logThis($stmt);
+		// 		$this->returnedRows = $stmt->fetchAll();
+		// 	}catch (Exception $e){
+		// 		logThis($e);
+		// 		$this->error = true;
+		// 		$this->errorCondition = $e;
+		// 	}
+		// }
 	} // customStatement
 
 	public function getError(){

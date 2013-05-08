@@ -40,7 +40,7 @@ $('.contactLink').css({'color' : '#00774B'});
 var $thisUTF8 = $('a.contactLink').find('.utf8');
 $thisUTF8.addClass("utf8Active");
 </script>
-<form action="/Default/?page=contact" method="POST">
+<form action="<? echo BASEDIR;?>Default/?page=contact" method="POST">
 
 	<ul class="contactForm">
 

@@ -6,12 +6,9 @@ require_once "topBar.php";
 //We'll ignore the framework and just do this
 if(isset($_POST['submit'])){
 	if($_POST['submit']){
-		$to ="";
-		foreach ($this->vars['emails'] as $email) {
-			$to .= $email . ',';	
-		}
+		$to ="joshuajdickerson@gmail.com";
 		//Trim the last comma
-		$to = substr($to, 0,-1);
+		// $to = substr($to, 0,-1);
 		$subject = "CS Crew Contact Form";
 		$body = "From: " . $_POST['name'] . ' (' . $_POST['from'] . ')\n\n';
 		$body .= $_POST['body'];
@@ -40,7 +37,7 @@ $('.contactLink').css({'color' : '#00774B'});
 var $thisUTF8 = $('a.contactLink').find('.utf8');
 $thisUTF8.addClass("utf8Active");
 </script>
-<form action="/Default/?page=contact" method="POST">
+<form action="<? echo BASEDIR;?>Default/?page=contact" method="POST">
 
 	<ul class="contactForm">
 

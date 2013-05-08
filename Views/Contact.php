@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
 			<script>
 			$(document).ready(function(){
 				$('.contactCover').show();
-				$('#notifier').text("Someone will be contacting you shortly");
+				$('#notifier').text("Thank you, someone will be contacting you shortly");
 			});
 			</script>
 			<?
@@ -93,6 +93,6 @@ $(document).ready(function(){
 <div class="contactCover">
 	<div class="contactCoverNest">
 		<div id="notifier"></div>
-		<input type="button" id="closeContactCover">
+		<input type="button" id="closeContactCover" value="OK">
 	</div>
 </div>

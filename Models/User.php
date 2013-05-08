@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
 * @author Joshua Dickerson at The University of Vermont
 * The UserModel class represents the attributes and 
@@ -101,7 +101,6 @@ class UserModel{
 	// called when a user updates their profile
 	public function updateProfile($POST){
 		// initialize the input sanitizer
-		logThis($POST);
 		$this->cleaner = new CleanIn();
 		// get the current user profile
 		$array = array(
@@ -113,12 +112,13 @@ class UserModel{
 		// update our user expertise (langs)
 		$qry = "DELETE FROM tblExpertise WHERE fkUserID = ".$this->userID.";";
 		$dbWrapper->customStatement($qry);
+
 		if(isset($POST['langs'])){
 			$langsArr = $POST['langs'];
 			for($ii=0; $ii<count($langsArr); $ii++){
 				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (";
 				$query .= $this->userID.", ".$langsArr[$ii].");";
-				// $dbWrapper = new InteractDB();
+				$dbWrapper = new InteractDB();
 				$dbWrapper->customStatement($query);
 			}
 		}

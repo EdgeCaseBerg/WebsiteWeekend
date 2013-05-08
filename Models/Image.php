@@ -94,7 +94,15 @@ class Image{
 				$dbObject->customStatement($query);
 			}
 		}
-	}	
+	}
+
+	public function delete(){
+		if($this->id != null){
+			$query = "DELETE FROM tblFrontPageImages WHERE id = ".$this->id;
+			$dbObject = new InteractDB();
+			$dbObject->customStatement($query);
+		}
+	}
 }
 
 ?>

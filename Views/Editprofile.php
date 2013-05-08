@@ -84,6 +84,7 @@ $(document).ready(function(){
 	}
 
 	$('#submitButt').click(function(){
+		alert("It may take a minute for your profile to be updated, please be patient");
 		$('#editProf').submit();
 	});
 });

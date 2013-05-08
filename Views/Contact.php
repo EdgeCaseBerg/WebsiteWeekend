@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 			?>
 			<script>
 			$(document).ready(function(){
-				$('.contactCover').css("display" : "block");
+				$('.contactCover').show();
 				$('#notifier').text("Someone will be contacting you shortly");
 			});
 			</script>
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
 			?>
 			<script>
 			$(document).ready(function(){
-				$('.contactCover').css("display" : "block");
+				$('.contactCover').show();
 				$('#notifier').text('Your message was not sent, something must have gone wrong. Email us at cscrew@uvm.edu or uvm.cscrew@gmail.com!');
 			});
 			</script>

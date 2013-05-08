@@ -1,11 +1,10 @@
-f<?php
+<?php
 /**
 * @author Joshua Dickerson at The University of Vermont
 *  Profile.php displays the user's profile
 **/
 require_once "topBar.php";
-
-// var_dump($this->vars['profile']);
+// var_dump($this->vars['memberLangs']);
 ?>
 
 <script type="text/javascript">
@@ -13,35 +12,6 @@ $(document).ready(function(){
 	var base= "<?= BASEDIR ?>";
 });
 </script>
-
-<!-- 
-<div class="profileContain">
-	<div class="contentHeader">
-	</div>
-	<ul>
-		<li class="containRow row1">
-			<div class="nest">
-				<div class="profilePicNest">
-				</div>
-				<div class="profileDescrip">
-					<ul>
-						<li class="title"><h3><b>About Me</b></h3></li>
-						<li class="profileData descripText"></li>
-						<li class="title"><h3><b>Expertise</b></h3></li>
-						<li class="profileData expertiseList"><li>
-						<li class="title"><h3><b>Website</b></h3></li>
-						<li class="profileData personalURL"></li>
-					</ul>
-				</div>
-				<div class="social">
-				</div>
-				<div class="clearBoth"></div>
-				</div>
-			</div>
-		</li>
-	</ul>
-</div> -->
-
 
 <div class="profileContain">
 	<div class="row-fluid">
@@ -74,7 +44,14 @@ $(document).ready(function(){
 			</div>
 			<span class="contentHeader">Expertise</span>
 			<div class="span12">
-					<?= $this->vars['profile']['fldAboutMe']; ?>
+					<?
+						$out = "";
+						foreach ($this->vars['memberLangs'] as $langs){
+							$out .= $langs['language'].", ";
+						}
+						$out = substr_replace($out ,"",-2);
+						echo $out;
+					?>
 			</div>
 		</div>
 		<div class="span2">

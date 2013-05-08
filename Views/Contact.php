@@ -17,15 +17,19 @@ if(isset($_POST['submit'])){
 			$success = true;
 			?>
 			<script>
-				$('.contactCover').show();
+			$(document).ready(function(){
+				$('.contactCover').css("display" : "block");
 				$('#notifier').text("Someone will be contacting you shortly");
+			});
 			</script>
 			<?
 		}else{
 			?>
 			<script>
-				$('.contactCover').show();
+			$(document).ready(function(){
+				$('.contactCover').css("display" : "block");
 				$('#notifier').text('Your message was not sent, something must have gone wrong. Email us at cscrew@uvm.edu or uvm.cscrew@gmail.com!');
+			});
 			</script>
 			<?
 		}

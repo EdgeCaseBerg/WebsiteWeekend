@@ -273,49 +273,55 @@ table{
 
 
 /* -------  style for defaultView.php -------  */
+.defaultViewNest{
+	.icon{
+		width:28px;
+		}
 
-.icon{
-	width:28px;
+	.rightSpan{
+		padding:3px;
 	}
 
-.rightSpan{
-	padding:3px;
-}
+	.centerSpan{
+		padding:5px;
+		border:solid 1px #eee;
 
-.centerSpan{
-	padding:5px;
-	border:solid 1px #eee;
-
-	.newsImg{
-		float:left;
-		margin:5px;
-		width:200px;
+		.newsImg{
+			float:right;
+			margin:5px;
+			width:200px;
+		}
 	}
-}
 
-.newsBlock{
-	border:none;
-	padding:4px;
+	.newsBlock{
+		border:none;
+		padding:4px;
 
-	.headline{
-		font-weight:bold;
+		.headline{
+			font-weight:bold;
+		}
+		.newsItem{
+			font-size:0.8em;
+		}
 	}
-	.newsItem{
-		font-size:0.8em;
-	}
-}
 
 
-.galleryContain{
-	text-align:center;
-	width:100%;
-	height:300px;
-	/*background-image:url('http://subtlepatterns.com/patterns/zigzag.png');*/
+	.galleryContain{
+		text-align:center;
+		width:100%;
+		height:300px;
 
-	#galleria{
+		.span6{
+			text-align:left;
+		}
+		/*background-image:url('http://subtlepatterns.com/patterns/zigzag.png');*/
+
+		#galleria{
+			display:inline-block;
 			height:100%;
 			width:400px;
-		}
+			}
+	}
 }
 
 
@@ -1004,6 +1010,7 @@ table{
 		padding-top:50px;
 		width:45%;
 		text-align:left;
+		padding-left:10px;
 
 		span{
 			font-family: 'Syncopate', sans-serif;
@@ -1041,6 +1048,8 @@ table{
 		}
 
 		.leftNest{
+			margin:0px;
+			padding:0px;
 
 			ul{
 				margin:10px 0px 0px 0px;
@@ -1853,6 +1862,12 @@ table{
 			vertical-align: top;
 			width: 15%;
 		}
+		ul{
+			li{
+				display: inline;
+			}
+		}
+		
 	}
 }			
 

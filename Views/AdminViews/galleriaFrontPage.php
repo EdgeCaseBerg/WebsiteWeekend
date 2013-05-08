@@ -43,7 +43,7 @@
 			<tbody>
 				<?php
 					foreach($this->vars['images'] as $image){
-						echo '<tr>';
+						echo '<tr id="image-'.$image->getId().'">';
 						echo '<td>'.$image->getId().'</td>';
 						echo '<td>'.$image->getPath().'</td>';
 						echo '<td>'.$image->getTitle().'</td>';
@@ -83,7 +83,6 @@ $(document).ready(function(){
 		stop: function(event, ui){
 			stopIndex = ui.item.index();
 			if(ui.item.data('startIndex') !== stopIndex){
-				console.log($("#image-list").sortable("toArray"));
 				reorderImages($("#image-list").sortable("toArray"));
 				reorderGalleria(ui.item.data('startIndex'), stopIndex);
 			}
@@ -110,7 +109,6 @@ $(document).ready(function(){
 			data: {order: imageOrderString},
 			success: function(response){
 				console.log('success');
-				console.log(response);
 			},
 			error: function(response){
 				console.log('error');
@@ -124,18 +122,35 @@ $(document).ready(function(){
 		
 		if(startIndex > stopIndex){
 			gallery.splice(stopIndex,0,picture);
-			console.log('in greater than');
 			var startIndex = startIndex + 1;
 			gallery.splice(startIndex,1);
 		}else{
 			gallery.splice((stopIndex +1),0,picture);
-			console.log('in less than');
 			gallery.splice(startIndex,1);
 		}
 	}
+
 	$(".delete").live('click', function(){
-		var id = $this.attr("data");
-		console.log();
+		var id = $(this).attr("data");
+		$.ajax({
+			url: basedir+"Admin/?frontPage=deleteGalleriaImage&output=json",
+			type: "POST",
+			data: {id:id},
+			success: function(response){
+				tableIndex = oTable.fnGetPosition(document.getElementById('image-'+id));
+				oTable.fnDeleteRow(tableIndex);
+				//Get index in galleria
+				items = $("#image-list").sortable("toArray");
+				index = items.indexOf('list-image-'+id);
+				console.log(items);
+				console.log(index);
+				items.splice(index,1);
+				reorderImages(items);
+				gallery.splice(index,1);
+				$("#list-image-"+id).remove();
+				$("#image-list").sortable("refresh");
+			}
+		});
 	});
 });
 </script>

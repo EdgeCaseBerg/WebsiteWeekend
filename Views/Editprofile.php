@@ -92,37 +92,35 @@ $(document).ready(function(){
 <div class="editProfileContain">
 	<div class="contentHeader">Edit My Profile
 	</div> 
-	<ul>
-		<li class="containRow">
-			<form method="post" action="<? echo BASEDIR; ?>User/?updateProfile=profile" id="editProf" name="form1" enctype="multipart/form-data">
-				<div class="leftCell containCell">
-					<ul>
-						<li><span class="inputTitle">First Name</span></li>
-						<li><input type="text" name="first_name" value=""></li>
-						<li><span>Last Name</span></li>
-						<li><input type="text" name="last_name" value=""></li>
-						<li><span>Class Standing</span></li>
-						<li><input type="text" name="class_standing" value=""></li>
-						<li><span>Major</span></li>
-						<li><input type="text" name="major" value=""></li>
-						<li><span>Personal Website URL</span></li>
-						<li><input type="text" name="personal_url" value=""></li>
-						<li><span>About Me</span></li>
-						<li><textarea name="about_me" class="about_me" rows="6"></textarea></li>
-						<li><span class="inputTitle">Expertise</span></li>
-						<li>
-							<div class="expertiseCheckboxNest">
-								<ul id="languagesList">
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</div>
-
-
-				<div class="rightCell containCell">
-					<div class="leftNest nest">
-						<div class="inputTitle">Social Networks</div>
+	<div class="row-fluid">
+		<form method="post" action="<? echo BASEDIR; ?>User/?updateProfile=profile" id="editProf" name="form1" enctype="multipart/form-data">
+			<div class="span4 leftCell">
+				<ul>
+					<li><span class="inputTitle">First Name</span></li>
+					<li><input type="text" name="first_name" value=""></li>
+					<li><span>Last Name</span></li>
+					<li><input type="text" name="last_name" value=""></li>
+					<li><span>Class Standing</span></li>
+					<li><input type="text" name="class_standing" value=""></li>
+					<li><span>Major</span></li>
+					<li><input type="text" name="major" value=""></li>
+					<li><span>Personal Website URL</span></li>
+					<li><input type="text" name="personal_url" value=""></li>
+					<li><span>About Me</span></li>
+					<li><textarea name="about_me" class="about_me" rows="6"></textarea></li>
+					<li><span class="inputTitle">Expertise</span></li>
+					<li>
+						<div class="expertiseCheckboxNest">
+							<ul id="languagesList">
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="span8 rightCell">
+				<div class="leftNest nest">
+					<div class="inputTitle">Social Networks</div>
 						<ul>
 							<li>
 								<input type="checkbox" class="socialCheckbox" id="git">
@@ -156,17 +154,15 @@ $(document).ready(function(){
 							</li>
 						</ul>
 					</div>
-				
-
 					<div class="rightNest nest">
 						<div class="inputTitle">Profile image</div>
 						<div class="imageDialog" id="PhotoPrevs"></div>
 						<input type="file" class="fileInput" name="userIMG">
 					</div>
-
 				</div>
-			</form>
-		</li>
+			</div>
+		</form>
+
 
 		<li class="buttonRow">
 			<input type="button" id="submitButt" value="submit" class="button">

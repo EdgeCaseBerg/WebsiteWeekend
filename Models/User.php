@@ -1,5 +1,6 @@
 <?php
 /**
+*
 * @author Joshua Dickerson at The University of Vermont
 * The UserModel class represents the attributes and 
 * methods associated with user

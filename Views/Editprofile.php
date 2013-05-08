@@ -91,7 +91,8 @@ $(document).ready(function(){
 </script>
 
 <div class="editProfileContain">
-	<div class="contentHeader">Edit My Profile
+	<div class="row-fluid contentHeader">
+		<div class="span12">Edit My Profile</div>
 	</div> 
 	<div class="row-fluid">
 		<form method="post" action="<? echo BASEDIR; ?>User/?updateProfile=profile" id="editProf" name="form1" enctype="multipart/form-data">

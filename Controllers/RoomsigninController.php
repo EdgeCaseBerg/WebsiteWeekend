@@ -42,7 +42,6 @@ class RoomSignInController extends AbstractController{
 						$uvmInfo = $this->getUVMUserInfo($this->POST['uvm_id']);
 						if(is_array($uvmInfo)){
 							$this->POST['class'] = $uvmInfo['class'];
-							logThis($this->POST);
 						}else{
 							//Not a valid uvm if
 							$this->vars['errors']['uvm'] = "Not a valid UVM Id";

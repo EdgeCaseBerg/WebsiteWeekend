@@ -49,7 +49,7 @@ $thisUTF8.addClass("utf8Active");
 		</p>
 		<p>
 			&nbsp; &nbsp; &nbsp;At any given time there are dozens of CS-Crew projects
-			in progress. Click on a project see a description and any contact information the
+			in progress. Click on a project's name see a description and any contact information the
 			students involved have provided.
 		</p>
 	</li>

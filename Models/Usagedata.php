@@ -17,7 +17,6 @@ class Usagedata{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customStatement($query);
 		$rows = $dbWrapper->returnedRows;
-		logThis($rows);
 		$monthArr = array(
 		31, 28, 31, 30,
 			31, 30, 31, 31,
@@ -65,7 +64,6 @@ class Usagedata{
 				if($mm==$beginMonth){
 					// logThis("in Begin Month");
 					// for every day from the beginDay to the last day of the month
-					logThis($monthArr[$mm-1]);
 					for($ii=$beginDay; $ii<=$monthArr[$mm-1]; $ii++){
 						// check all of our database rows
 						for($zz=0; $zz<count($rows); $zz++){

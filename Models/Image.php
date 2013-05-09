@@ -92,7 +92,7 @@ class Image{
 			$this->retrieveHighestSortOrder();
 			if($this->path != null && $this->title!=null && $this->description!=null && $this->sort_order != null){
 				$query = "INSERT INTO tblFrontPageImages (path, title, description, sort_order) VALUES ('?', '?', '?', '?')";
-				$arr = array($this->path, $this->title, $this->description, $this->sort_order)
+				$arr = array($this->path, $this->title, $this->description, $this->sort_order);
 				$dbObject = new InteractDB();
 				$dbObject->customStatement($query, $arr);
 			}
@@ -103,7 +103,7 @@ class Image{
 		if($this->id != null){
 			$query = "DELETE FROM tblFrontPageImages WHERE id = ?";
 			$dbObject = new InteractDB();
-			$arr = array($this->id;)
+			$arr = array($this->id);
 			$dbObject->customStatement($query, $arr);
 		}
 	}

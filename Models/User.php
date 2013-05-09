@@ -111,21 +111,17 @@ class UserModel{
 		$dbWrapper = new InteractDB('select', $array);
 
 		// update our user expertise (langs)
-		$qry = "DELETE FROM tblExpertise WHERE fkUserID = :userID;";
-		$arr = array(":userID"=>$this->userID);
+		$qry = "DELETE FROM tblExpertise WHERE fkUserID =?;";
+		$arr = array($this->userID);
 		$dbWrapper->customStatement($qry, $arr);
 
 		if(isset($POST['langs'])){
 			$langsArr = $POST['langs'];
 			for($ii=0; $ii<count($langsArr); $ii++){
-				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (";
-				$query .= ":userID, :lang);";
-				$arr = array(
-					":userID"=>$this->userID,
-					":lang"=>$langsArr[$ii]
-				);
-				$dbWrapper = new InteractDB();
-				$dbWrapper->customStatement($query, $arr);
+				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (?, ?);";
+				$arr = array($this->userID, $langsArr[$ii]);
+				$dbWrapper2 = new InteractDB();
+				$dbWrapper2->customStatement($query, $arr);
 			}
 		}
 		// begin prepping our new entry

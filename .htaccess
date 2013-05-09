@@ -1,6 +1,5 @@
 Options -Indexes
 RewriteEngine On
-RewriteBase /~cscrew
 RewriteCond %{REQUEST_URI} !\.(jpg|gif|png|js|css|less|ttf)$
 RewriteCond %{REQUEST_URI} !index\.php
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]

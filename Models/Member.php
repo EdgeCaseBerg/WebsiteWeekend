@@ -47,7 +47,7 @@ class Member{
 		$query = 'UPDATE tblUserAccount SET fldAuth = :auth WHERE pkUserID = :id;';
 		$dbWrapper = new InteractDB();
 		$arr = array(':auth'=>$auth, ':id'=>$id);
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];		
 	}
@@ -56,7 +56,7 @@ class Member{
 		$query = 'DELETE FROM tblUserAccount WHERE pkUserID = :id;';
 		$dbWrapper = new InteractDB();
 		$arr = array(':id'=>$id);
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];			
 	}

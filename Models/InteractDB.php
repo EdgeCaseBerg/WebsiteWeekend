@@ -201,24 +201,26 @@ class InteractDB{
 	} // end insertStatement
 
 
-	public function customStatement($query, $array= null){
+	public function customStatement($query, $array = false){
 		// shortcutting, to temporarily fix PDO issues
 		// not secure !!
 		// $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 		// mysqli_query($con, $query);
 		// mysqli_close($con);
-
 		$connection = $this->connection;
-		if($array == null){
+		if(!$array){
+			// LogThis("------------");
 			if(!$this->error){
 				try{
 					// var_dump($query);
-					$stmt = $connection->prepare($query);
+					$stmt = $connection->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 					//logThis($stmt);
 					// Execute the query
 					$stmt->execute();
-					//logThis($stmt);
-					$this->returnedRows = $stmt->fetchAll();
+					// logThis($stmt);
+					if(stripos($query, 'INSERT')===false && stripos($query, 'UPDATE')===false && stripos($query, 'DELETE')===false){
+						$this->returnedRows = $stmt->fetchAll();
+					}
 				}catch (Exception $e){
 					logThis($e);
 					$this->error = true;
@@ -229,12 +231,14 @@ class InteractDB{
 			if(!$this->error){
 				try{
 					// var_dump($query);
-					$stmt = $connection->prepare($query);
+					$stmt = $connection->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 					//logThis($stmt);
 					// Execute the query
 					$stmt->execute($array);
-					//logThis($stmt);
-					$this->returnedRows = $stmt->fetchAll();
+					// logThis($stmt);
+					if(stripos($query, 'INSERT')===false && stripos($query, 'UPDATE')===false && strpos($query, 'DELETE')===false){
+						$this->returnedRows = $stmt->fetchAll();
+					}
 				}catch (Exception $e){
 					logThis($e);
 					$this->error = true;
@@ -243,6 +247,16 @@ class InteractDB{
 			}
 		}
 	} // customStatement
+
+
+	public function customMysqli($query){
+		logThis($query);
+		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+		$result = mysqli_query($con, $query);
+		$this->returnedRows[0] = $result->fetch_array(MYSQLI_BOTH);
+		logThis($this->returnedRows);
+		mysqli_close($con);
+	}
 
 	// public function customStatement($query){
 	// 	// shortcutting, to temporarily fix PDO issues

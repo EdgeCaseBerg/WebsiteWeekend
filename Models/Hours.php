@@ -16,25 +16,27 @@ class Hours{
 		$query .= "FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu WHERE ";
 		$query .= "tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ORDER BY hour;";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
+		logThis($this->vars['hours']);
 		return $this->vars['hours'];
 	}
 
 	public function addHours($id,$hour,$day,$endHour){
 		$dbWrapper = new InteractDB();
-		$query = "INSERT INTO `CSCREW_Website`.`tblHours` (`fkCrewID`, `day`, `hour`,`endHour`) VALUES ";
-		$query .= "(':id', ':day', ':hour',':endHour');";
-		$arr = array(':id'=>$id, ':day'=>$day, ':hour'=>$hour,':endHour'=>$endHour);
+		$query = "INSERT INTO CSCREW_Website.tblHours (fkCrewID, day, hour, endHour) VALUES ";
+		$query .= "(?, ?, ?, ?);";
+		$arr = array($id, $day, $hour, $endHour);
 		$dbWrapper->customStatement($query, $arr);
 
 	}
 
 	public function getActiveMembers(){
+		logThis("********");
 		$query = "SELECT fkUserID, fldFirstName, fldLastName FROM tblUserProfile tbp, tblUserAccount tbu ";
 		$query .= "WHERE tbp.fkUserID = tbu.pkUserID AND tbu.active=1";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		$this->vars['members'] =  $dbWrapper->returnedRows;
 		return $this->vars['members'];	
 	}

@@ -42,7 +42,7 @@
 		$dirTrim = str_replace("/" ,"",$dirTrim);
 		// $dirTrim = str_replace("~cscrew" ,"",$requestArr['path']);
 		// $dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
-		// logThis($dirTrim);
+		logThis($dirTrim);
 		
 		
 		if(isset($urlPath[1+array_search($dirTrim, $urlPath)])){

@@ -63,7 +63,7 @@ class Tutorial{
 		//info is an array with pkid in 0, day in 1, hour in 2
 		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = 1 ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();
@@ -76,9 +76,10 @@ class Tutorial{
 
 	public function getTutorialsByPublished($published){
 		//info is an array with pkid in 0, day in 1, hour in 2
-		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = $published ORDER BY fldCategory";
+		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = ? ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array($published);
+		$dbWrapper->customStatement($query, $arr);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();
@@ -93,7 +94,7 @@ class Tutorial{
 		//info is an array with pkid in 0, day in 1, hour in 2
 		$query = "SELECT fldPublished as published, pkTutorialId as id, fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();

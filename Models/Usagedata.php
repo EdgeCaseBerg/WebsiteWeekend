@@ -15,7 +15,7 @@ class Usagedata{
 		$query .= "as year FROM `tblRoomUsage` GROUP BY year(visitDate), ";
 		$query .= "month(visitDate), day(visitDate)";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		$rows = $dbWrapper->returnedRows;
 		$monthArr = array(
 		31, 28, 31, 30,
@@ -144,7 +144,7 @@ class Usagedata{
 		$query .= "purpose FROM tblRoomUsage tru";
 		$query .= " ,tblPurpose p WHERE tru.fkPurpose=p.pkID GROUP BY p.pkID";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		$purposeData = array();
 		for($ii=0; $ii<count($dbWrapper->returnedRows); $ii++){
 			$purposeData[$ii]['qty'] = (int)$dbWrapper->returnedRows[$ii]['peoples'];

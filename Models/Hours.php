@@ -10,7 +10,7 @@ class Hours{
 	}
 
 	public function getAllHours(){
-		//Gets Hours without any expertise search
+		//Gets Hours without any expertise search 
 		$query = "SELECT fkUserID, fldFirstName, fldLastName, day , hour,endHour ";
 		$query .= "FROM tblUserProfile tbp, tblHours th,tblUserAccount tbu WHERE ";
 		$query .= "tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ORDER BY hour;";
@@ -62,8 +62,7 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$arr = array(':id0'=>$id[0], ':id1'=>$id[1], ':id2'=>$id[2]);
 		$dbWrapper->customStatement($query, $arr);
-		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
-			//A 2053 means it worked... weird but true
+		if($dbWrapper->error===false){
 			$this->vars['success'] = true;
 		}else{
 			$this->vars['success'] = false;
@@ -78,15 +77,14 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$arr = array($info[0], $info[1], $info[2]);
 		$dbWrapper->customStatement($query, $arr);
-		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
+		if($dbWrapper->error===false){
 			//A 2053 means it worked... weird but true
 			$this->vars['success'] = true;
 		}else{
 			$this->vars['success'] = false;
-			// return false;
+			return false;
 		}
-		$this->vars['success'] = true;
-		return true;
+		return $this->vars['success'];
 	}
 
 	public function getLanguages(){

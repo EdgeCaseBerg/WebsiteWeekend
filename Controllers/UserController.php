@@ -184,10 +184,11 @@ class UserController extends AbstractController{
 						if(isset($_POST['fldPassword']) && isset($_POST['validEmail']) && isset($_POST['lostEmailHash'])){
 							// update our db with the new password
 							$query = "UPDATE tblUserAccount SET fldLostPasswordHash=null, ";
-							$query .= "fldPassword=".$_POST['fldPassword']." WHERE fldEmail=";
-							$query .= $_POST['validEmail']." AND fldLostPasswordHash=".$_POST['lostEmailHash'];
+							$query .= "fldPassword= :pass WHERE fldEmail=";
+							$query .= ":email AND fldLostPasswordHash= :lostHash";
 							$dbWrapper = new InteractDB();
-							$dbWrapper->customStatement($query);
+							$arr = array(':pass'=>$_POST['fldPassword'], ':email'=>$_POST['validEmail'], ':lostHash'=>$_POST['lostEmailHash']);
+							$dbWrapper->customStatement($query, $arr);
 						}else{
 							// if we got invalid info, drop to the default
 							header("location: ".BASEDIR."Default/"); 

@@ -275,6 +275,7 @@ class AdminController extends AbstractController{
 							case 'delete':
 								//Json only.
 								$info = explode('|',$_POST['id']);
+								logThis($info);
 								$modelObj = new Hours('json');
 								if($modelObj->deleteHours($info)){
 									$this->vars['success'] = true;

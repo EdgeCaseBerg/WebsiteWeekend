@@ -253,8 +253,9 @@ class InteractDB{
 		logThis($query);
 		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 		$result = mysqli_query($con, $query);
-		$this->returnedRows[0] = $result->fetch_array(MYSQLI_BOTH);
-		logThis($this->returnedRows);
+		while($row = mysqli_fetch_array($result)){
+			array_push($this->returnedRows, $row);
+		}
 		mysqli_close($con);
 	}
 

@@ -7,7 +7,6 @@ class Hours{
 
 	function __construct($query){
 		$this->view = $query;
-
 	}
 
 	public function getAllHours(){
@@ -75,19 +74,19 @@ class Hours{
 
 	public function deleteHours($info){
 		//info is an array with pkid in 0, day in 1, hour in 2
-		$query = "DELETE FROM tblHours WHERE fkCrewID=':info0' AND day=':info1' AND hour=':info2'; ";
+		$query = "DELETE FROM tblHours WHERE fkCrewID=? AND day=? AND hour=?;";
 		$dbWrapper = new InteractDB();
-		$arr = array(':info0'=>$info[0], ':info1'=>$info[1], ':info2'=>$info[2]);
+		$arr = array($info[0], $info[1], $info[2]);
 		$dbWrapper->customStatement($query, $arr);
 		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
 			//A 2053 means it worked... weird but true
 			$this->vars['success'] = true;
 		}else{
 			$this->vars['success'] = false;
-			return false;
+			// return false;
 		}
-		return $this->vars['success'];
-
+		$this->vars['success'] = true;
+		return true;
 	}
 
 	public function getLanguages(){

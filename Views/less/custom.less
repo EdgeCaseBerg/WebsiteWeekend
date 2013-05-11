@@ -39,32 +39,83 @@
   transform: rotate(@deg);
 }
 
-@font-face {
-    font-family: 'ModernPictogramsNormal';
-    src: url('../fonts/modernpics-webfont.eot');
-    src: url('../fonts/modernpics-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/modernpics-webfont.woff') format('woff'),
-         url('../fonts/modernpics-webfont.ttf') format('truetype'),
-         url('../fonts/modernpics-webfont.svg#ModernPictogramsNormal') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
+@font-face {
+  font-family: 'Give You Glory';
+  src: url('../fonts/GiveYouGlory.ttf');
+  src: local('☺'),
+         url('../fonts/GiveYouGlory.ttf') format('woff'), url('../fonts/GiveYouGlory.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Fredoka One';
+  src: url('../fonts/FredokaOne-Regular.ttf');
+  src: local('☺'),
+         url('../fonts/FredokaOne-Regular.ttf') format('woff'), url('../fonts/FredokaOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../fonts/Syncopate-Regular.ttf');
+  src: local('☺'),
+         url('../fonts/Syncopate-Regular.ttf') format('woff'), url('../fonts/Syncopate-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../fonts/Syncopate-Bold.ttf');
+  src: local('☺'),
+         url('../fonts/Syncopate-Bold.ttf') format('woff'), url('../fonts/Syncopate-Bold.ttf') format('truetype');
+  font-weight:bold;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Regular.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Regular.ttf') format('woff'), url('../fonts/Quantico-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Bold.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Bold.ttf') format('woff'), url('../fonts/Quantico-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-BoldItalic.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-BoldItalic.ttf') format('woff'), url('../fonts/Quantico-BoldItalic.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic, oblique;
+}
+
+@font-face {
+	font-family: 'Quantico';
+	src: url('../fonts/Quantico-Italic.ttf');
+	src: local('☺'),
+         url('../fonts/Quantico-Italic.ttf') format('woff'), url('../fonts/Quantico-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic, oblique;
 }
 
 
-
-@import url(http://fonts.googleapis.com/css?family=Baumans);
-@import url(http://fonts.googleapis.com/css?family=Quantico);
-@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
-@import url(http://fonts.googleapis.com/css?family=Give+You+Glory);
-@import url(http://fonts.googleapis.com/css?family=Syncopate);
-@import url(http://fonts.googleapis.com/css?family=Duru+Sans);
+/*@import url(http://fonts.googleapis.com/css?family=Quantico);*/
+/*@import url(http://fonts.googleapis.com/css?family=Fredoka+One);*/
+/*@import url(http://fonts.googleapis.com/css?family=Give+You+Glory);*/
+/*@import url(http://fonts.googleapis.com/css?family=Syncopate);*/
 
 
 
 body{
 	background-image:url('../images/backgrounds/zigzag.png');
-	// background:white;
+	/*background:white;*/
 	margin:0px;
 
 }
@@ -90,20 +141,6 @@ table{
 	tr{
 		cursor:pointer;
 	}
-}
-
-.admin{
-	font-family: 'ModernPictogramsNormal'; /* BYO icon font, mapped smartly */
-  content: attr(data-icon);
-  speak: none; /* Not to be trusted, but hey. */
-  font-size:1.4em;
-  float:right;
-  border:solid 1px #333;
-  margin-right:1em;
-
-  span{
-  	padding:3px 3px 3px 3px;
-  }
 }
 
 .contentHeader{
@@ -273,49 +310,55 @@ table{
 
 
 /* -------  style for defaultView.php -------  */
+.defaultViewNest{
+	.icon{
+		width:28px;
+		}
 
-.icon{
-	width:28px;
+	.rightSpan{
+		padding:3px;
 	}
 
-.rightSpan{
-	padding:3px;
-}
+	.centerSpan{
+		padding:5px;
+		border:solid 1px #eee;
 
-.centerSpan{
-	padding:5px;
-	border:solid 1px #eee;
-
-	.newsImg{
-		float:left;
-		margin:5px;
-		width:200px;
+		.newsImg{
+			float:right;
+			margin:5px;
+			width:200px;
+		}
 	}
-}
 
-.newsBlock{
-	border:none;
-	padding:4px;
+	.newsBlock{
+		border:none;
+		padding:4px;
 
-	.headline{
-		font-weight:bold;
+		.headline{
+			font-weight:bold;
+		}
+		.newsItem{
+			font-size:0.8em;
+		}
 	}
-	.newsItem{
-		font-size:0.8em;
-	}
-}
 
 
-.galleryContain{
-	text-align:center;
-	width:100%;
-	height:300px;
-	/*background-image:url('http://subtlepatterns.com/patterns/zigzag.png');*/
+	.galleryContain{
+		text-align:center;
+		width:100%;
+		height:300px;
 
-	#galleria{
+		.span6{
+			text-align:left;
+		}
+		/*background-image:url('http://subtlepatterns.com/patterns/zigzag.png');*/
+
+		#galleria{
+			display:inline-block;
 			height:100%;
 			width:400px;
-		}
+			}
+	}
 }
 
 
@@ -659,6 +702,48 @@ table{
 
 }
 
+.contactCover{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	background-image:url('../images/backgrounds/75-percent-black.png');
+	display:none;
+
+	.contactCoverNest{
+		padding:0px;
+		.rounded-corners;
+		width:450px;
+		height:100px;
+		background:white;
+		padding:10px;
+		margin:auto;
+		margin-top:100px;
+
+		#notifier{
+			font-size:1.1em;
+			font-weight:bold;
+			text-align: center;
+		}
+
+		input{
+			display:block;
+			width:80%;
+			margin:auto;
+			margin-top:20px;
+			background-color:#efefef;
+			/*background-color:@button-bg;*/
+			/*color:@button-color;*/
+		}
+		input:hover{
+			background-color:#dedede;
+			color:@button-hover-color;
+		}
+	}
+}
+
 /* ------- members.php ------ */
 .membersContain{
 		vertical-align: top;
@@ -965,7 +1050,7 @@ table{
 	}
 
 	.contentHeader{
-		width:300px;
+		/*width:300px;*/
 		margin:-10px 0px 0px 5%;
 		color:@contentHeader;
 	}
@@ -1004,6 +1089,7 @@ table{
 		padding-top:50px;
 		width:45%;
 		text-align:left;
+		padding-left:10px;
 
 		span{
 			font-family: 'Syncopate', sans-serif;
@@ -1041,6 +1127,8 @@ table{
 		}
 
 		.leftNest{
+			margin:0px;
+			padding:0px;
 
 			ul{
 				margin:10px 0px 0px 0px;

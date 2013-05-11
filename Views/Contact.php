@@ -6,12 +6,9 @@ require_once "topBar.php";
 //We'll ignore the framework and just do this
 if(isset($_POST['submit'])){
 	if($_POST['submit']){
-		$to ="";
-		foreach ($this->vars['emails'] as $email) {
-			$to .= $email . ',';	
-		}
+		$to ="uvm.cscrew@gmail.com";
 		//Trim the last comma
-		$to = substr($to, 0,-1);
+		// $to = substr($to, 0,-1);
 		$subject = "CS Crew Contact Form";
 		$body = "From: " . $_POST['name'] . ' (' . $_POST['from'] . ')\n\n';
 		$body .= $_POST['body'];
@@ -20,13 +17,19 @@ if(isset($_POST['submit'])){
 			$success = true;
 			?>
 			<script>
-				alert('Thanks for contacting us! We\'ll get back to you soon!');
+			$(document).ready(function(){
+				$('.contactCover').show();
+				$('#notifier').text("Thank you, someone will be contacting you shortly");
+			});
 			</script>
 			<?
 		}else{
 			?>
 			<script>
-				alert('Your message was not sent, something must have gone wrong. Email us at cscrew@uvm.edu or uvm.cscrew@gmail.com!');
+			$(document).ready(function(){
+				$('.contactCover').show();
+				$('#notifier').html('Your message was not sent, something must have gone wrong. <br />Please email us at cscrew@uvm.edu.');
+			});
 			</script>
 			<?
 		}
@@ -35,12 +38,18 @@ if(isset($_POST['submit'])){
 
 ?>
 
+
 <script type="text/javascript">
-$('.contactLink').css({'color' : '#00774B'});
-var $thisUTF8 = $('a.contactLink').find('.utf8');
-$thisUTF8.addClass("utf8Active");
+$(document).ready(function(){
+	$('.contactLink').css({'color' : '#00774B'});
+	var $thisUTF8 = $('a.contactLink').find('.utf8');
+	$thisUTF8.addClass("utf8Active");
+	$('#closeContactCover').click(function(){
+		$('.contactCover').hide();
+	})
+});
 </script>
-<form action="/Default/?page=contact" method="POST">
+<form action="<? echo BASEDIR;?>Default/?page=contact" method="POST">
 
 	<ul class="contactForm">
 
@@ -81,3 +90,10 @@ $thisUTF8.addClass("utf8Active");
 	</ul>
 
 </form>
+
+<div class="contactCover">
+	<div class="contactCoverNest">
+		<div id="notifier"></div>
+		<input type="button" id="closeContactCover" value="OK">
+	</div>
+</div>

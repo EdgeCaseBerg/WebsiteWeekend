@@ -1,6 +1,6 @@
 <?php
-
 ?>
+<body>
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
   <a href=<? echo "'".BASEDIR."'";?>><img alt="logo" src="<? echo BASEDIR; ?>Views/images/logo.png" class="uvmLogo"></a>

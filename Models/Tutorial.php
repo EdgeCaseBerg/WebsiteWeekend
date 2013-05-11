@@ -21,10 +21,15 @@ class Tutorial{
 	}
 
 	public function deleteTutorial($id){
-		$dQuery = 'DELETE FROM tblTutorials WHERE pkTutorialId ="'.$id.'"';
+		$query = 'DELETE FROM tblTutorials WHERE pkTutorialId = :id;';
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($dQuery);
+		$arr = array(':id'=>$id);
+		$dbWrapper->customStatement($query, $arr);
+		$this->vars['success'] = $dbWrapper->returnedRows;
+		return $this->vars['success'];	
 	}
+
+
 
 	public function updateTutorial($update,$data,$id){
 		switch ($update) {
@@ -48,13 +53,15 @@ class Tutorial{
 	}
 
 	public function publishTutorial($id,$pubbed){
-		if($pubbed===false){
-			$pubbed = '1';
+		//logThis(gettype($pubbed)); //returns string WAT?
+		if($pubbed==='false'){
+			$pubbed = "0";
 		}else{
-			$pubbed = '0';
-		}
+			$pubbed = "1";
+		}	
 		$info = array('tableKeyName' => 'pkTutorialId', 'tableKey'=>$id,'tableName'=>'tblTutorials',"fldPublished"=>$pubbed);
 		$dbWrapper = new InteractDB('update',$info);
+		logThis($dbWrapper->returnedRows);
 		//Always executes... and no way to see if it worked.
 		return true;
 	}
@@ -63,7 +70,7 @@ class Tutorial{
 		//info is an array with pkid in 0, day in 1, hour in 2
 		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = 1 ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();
@@ -76,9 +83,10 @@ class Tutorial{
 
 	public function getTutorialsByPublished($published){
 		//info is an array with pkid in 0, day in 1, hour in 2
-		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = $published ORDER BY fldCategory";
+		$query = "SELECT fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials WHERE fldPublished = ? ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array($published);
+		$dbWrapper->customStatement($query, $arr);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();
@@ -93,7 +101,7 @@ class Tutorial{
 		//info is an array with pkid in 0, day in 1, hour in 2
 		$query = "SELECT fldPublished as published, pkTutorialId as id, fldURL as url, fldTitle as title, fldCategory as cat FROM tblTutorials ORDER BY fldCategory";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$dbWrapper->customMysqli($query);
 		//PreProcess the returned rows into their categories
 		$tuts = $dbWrapper->returnedRows;
 		$tutorials = array();

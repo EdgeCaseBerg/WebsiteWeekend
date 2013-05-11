@@ -9,8 +9,9 @@ class Image{
 
 	public function initById($id){
 		$dbObject = new InteractDB();
-		$statement = 'SELECT * FROM tblFrontPageImages WHERE id = "'.$id.'"';
-		$dbObject->customStatement($statement);
+		$statement = 'SELECT * FROM tblFrontPageImages WHERE id = ?';
+		$arr = array($id);
+		$dbObject->customStatement($statement, $arr);
 		if($dbObject->returnedRows){
 			$this->id = $dbObject->returnedRows[0]['id'];
 			$this->path= $dbObject->returnedRows[0]['path'];
@@ -83,24 +84,27 @@ class Image{
 
 	public function save(){
 		if($this->id !== null){
-			$query= 'UPDATE tblFrontPageImages SET sort_order="'.$this->sort_order.'", title="'.$this->title.'", description="'.$this->description.'" WHERE id="'.$this->id.'"';
+			$query= "UPDATE tblFrontPageImages SET sort_order=?, title=?, description=? WHERE id=?";
+			$arr = array($this->sort_order, $this->title, $this->description, $this->id);
 			$dbObject = new InteractDB();
-			$dbObject->customStatement($query);
+			$dbObject->customStatement($query, $arr);
 		}else{
 			$this->retrieveHighestSortOrder();
 			if($this->path != null && $this->title!=null && $this->description!=null && $this->sort_order != null){
-				$query = "INSERT INTO tblFrontPageImages (path, title, description, sort_order) VALUES ('".$this->path."', '".$this->title."', '".$this->description."', '".$this->sort_order."')";
+				$query = "INSERT INTO tblFrontPageImages (path, title, description, sort_order) VALUES ('?', '?', '?', '?')";
+				$arr = array($this->path, $this->title, $this->description, $this->sort_order);
 				$dbObject = new InteractDB();
-				$dbObject->customStatement($query);
+				$dbObject->customStatement($query, $arr);
 			}
 		}
 	}
 
 	public function delete(){
 		if($this->id != null){
-			$query = "DELETE FROM tblFrontPageImages WHERE id = ".$this->id;
+			$query = "DELETE FROM tblFrontPageImages WHERE id = ?";
 			$dbObject = new InteractDB();
-			$dbObject->customStatement($query);
+			$arr = array($this->id);
+			$dbObject->customStatement($query, $arr);
 		}
 	}
 }

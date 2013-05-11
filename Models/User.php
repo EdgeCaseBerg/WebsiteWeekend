@@ -65,8 +65,9 @@ class UserModel{
 			//Grab their id out from the new table
 			$dbWrapper = new InteractDB('select', array('tableName'=>"tblUserAccount",'fldEmail'=>$cleanEmail));
 			$info = $dbWrapper->returnedRows[0];
-			$profQuery = 'INSERT INTO tblUserProfile (fkUserID) VALUES ('.$info['pkUserID'].');';
-			$dbWrapper->customStatement($profQuery);
+			$profQuery = 'INSERT INTO tblUserProfile (fkUserID) VALUES (:userID);';
+			$arr = array(":userID"=>$info['pkUserID']);
+			$dbWrapper->customStatement($profQuery, $arr);
 			return true;
 		}else{
 			return false;
@@ -110,16 +111,17 @@ class UserModel{
 		$dbWrapper = new InteractDB('select', $array);
 
 		// update our user expertise (langs)
-		$qry = "DELETE FROM tblExpertise WHERE fkUserID = ".$this->userID.";";
-		$dbWrapper->customStatement($qry);
+		$qry = "DELETE FROM tblExpertise WHERE fkUserID =?;";
+		$arr = array($this->userID);
+		$dbWrapper->customStatement($qry, $arr);
 
 		if(isset($POST['langs'])){
 			$langsArr = $POST['langs'];
 			for($ii=0; $ii<count($langsArr); $ii++){
-				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (";
-				$query .= $this->userID.", ".$langsArr[$ii].");";
-				$dbWrapper = new InteractDB();
-				$dbWrapper->customStatement($query);
+				$query = "INSERT IGNORE INTO tblExpertise (fkUserID, fkLangID) VALUES (?, ?);";
+				$arr = array($this->userID, $langsArr[$ii]);
+				$dbWrapper2 = new InteractDB();
+				$dbWrapper2->customStatement($query, $arr);
 			}
 		}
 		// begin prepping our new entry
@@ -268,9 +270,10 @@ class UserModel{
 		$qryID = $userID != null ? $userID : $this->userID;
 		$query = "SELECT tblLanguages.language FROM tblLanguages LEFT";
 		$query .= " JOIN tblExpertise ON tblLanguages.pkID = ";
-		$query .= "tblExpertise.fkLangID WHERE tblExpertise.fkUserID = '".$qryID."';";
+		$query .= "tblExpertise.fkLangID WHERE tblExpertise.fkUserID = :qryID;";
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(":qryID"=>$qryID);
+		$dbWrapper->customStatement($query, $arr);
 		// logThis($dbWrapper->returnedRows);
 		$langs = array();
 		for($ii=0; $ii<count($dbWrapper->returnedRows); $ii++){

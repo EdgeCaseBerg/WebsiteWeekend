@@ -108,6 +108,10 @@ function milToAMPM($hour){
                   echo '</tr>';
                   $i++;
                 }
+                if($i == 0 ){ //no data
+                  echo "<tr><td colspan=\"2\">No Help Hours Today</td></tr>";
+                  echo "<tr><td colspan=\"2\">Why not <a href=\"Default/?page=contact\">contact us</a>?</td></tr>";
+                }
               }
           ?>
 

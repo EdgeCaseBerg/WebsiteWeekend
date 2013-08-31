@@ -1,9 +1,0 @@
-Options -Indexes
-
-RewriteEngine On
-RewriteCond %{REQUEST_URI} !\.(jpg|gif|png|js|css|less)$
-RewriteCond %{REQUEST_URI} !index\.php
-RewriteCond %{REQUEST_FILENAME} !crop.php
-RewriteCond %{REQUEST_FILENAME} !upload.php
-RewriteRule ^(.*)$ index.php/$1 [L,QSA]
-

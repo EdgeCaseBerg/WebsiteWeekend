@@ -1,0 +1,12 @@
+Options -Indexes
+
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType application/x-font-woff .woff
+
+RewriteEngine On
+RewriteBase /~cscrew
+RewriteCond %{REQUEST_URI} !\.(jpg|gif|png|js|css|less|ttf)$
+RewriteCond %{REQUEST_URI} !index\.php
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]

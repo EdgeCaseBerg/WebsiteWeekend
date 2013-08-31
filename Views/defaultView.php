@@ -72,18 +72,20 @@ include "topBar.php";
       <h2>News</h2>
 <?
     echo '<div id="postContainer" class="row-fluid">';
-    foreach($this->vars['news'] as $newsPost){
-      $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
-        echo '<p class="newsItem">';
-        echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
-        if(strlen($post) > 160){
-          echo substr($post, 0,160).'&#8230;';
-        }else{
-          echo $post;
-        }
-        echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
-        echo "</p>";
-    } 
+    if(isset($this->vars['news'])){
+      foreach($this->vars['news'] as $newsPost){
+        $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
+          echo '<p class="newsItem">';
+          echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
+          if(strlen($post) > 160){
+            echo substr($post, 0,160).'&#8230;';
+          }else{
+            echo $post;
+          }
+          echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
+          echo "</p>";
+      } 
+    }
     echo '</div>';
       
 ?>
@@ -102,7 +104,7 @@ $(document).ready(function(){
 
 // fire up the gallery plugin
   var basedir = <? echo "'".BASEDIR."'"; ?>;
-  var initData = <?php echo $this->vars["galleria"];?>;
+  var initData = <?php echo isset($this->vars["galleria"]) ? $this->vars["galleria"] : '[]';?>;
   Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
   Galleria.configure({
     dataSource: initData

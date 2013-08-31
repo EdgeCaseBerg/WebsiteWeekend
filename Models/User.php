@@ -94,7 +94,7 @@ class UserModel{
 		$returnArr['langs'] = $this->getUserLangs($uud);
 		require_once "Models/Jack.php";
 		$jack = new Jack();
-		$returnArr['memberLangs'] = $jack->getMemberLangs();
+		$returnArr['memberLangs'] = $jack->getMemberLangs(null);
 		$this->vars = $returnArr;
 		return $returnArr;
 	} // end getProfile

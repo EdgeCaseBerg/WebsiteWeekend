@@ -23,12 +23,12 @@ class AdminController extends AbstractController{
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	//Verify admin privilege
-	 	/*
+	 	
 	 	if($_SESSION['user']->getUserAuth()!=3){
 	 		//Not privileged
 	 		header('/');
 	 	}
-	 	*/
+	 	
 	 	$this->parseAction($this->actions);
 	}
 

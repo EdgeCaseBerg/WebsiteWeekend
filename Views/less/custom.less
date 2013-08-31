@@ -157,6 +157,17 @@ table{
 	text-shadow: 0.05em 0.05em 0.05em #aaa;
 }
 
+.socialIconsContainer{
+	position:absolute;
+	top:6px;
+	right:6px;
+
+	img{
+		height:20px;
+		width:20px;
+	}
+}
+
 #topBar{
 	width:100%;
 	min-width:993px;
@@ -169,43 +180,44 @@ table{
 	@media only screen and(max-width : 1065px){font-size:0.8em;}
 
 
-.utf8 {
-	display:inline-block;
-	font-size:0.6em;
-	padding:0em 0.6em 0em 0.6em;
-	position:relative;
-	top:-0.4em;
-	text-shadow:none;
-	color:@utf8AnimColor;
 
-	.right{
-		float:right;
+	.utf8 {
+		display:inline-block;
+		font-size:0.6em;
+		padding:0em 0.6em 0em 0.6em;
+		position:relative;
+		top:-0.4em;
+		text-shadow:none;
+		color:@utf8AnimColor;
+
+		.right{
+			float:right;
+		}
+
+		.left{
+			float:left;
+			}
 	}
 
-	.left{
-	float:left;
+	.utf8Hover{
+		color:#777;
 	}
-}
 
-.utf8Hover{
-	color:#777;
-}
+	.utf8Hover:hover{
+		color:#00774B;
+	}
 
-.utf8Hover:hover{
-	color:#00774B;
-}
+	.utf8Active{
+		color:black;
+	}
 
-.utf8Active{
-	color:black;
-}
-
-.uvmLogo{
-	height:100px;
-	float:left;
-	margin-top:-40px;
-	margin-left:20px;
-	margin-right:40px;
-}
+	.uvmLogo{
+		height:100px;
+		float:left;
+		margin-top:-40px;
+		margin-left:20px;
+		margin-right:40px;
+	}
 
 	.mainNav{
 		margin:0px 0px 0px -180px;
@@ -330,6 +342,8 @@ table{
 		}
 	}
 
+
+
 	.newsBlock{
 		border:none;
 		padding:4px;
@@ -358,6 +372,14 @@ table{
 			height:100%;
 			width:400px;
 			}
+	}
+
+	.rightSpan{
+
+		.todaysHours{
+			font-size:0.9em;
+			margin-left: -2em;
+		}
 	}
 }
 

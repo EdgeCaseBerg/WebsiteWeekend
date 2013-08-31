@@ -10,18 +10,35 @@ include "topBar.php";
 // equal height, in javascript below
 // var_dump($this->vars);
 
+$showLinks = false;
+
+function milToAMPM($hour){
+  //Takes something like 00:15:30 and converts it to 3:00pm
+  $temp = explode(':', $hour);
+  $AMPM = 'am';
+  if(intval($temp[1]) > 11){
+    $AMPM = 'pm';
+    if(intval($temp[1]) > 12){
+      $temp[1] = intval($temp[1]) % 12; 
+    }
+  }
+  return $temp[1] . ':' . $temp[2] . $AMPM;
+}
 ?>
+
 
 
 <div class="row-fluid defaultViewNest">
   <div class="span1">
-    <ul>
-      <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
-      <li><span class="shiftArrow">&#8674;</span>Code</li>
-      <li><span class="shiftArrow">&#8674;</span>Books</li>
-      <li><span class="shiftArrow">&#8674;</span>Articles</li>
-      <li><span class="shiftArrow">&#8674;</span>GitHub</li>
-    </ul>
+    <? if($showLinks){ ?>
+      <ul>
+        <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
+        <li><span class="shiftArrow">&#8674;</span>Code</li>
+        <li><span class="shiftArrow">&#8674;</span>Books</li>
+        <li><span class="shiftArrow">&#8674;</span>Articles</li>
+        <li><span class="shiftArrow">&#8674;</span>GitHub</li>
+      </ul>
+      <? }?>
   </div>
   
   <div class="span8 centerSpan">
@@ -60,9 +77,53 @@ include "topBar.php";
   </div>
   
   <div class="span3 rightSpan">
-          <a href="https://www.facebook.com/pages/UVM-CS-Crew/517417878345186"><img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png"></a>
-          <a href="http://www.linkedin.com/groups/UVM-CS-Crew-5158859"><img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png"></a>          
-          <a href="http://www.youtube.com/user/UVMCSCrew"><img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/youtube.png"></a>
+    <script>
+      function navigateTo(url){
+        window.location = url;
+      }
+    </script>
+          <!-- // hours here -->
+          <div class="row-fluid">
+            <div class="todaysHours"> 
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <b>Todays Help Hours</b>
+                  </tr>
+                  <tr>
+                    <th>Member</th><th>Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+              
+          <?
+            if(isset($this->vars['hours'])){
+              $i=0;
+              foreach ($this->vars['hours'] as $hours) {
+                  echo "<tr class='". ($i%2==0 ? 'alt' : '') ."' onclick=\"navigateTo('User/?showUserProfile=".$hours['fkUserID']."')\">";
+                      echo "<td>";
+                          echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
+                      echo "</td>";
+                      echo "<td>";
+                          echo milToAMPM($hours['hour']);
+                          echo '-' . milToAMPM($hours['endHour']);
+                      echo '</td>';              
+
+                  echo '</tr>';
+                  $i++;
+                }
+                if($i == 0 ){ //no data
+                  echo "<tr><td colspan=\"2\">No Help Hours Today</td></tr>";
+                  echo "<tr><td colspan=\"2\">Why not <a href=\"Default/?page=contact\">contact us</a>?</td></tr>";
+                }
+              }
+          ?>
+
+                </tbody>
+              </table>
+                
+            </div>
+          </div>
     <div class="row newsBlock">
       <h2>News</h2>
 <?
@@ -84,7 +145,8 @@ include "topBar.php";
     echo '</div>';
       
 ?>
-  </div>
+
+
 
 <script type="text/javascript">
 // make the cells equal length

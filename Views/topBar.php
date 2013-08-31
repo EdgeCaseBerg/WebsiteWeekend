@@ -1,9 +1,18 @@
 <?php
+$showForum = false;
 ?>
 <body>
+
+  <div class="socialIconsContainer">
+    <a href="https://www.facebook.com/pages/UVM-CS-Crew/517417878345186"><img alt="img" class="icon socialIcon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png"></a>
+    <a href="http://www.linkedin.com/groups/UVM-CS-Crew-5158859"><img alt="img" class="icon socialIcon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png"></a>          
+    <a href="http://www.youtube.com/user/UVMCSCrew"><img alt="img" class="icon socialIcon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/youtube.png"></a>
+  </div>
+  
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
   <a href=<? echo "'".BASEDIR."'";?>><img alt="logo" src="<? echo BASEDIR; ?>Views/images/logo.png" class="uvmLogo"></a>
+  
     <!--  the navbar at the top/middle of the screen -->
     <!--  Currently set to use ajax loads, but will be replaced w/ -->
     <!--  PHP loads once URL resolution is built --> 
@@ -51,7 +60,7 @@
         </a>
       </li>
     <? 
-  if ($_SESSION['user']->getUserAuth() > 0){ 
+  if ($_SESSION['user']->getUserAuth() > 0 && $showForum){ 
   echo   "<li>
         <a class='navLinks forumLink' href='".BASEDIR."Forum/?getPosts=yes'>
           <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>

@@ -3,7 +3,7 @@
 		public function retrieveAll(){
 			$query ="SELECT * FROM tblFrontPageImages ORDER BY sort_order";
 			$dbObject = new InteractDB();
-			$dbObject->customStatement($query);
+			$dbObject->customMysqli($query);
 			$imageArray = array();
 			foreach ($dbObject->returnedRows as $images) {
 				$image = new Image();

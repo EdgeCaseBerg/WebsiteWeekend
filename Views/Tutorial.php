@@ -22,7 +22,12 @@ function addHTTP($url){
 	the form below to submit your tutorials, we'll review it and if it's useful
 	we'll post it below! Don't be shy! 
 </p>
-<form method="POST" action="<?= BASEDIR . 'Tutorial/?add=true'; ?>">
+<script type="text/javascript">
+function thanks(){
+	alert('Thank you for submitting your tutorial! We\'ll review your submission and publish it soon!');
+}
+</script>
+<form method="POST" action="<?= BASEDIR . 'Tutorial/?add=true'; ?>" onsubmit="thanks()">
 	<label for="url">URL</label><input type="text" name="url" />
 	<label for="title">Title</label><input type="text" name="title" />
 	<input type="submit" value="Help out!" />

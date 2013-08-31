@@ -23,12 +23,12 @@ class AdminController extends AbstractController{
 		$this->POST = $POST;
 	 	$this->actions = $actions;
 	 	//Verify admin privilege
-	 	/*
+	 	
 	 	if($_SESSION['user']->getUserAuth()!=3){
 	 		//Not privileged
 	 		header('/');
 	 	}
-	 	*/
+	 	
 	 	$this->parseAction($this->actions);
 	}
 
@@ -275,6 +275,7 @@ class AdminController extends AbstractController{
 							case 'delete':
 								//Json only.
 								$info = explode('|',$_POST['id']);
+								logThis($info);
 								$modelObj = new Hours('json');
 								if($modelObj->deleteHours($info)){
 									$this->vars['success'] = true;

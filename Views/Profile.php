@@ -46,7 +46,7 @@ $(document).ready(function(){
 			<div class="span12">
 					<?
 						$out = "";
-						foreach ($this->vars['memberLangs'] as $langs){
+						foreach ($this->vars['langs'] as $langs){
 							$out .= $langs['language'].", ";
 						}
 						$out = substr_replace($out ,"",-2);

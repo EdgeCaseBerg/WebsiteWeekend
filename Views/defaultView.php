@@ -10,18 +10,35 @@ include "topBar.php";
 // equal height, in javascript below
 // var_dump($this->vars);
 
+$showLinks = false;
+
+function milToAMPM($hour){
+  //Takes something like 00:15:30 and converts it to 3:00pm
+  $temp = explode(':', $hour);
+  $AMPM = 'am';
+  if(intval($temp[1]) > 11){
+    $AMPM = 'pm';
+    if(intval($temp[1]) > 12){
+      $temp[1] = intval($temp[1]) % 12; 
+    }
+  }
+  return $temp[1] . ':' . $temp[2] . $AMPM;
+}
 ?>
+
 
 
 <div class="row-fluid defaultViewNest">
   <div class="span1">
-    <ul>
-      <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
-      <li><span class="shiftArrow">&#8674;</span>Code</li>
-      <li><span class="shiftArrow">&#8674;</span>Books</li>
-      <li><span class="shiftArrow">&#8674;</span>Articles</li>
-      <li><span class="shiftArrow">&#8674;</span>GitHub</li>
-    </ul>
+    <? if($showLinks){ ?>
+      <ul>
+        <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
+        <li><span class="shiftArrow">&#8674;</span>Code</li>
+        <li><span class="shiftArrow">&#8674;</span>Books</li>
+        <li><span class="shiftArrow">&#8674;</span>Articles</li>
+        <li><span class="shiftArrow">&#8674;</span>GitHub</li>
+      </ul>
+      <? }?>
   </div>
   
   <div class="span8 centerSpan">
@@ -60,34 +77,76 @@ include "topBar.php";
   </div>
   
   <div class="span3 rightSpan">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/tumblr.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/reddit.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/twitter.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/facebook.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/linkedin.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/rss.png">
-          <img alt="img" class="icon" src="<? echo BASEDIR; ?>Views/css/fonts/icons/elegantmediaicons/PNG/youtube.png">
+    <script>
+      function navigateTo(url){
+        window.location = url;
+      }
+    </script>
+          <!-- // hours here -->
+          <div class="row-fluid">
+            <div class="todaysHours"> 
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <b>Todays Help Hours</b>
+                  </tr>
+                  <tr>
+                    <th>Member</th><th>Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+              
+          <?
+            if(isset($this->vars['hours'])){
+              $i=0;
+              foreach ($this->vars['hours'] as $hours) {
+                  echo "<tr class='". ($i%2==0 ? 'alt' : '') ."' onclick=\"navigateTo('User/?showUserProfile=".$hours['fkUserID']."')\">";
+                      echo "<td>";
+                          echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
+                      echo "</td>";
+                      echo "<td>";
+                          echo milToAMPM($hours['hour']);
+                          echo '-' . milToAMPM($hours['endHour']);
+                      echo '</td>';              
+
+                  echo '</tr>';
+                  $i++;
+                }
+                if($i == 0 ){ //no data
+                  echo "<tr><td colspan=\"2\">No Help Hours Today</td></tr>";
+                  echo "<tr><td colspan=\"2\">Why not <a href=\"Default/?page=contact\">contact us</a>?</td></tr>";
+                }
+              }
+          ?>
+
+                </tbody>
+              </table>
+                
+            </div>
+          </div>
     <div class="row newsBlock">
       <h2>News</h2>
 <?
     echo '<div id="postContainer" class="row-fluid">';
-    foreach($this->vars['news'] as $newsPost){
-      $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
-        echo '<p class="newsItem">';
-        echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
-        if(strlen($post) > 160){
-          echo substr($post, 0,160).'&#8230;';
-        }else{
-          echo $post;
-        }
-        echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
-        echo "</p>";
-    } 
+    if(isset($this->vars['news'])){
+      foreach($this->vars['news'] as $newsPost){
+        $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
+          echo '<p class="newsItem">';
+          echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
+          if(strlen($post) > 160){
+            echo substr($post, 0,160).'&#8230;';
+          }else{
+            echo $post;
+          }
+          echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
+          echo "</p>";
+      } 
+    }
     echo '</div>';
       
 ?>
-  </div>
+
+
 
 <script type="text/javascript">
 // make the cells equal length
@@ -102,7 +161,7 @@ $(document).ready(function(){
 
 // fire up the gallery plugin
   var basedir = <? echo "'".BASEDIR."'"; ?>;
-  var initData = <?php echo $this->vars["galleria"];?>;
+  var initData = <?php echo isset($this->vars["galleria"]) ? $this->vars["galleria"] : '[]';?>;
   Galleria.loadTheme(basedir+'Views/js/galleria/themes/classic/galleria.classic.js');
   Galleria.configure({
     dataSource: initData

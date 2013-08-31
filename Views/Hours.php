@@ -74,6 +74,7 @@ function milToAMPM($hour){
 								'Fri'=>array()
 							  );
 				foreach ($this->vars['hours'] as $member) {
+
 					//Add this member to the correct day
 					$hours[$member['day']][] = $member;
 					//Figure out the maximal depth of the subarrays
@@ -85,9 +86,11 @@ function milToAMPM($hour){
 					echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
 					foreach ($hours as $day => $hoursOnDay) {
 						if(isset($hoursOnDay[$i])){
+							$id = strval($hoursOnDay[$i]['fkUserID']);
 							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
 								echo '<td>';
-								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '<br />';
+								echo "<a href=\"/User/?showUserProfile=$id\">";
+								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '</a><br />';
 								echo milToAMPM($hoursOnDay[$i]['hour']);
 								echo '-' . milToAMPM($hoursOnDay[$i]['endHour']);
 								echo '</td>';
@@ -107,7 +110,7 @@ function milToAMPM($hour){
 	</div>
 
 	<?php
-		print_r($this->vars['hours'],true);
+		//print_r($this->vars['hours'],true);
 	?>
 
 </div>

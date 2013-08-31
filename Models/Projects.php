@@ -17,8 +17,9 @@ class Projects{
 
 	public function addProject($team,$projName,$url,$status,$description){
 		$dbWrapper = new InteractDB();
-		$query = "INSERT INTO tblProjects (team, projName, url, status, description) VALUES ('$team', '$projName', '$url', '$status', '$description')";
-		$dbWrapper->customStatement($query);
+		$query = "INSERT INTO tblProjects (team, projName, url, status, description) VALUES (?, ?, ?, ?, ?)";
+		$arr = array($team,$projName,$url,$status,$description);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['result'] = $dbWrapper->returnedRows;
 		return $this->vars['result'];
 	}
@@ -41,10 +42,10 @@ class Projects{
 
 	public function deleteProject($id){
 		$dbWrapper = new InteractDB();
-		$query = "DELETE FROM tblProjects WHERE pkID=".$id;
-		$dbWrapper->customStatement($query);
-		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
-			//A 2053 means it worked... weird but true
+		$query = "DELETE FROM tblProjects WHERE pkID=?";
+		$arr = array($id);
+		$dbWrapper->customStatement($query, $arr);
+		if($dbWrapper->error===false){
 			$this->vars['success'] = true;
 		}else{
 			$this->vars['success'] = false;
@@ -55,10 +56,10 @@ class Projects{
 
 	public function updateField($id,$field,$newData){
 		$dbWrapper = new InteractDB();
-		$query = "UPDATE tblProjects SET $field = '$newData' WHERE pkID=$id";
-		$dbWrapper->customStatement($query);
-		if($dbWrapper->errorCondition->errorInfo[1] == 2053){
-			//A 2053 means it worked... weird but true
+		$query = "UPDATE tblProjects SET $field = ? WHERE pkID=?";
+		$arr = array($field, $id);
+		$dbWrapper->customStatement($query, $arr);
+		if($dbWrapper->error==false){
 			$this->vars['success'] = true;
 			return true;
 		}else{

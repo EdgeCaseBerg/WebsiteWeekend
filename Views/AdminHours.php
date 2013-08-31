@@ -187,12 +187,12 @@ function milToAMPM($hour){
 	$('.remove').bind('click',function(){
 		if(confirm('Are you sure you want to remove this help hour?')){
 			$.ajax({    type: "POST",  
-      					url:"/Admin/?hours=delete",  
+      					url:"../Admin/?hours=delete",  
       					data: "id="+$(this).attr('id'),
       					success: function(data){
       						if(data.success){
       							alert('Help hour deleted!');
-      							window.location = '/Admin/?hours=display';
+      							window.location = '../Admin/?hours=display';
       						}else{
       							alert('There was a problem removing the help hour');
       						}

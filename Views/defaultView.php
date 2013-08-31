@@ -78,6 +78,45 @@ function milToAMPM($hour){
   
   <div class="span3 rightSpan">
           <!-- // hours here -->
+          <div class="row-fluid">
+            <div class="hours"> 
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="2">Todays Help Hours</th>
+                  </tr>
+                  <tr>
+                    <th>Member</th><th>Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+              
+          <?
+            if(isset($this->vars['hours'])){
+              $i=0;
+              foreach ($this->vars['hours'] as $hours) {
+                  echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
+
+                      echo "<td>";
+                          echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
+                      echo "</td>";
+                      echo "<td>";
+                          echo milToAMPM($hours['hour']);
+                          echo '-' . milToAMPM($hours['endHour']);
+                      echo '</td>';              
+
+                  echo '</tr>';
+                  $i++;
+                }
+              }
+          ?>
+
+                </tbody>
+              </table>
+                
+            </div>
+          </div>
+      </div>
 
     <div class="row newsBlock">
       <h2>News</h2>
@@ -101,44 +140,7 @@ function milToAMPM($hour){
       
 ?>
 
-<div class="row-fluid">
-  <div class="hours"> 
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Todays Help Hours</th>
-        </tr>
-        <tr>
-          <th>Member</th><th>Hours</th>
-        </tr>
-      </thead>
-      <tbody>
-    
-<?
-  if(isset($this->vars['hours'])){
-    $i=0;
-    foreach ($this->vars['hours'] as $hours) {
-        echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
 
-            echo "<td>";
-                echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
-            echo "</td>";
-            echo "<td>";
-                echo milToAMPM($hours['hour']);
-                echo '-' . milToAMPM($hours['endHour']);
-            echo '</td>';              
-
-        echo '</tr>';
-        $i++;
-      }
-    }
-?>
-
-      </tbody>
-    </table>
-      
-  </div>
-</div>
 
 <script type="text/javascript">
 // make the cells equal length

@@ -215,7 +215,7 @@ class InteractDB{
 				try{
 					// var_dump($query);
 					$stmt = $connection->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-					logThis($stmt);
+					// logThis($stmt);
 					// Execute the query
 					$stmt->execute();
 					if(stripos($query, 'INSERT')===false && stripos($query, 'UPDATE')===false && stripos($query, 'DELETE')===false){
@@ -251,7 +251,7 @@ class InteractDB{
 
 
 	public function customMysqli($query){
-		logThis($query);
+		// logThis($query);
 		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
 		$result = mysqli_query($con, $query);
 		while($row = mysqli_fetch_array($result)){

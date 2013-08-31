@@ -89,7 +89,7 @@ function milToAMPM($hour){
 							$id = strval($hoursOnDay[$i]['fkUserID']);
 							if(strcmp($day, $hoursOnDay[$i]['day'])==0){
 								echo '<td>';
-								echo "<a href=\"/User/?showUserProfile=$id\">";
+								echo "<a href=\"".BASEDIR."/User/?showUserProfile=$id\">";
 								echo $hoursOnDay[$i]['fldFirstName'] . ' ' . $hoursOnDay[$i]['fldLastName'] . '</a><br />';
 								echo milToAMPM($hoursOnDay[$i]['hour']);
 								echo '-' . milToAMPM($hoursOnDay[$i]['endHour']);

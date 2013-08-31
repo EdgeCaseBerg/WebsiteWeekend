@@ -77,6 +77,11 @@ function milToAMPM($hour){
   </div>
   
   <div class="span3 rightSpan">
+    <script>
+      function navigateTo(url){
+        window.location = url;
+      }
+    </script>
           <!-- // hours here -->
           <div class="row-fluid">
             <div class="todaysHours"> 
@@ -95,8 +100,7 @@ function milToAMPM($hour){
             if(isset($this->vars['hours'])){
               $i=0;
               foreach ($this->vars['hours'] as $hours) {
-                  echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
-
+                  echo "<tr class='". ($i%2==0 ? 'alt' : '') ."' onclick=\"navigateTo('User/?showUserProfile=".$hours['fkUserID']."')\">";
                       echo "<td>";
                           echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
                       echo "</td>";

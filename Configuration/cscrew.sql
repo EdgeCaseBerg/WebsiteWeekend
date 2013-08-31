@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.5
+-- version 3.5.8.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Aug 31, 2013 at 12:05 PM
--- Server version: 5.1.67-rel14.3-log
--- PHP Version: 5.3.17
+-- Host: webdb.uvm.edu
+-- Generation Time: Aug 31, 2013 at 01:19 PM
+-- Server version: 5.5.32-31.0-log
+-- PHP Version: 5.3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,484 +17,522 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `slimdown_cscrew`
+-- Database: `CSCREW_1`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Account_Info`
+-- Table structure for table `tblContactEmails`
 --
 
-CREATE TABLE IF NOT EXISTS `Account_Info` (
-  `uvm_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'uvm net id',
-  `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'display name',
-  `password` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'password to login',
-  `priv_level` int(11) NOT NULL COMMENT 'privelege level',
-  `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`uvm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='account info for a forum or website member';
+CREATE TABLE IF NOT EXISTS `tblContactEmails` (
+  `pkID` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`pkID`,`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='This table defines who should be receiving emails from the c' AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `Account_Info`
+-- Dumping data for table `tblContactEmails`
 --
 
-INSERT INTO `Account_Info` (`uvm_id`, `username`, `password`, `priv_level`, `email`) VALUES
-('jdicker1', 'josh', '_MÌ;Z§eÖƒ''Þ¸‚Ï™', 1, 'jdicker1@uvm.edu'),
-('wmacewan', 'wmacewan', '¿mæ^Ñ	j©}&`ê°', 1, 'wmacewan@uvm.edu'),
-('joshua.dickerson', 'joshd', '_MÌ;Z§eÖƒ''Þ¸‚Ï™', 1, 'joshua.dickerson@uvm.edu'),
-('', '', '', 1, '@uvm.edu'),
-('test', 'test', '_MÌ;Z§eÖƒ''Þ¸‚Ï™', 1, 'test@uvm.edu');
+INSERT INTO `tblContactEmails` (`pkID`, `email`) VALUES
+(1, 'uvm.cscrew@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Account_Profile`
+-- Table structure for table `tblExpertise`
 --
 
-CREATE TABLE IF NOT EXISTS `Account_Profile` (
-  `uvm_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `first_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `last_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `personal_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `about_me` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `img_url` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`uvm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `tblExpertise` (
+  `fkUserID` int(11) NOT NULL,
+  `fkLangID` int(11) NOT NULL,
+  PRIMARY KEY (`fkUserID`,`fkLangID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Defines which members know which languages';
 
 --
--- Dumping data for table `Account_Profile`
+-- Dumping data for table `tblExpertise`
 --
 
-INSERT INTO `Account_Profile` (`uvm_id`, `username`, `first_name`, `last_name`, `personal_url`, `about_me`, `img_url`) VALUES
-('jdicker1', 'null', 'Josh', 'Dickerson', 'http://www.joshuadickerson.com', 'Skills: JQuery, HTML/CSS, PHP, Java, MATLAB, Python <br /><br /> I also ride bikes !! blahhh', 'noprofile.png');
+INSERT INTO `tblExpertise` (`fkUserID`, `fkLangID`) VALUES
+(12, 1),
+(12, 2),
+(12, 3),
+(12, 4),
+(14, 1),
+(14, 2),
+(14, 3),
+(14, 4),
+(14, 5),
+(14, 6),
+(14, 7),
+(14, 9),
+(14, 10),
+(15, 1),
+(15, 2),
+(15, 3),
+(15, 4),
+(15, 7),
+(15, 9),
+(15, 10),
+(29, 4),
+(30, 4),
+(33, 1),
+(33, 2),
+(33, 3),
+(33, 4),
+(33, 5),
+(33, 6),
+(33, 7),
+(33, 9),
+(33, 10),
+(34, 1),
+(34, 2),
+(34, 3),
+(34, 4),
+(34, 7),
+(34, 9),
+(34, 10),
+(35, 1),
+(35, 2),
+(35, 4),
+(35, 6),
+(35, 9),
+(35, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Forum_Comments`
+-- Table structure for table `tblFrontPageImages`
 --
 
-CREATE TABLE IF NOT EXISTS `Forum_Comments` (
-  `uvm_id` varchar(100) COLLATE utf8_general_ci NOT NULL,
-  `parent_uvm_id` varchar(100) COLLATE utf8_general_ci NOT NULL,
-  `comment_text` text COLLATE utf8_general_ci NOT NULL,
-  `comment_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `timestamp` varchar(60) COLLATE utf8_general_ci NOT NULL,
-  `last_updated` varchar(60) COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `tblFrontPageImages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `path` varchar(100) NOT NULL,
+  `description` varchar(400) NOT NULL,
+  `title` varchar(150) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `Forum_Comments`
+-- Dumping data for table `tblFrontPageImages`
 --
 
-INSERT INTO `Forum_Comments` (`uvm_id`, `parent_uvm_id`, `comment_text`, `comment_id`, `parent_id`, `timestamp`, `last_updated`) VALUES
-('', '', '22222222222', 0, 1347911718, '', ''),
-('jdicker1', '', 'comment', 0, 1351119879, '', ''),
-('jdicker1', '', 'ffffffffffffffffff', 0, 1347912482, '', ''),
-('jdicker1', '', 'ffffffffffffffffff', 0, 1347912482, '', ''),
-('jdicker1', '', 'try shit', 0, 1347912482, '', ''),
-('jdicker1', '', 'new try', 1351121089, 1347912482, '1351121089', ''),
-('jdicker1', '', 'asdasfaf', 1351122522, 1347912482, '1351122522', ''),
-('jdicker1', '', 'hshgxfgh', 1351728629, 1347912482, '1351728629', ''),
-('', '', '', 0, 0, '', '');
+INSERT INTO `tblFrontPageImages` (`id`, `path`, `description`, `title`, `sort_order`) VALUES
+(1, '1.jpg', 'Some picture of stuff', 'Some thing', 1),
+(2, '2.jpg', 'Some picture of other stuff', 'Other thing', 2),
+(3, '3.jpg', 'Again, just some picture of some stuff', 'Other other thing', 3),
+(4, '4.jpg', 'ONCE AGAIN ITS A FUCKING PICTURE', 'JEBUS STRIKES AGAIN', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Forum_Posts`
+-- Table structure for table `tblHours`
 --
 
-CREATE TABLE IF NOT EXISTS `Forum_Posts` (
-  `post_title` varchar(100) COLLATE utf8_general_ci NOT NULL,
-  `post_text` text COLLATE utf8_general_ci NOT NULL,
-  `uvm_id` varchar(100) COLLATE utf8_general_ci NOT NULL,
-  `timestamp` varchar(60) COLLATE utf8_general_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `tblHours` (
+  `fkCrewID` int(11) NOT NULL,
+  `day` varchar(6) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Mon,Tues,Wednes,Thurs,Fri',
+  `hour` time NOT NULL,
+  `endHour` time NOT NULL,
+  KEY `fkCrewID` (`fkCrewID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Forum_Posts`
+-- Dumping data for table `tblHours`
 --
 
-INSERT INTO `Forum_Posts` (`post_title`, `post_text`, `uvm_id`, `timestamp`) VALUES
-('another test', 'this is starting to work', 'jdicker1', '1347912482');
+INSERT INTO `tblHours` (`fkCrewID`, `day`, `hour`, `endHour`) VALUES
+(12, 'Wednes', '00:09:09', '00:00:00'),
+(12, 'Tues', '00:13:01', '00:00:00'),
+(15, 'Tues', '00:10:30', '00:00:00'),
+(14, 'Mon', '00:10:40', '00:24:00'),
+(14, 'Mon', '00:10:40', '00:00:00'),
+(14, 'Fri', '00:12:30', '00:13:45');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_class`
+-- Table structure for table `tblLanguages`
 --
 
-CREATE TABLE IF NOT EXISTS `login_class` (
-  `pkNumber` varchar(3) NOT NULL DEFAULT '000' COMMENT 'cs course number',
-  `ClassName` varchar(255) NOT NULL DEFAULT 'STUDY' COMMENT 'cs class name',
-  `Instructor` varchar(255) NOT NULL DEFAULT 'SELF' COMMENT 'instructors name',
-  `Semester` varchar(6) NOT NULL DEFAULT '0' COMMENT 'semester',
-  PRIMARY KEY (`pkNumber`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Table to hold classes displayed on the log-in screen';
-
---
--- Dumping data for table `login_class`
---
-
-INSERT INTO `login_class` (`pkNumber`, `ClassName`, `Instructor`, `Semester`) VALUES
-('491', 'Doctoral Dissertation Research', 'Indra Neil Sarkar', 'Summer'),
-('394', 'Predictive Casual Query Proces', 'Byung  Lee', 'Summer'),
-('391', 'Pred causal mod over datastrms', 'Byung  Lee', 'Summer'),
-('142', 'Advanced Web Design', 'Robert M. Erickson', 'Summer'),
-('021', 'Computer Programming I: MATLAB', 'Jackie Lynn Horton', 'Summer'),
-('020', 'Programming for Engineers', 'Jackie Lynn Horton', 'Summer'),
-('014', 'Visual Basic Programming', 'Jackie Lynn Horton', 'Summer'),
-('008', 'Introduction: WWW Design', 'Robert M. Erickson', 'Summer');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Member_Logins`
---
-
-CREATE TABLE IF NOT EXISTS `Member_Logins` (
-  `fkUserID` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `IP` varchar(12) NOT NULL COMMENT 'ip address',
-  `Login_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `Member_Logins`
---
-
-INSERT INTO `Member_Logins` (`fkUserID`, `IP`, `Login_Time`) VALUES
-('ejeldrid', '1.56.181.5', '2012-07-03 00:00:06'),
-('ejeldrid', '132.198.40.9', '2012-07-03 00:48:48'),
-('ejeldrid', '132.198.40.9', '2012-07-03 00:49:36'),
-('ejeldrid', '132.198.40.9', '2012-07-03 00:52:35'),
-('ejeldrid', '132.198.40.9', '2012-07-03 00:55:06'),
-('ejeldrid', '127.0.0.1', '2012-07-17 19:07:55'),
-('ejeldrid', '127.0.0.1', '2012-07-17 19:08:06'),
-('ejeldrid', '127.0.0.1', '2012-07-17 19:09:01'),
-('ejeldrid', '127.0.0.1', '2012-07-17 19:09:10'),
-('ejeldrid', '127.0.0.1', '2012-07-17 20:10:57'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:16:14'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:20:50'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:27:05'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:27:23'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:27:34'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:28:08'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:28:28'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:29:51'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:31:24'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:32:44'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:35:01'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:37:09'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:41:27'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:41:43'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:44:00'),
-('ejeldrid', '127.0.0.1', '2012-08-27 22:45:53'),
-('ejeldrid', '132.198.10.8', '2012-08-27 22:49:41'),
-('ejeldrid', '132.198.10.8', '2012-08-27 22:50:01'),
-('ejeldrid', '132.198.10.8', '2012-08-27 22:51:41'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:19:28'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:20:04'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:20:29'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:20:54'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:21:17'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:21:28'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:22:05'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:22:13'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:24:58'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:25:33'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:26:11'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:27:37'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:27:56'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:28:17'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:28:30'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:29:42'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:29:54'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:30:12'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:30:27'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:30:35'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:31:05'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:31:28'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:31:52'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:32:26'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:32:37'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:32:55'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:33:12'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:33:23'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:34:14'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:35:38'),
-('ejeldrid', '127.0.0.1', '2012-08-27 23:37:29'),
-('ejeldrid', '132.198.10.8', '2012-08-27 23:39:21'),
-('ejeldrid', '132.198.10.8', '2012-08-27 23:40:46'),
-('ejeldrid', '127.0.0.1', '2012-08-28 13:08:35'),
-('ejeldrid', '132.198.10.8', '2012-08-28 14:29:10'),
-('ejeldrid', '132.198.10.8', '2012-08-28 14:41:52'),
-('ejeldrid', '132.198.10.8', '2012-08-28 14:48:16'),
-('ejeldrid', '132.198.10.8', '2012-08-28 16:28:27'),
-('ejeldrid', '127.0.0.1', '2012-08-28 17:08:23'),
-('ejeldrid', '127.0.0.1', '2012-08-28 17:09:01'),
-('ejeldrid', '127.0.0.1', '2012-08-28 17:09:25'),
-('jdicker1', '127.0.0.1', '2012-08-29 14:08:49'),
-('jdicker1', '127.0.0.1', '2012-08-29 19:41:15'),
-('jdicker1', '127.0.0.1', '2012-08-29 21:27:23'),
-('jdicker1', '127.0.0.1', '2012-08-31 15:23:54'),
-('jdicker1', '127.0.0.1', '2012-08-31 16:19:29'),
-('jdicker1', '127.0.0.1', '2012-08-31 18:49:45'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:01:32'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:02:03'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:04:51'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:11:09'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:15:50'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:16:45'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:17:26'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:18:17'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:18:41'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:43:54'),
-('jdicker1', '127.0.0.1', '2012-08-31 19:48:53'),
-('jdicker1', '127.0.0.1', '2012-08-31 20:44:27'),
-('jdicker1', '132.198.10.8', '2012-08-31 21:00:48'),
-('jdicker1', '127.0.0.1', '2012-09-01 15:09:39'),
-('jdicker1', '127.0.0.1', '2012-09-01 21:05:24'),
-('jdicker1', '127.0.0.1', '2012-09-01 21:19:44'),
-('jdicker1', '127.0.0.1', '2012-09-01 21:25:35'),
-('jdicker1', '127.0.0.1', '2012-09-01 23:00:50'),
-('jdicker1', '127.0.0.1', '2012-09-02 01:56:29'),
-('jdicker1', '132.198.10.8', '2012-09-04 18:51:08'),
-('jdicker1', '132.198.10.8', '2012-09-04 18:54:58'),
-('jdicker1', '132.198.10.8', '2012-09-05 13:56:01'),
-('jdicker1', '127.0.0.1', '2012-09-05 14:27:20'),
-('jdicker1', '127.0.0.1', '2012-09-05 15:36:07'),
-('jdicker1', '132.198.10.8', '2012-09-05 16:10:46'),
-('jdicker1', '127.0.0.1', '2012-09-05 18:26:55'),
-('jdicker1', '127.0.0.1', '2012-09-05 20:52:43'),
-('jdicker1', '127.0.0.1', '2012-09-05 20:52:59'),
-('jdicker1', '132.198.10.8', '2012-09-05 23:32:14'),
-('jdicker1', '127.0.0.1', '2012-09-05 23:56:54'),
-('jdicker1', '127.0.0.1', '2012-09-06 00:04:54'),
-('jdicker1', '132.198.10.8', '2012-09-06 00:34:36'),
-('jdicker1', '127.0.0.1', '2012-09-06 00:57:46'),
-('jdicker1', '127.0.0.1', '2012-09-06 01:44:56'),
-('jdicker1', '127.0.0.1', '2012-09-06 02:46:55'),
-('jdicker1', '127.0.0.1', '2012-09-13 01:46:24'),
-('jdicker1', '127.0.0.1', '2012-09-14 14:49:54'),
-('jdicker1', '127.0.0.1', '2012-09-17 15:11:08'),
-('jdicker1', '127.0.0.1', '2012-09-17 19:40:14'),
-('jdicker1', '127.0.0.1', '2012-09-17 21:17:35'),
-('jdicker1', '127.0.0.1', '2012-09-18 13:29:37'),
-('jdicker1', '127.0.0.1', '2012-09-18 14:13:50'),
-('jdicker1', '127.0.0.1', '2012-09-18 14:16:08'),
-('jdicker1', '127.0.0.1', '2012-09-18 14:40:57');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `News`
---
-
-CREATE TABLE IF NOT EXISTS `News` (
-  `pkID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `author` varchar(42) NOT NULL,
-  `date_posted` date NOT NULL,
-  `picture_url` varchar(50) DEFAULT NULL,
-  `picture_caption` varchar(250) NOT NULL,
-  `story_url` varchar(100) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `toID` int(11) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblLanguages` (
+  `pkID` int(11) NOT NULL AUTO_INCREMENT,
+  `language` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`pkID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Table to hold information for news post. using urls for cont' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `tblLanguages`
+--
+
+INSERT INTO `tblLanguages` (`pkID`, `language`) VALUES
+(1, 'PHP'),
+(2, 'Java'),
+(3, 'Matlab'),
+(4, 'Python'),
+(5, 'C'),
+(6, 'C++'),
+(7, 'C#'),
+(8, 'Objective-C'),
+(9, 'HTML/CSS/JS'),
+(10, 'MySQL');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_Hours`
+-- Table structure for table `tblNews`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_Hours` (
-  `fkMemberID` varchar(10) NOT NULL,
-  `DayOfWeek` enum('M','T','W','R','F','S','Su') NOT NULL,
-  `Semester` varchar(15) NOT NULL,
-  `StartTime` time NOT NULL,
-  `EndTime` time NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `tblNews` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `path` varchar(120) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `R332_Hours`
+-- Dumping data for table `tblNews`
 --
 
-INSERT INTO `R332_Hours` (`fkMemberID`, `DayOfWeek`, `Semester`, `StartTime`, `EndTime`) VALUES
-('pkiripol', 'M', 'Spring2011', '10:30:00', '11:30:00'),
-('pkiripol', 'W', 'Spring2011', '10:30:00', '11:30:00');
+INSERT INTO `tblNews` (`id`, `title`, `created_at`, `path`, `image`, `is_published`) VALUES
+(2, 'Test Story 2', '2012-04-30 00:00:00', 'test_story_2', '', 0),
+(28, 'Computer Science Students Take HackVT for the Win', '2012-10-31 19:19:18', 'Computer_Science_Students_Take_HackVT_for_the_Win_1', 'Computer_Science_Students_Take_HackVT_for_the_Win_1.jpg', 1),
+(29, 'Peer To Peer Advising Night', '2012-04-30 19:22:47', 'Peer_To_Peer_Advising_Night_1', 'Peer_To_Peer_Advising_Night_1_image.jpg', 1),
+(33, 'CSCrew Creates A Site In a Weekend', '2013-04-11 20:51:31', 'CSCrew_Creates_A_Site_In_a_Weekend_1', '', 1),
+(34, 'A New Post', '2013-05-08 18:33:45', 'A_New_Post_1', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_Languages`
+-- Table structure for table `tblProjects`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_Languages` (
-  `pkLanguageID` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'index of language',
-  `Language` varchar(40) NOT NULL COMMENT 'language known',
-  PRIMARY KEY (`pkLanguageID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='This table has all the languages known by cs crew members' AUTO_INCREMENT=28 ;
+CREATE TABLE IF NOT EXISTS `tblProjects` (
+  `pkID` int(10) NOT NULL AUTO_INCREMENT,
+  `team` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `projName` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `description` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`pkID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `R332_Languages`
+-- Dumping data for table `tblProjects`
 --
 
-INSERT INTO `R332_Languages` (`pkLanguageID`, `Language`) VALUES
-(1, 'C'),
-(2, 'JAVA'),
-(3, 'Python'),
-(4, 'xHTML'),
-(5, 'XML'),
-(6, 'PHP'),
-(7, 'ASP'),
-(8, 'C++'),
-(9, 'C#'),
-(10, 'Visual Basic'),
-(11, 'Matlab'),
-(12, 'MySQL'),
-(13, 'MsSQL'),
-(14, 'Javascript/jQuery'),
-(15, 'AJAX'),
-(16, 'LaTeX'),
-(17, 'Scheme'),
-(18, 'Prolog'),
-(19, 'LISP'),
-(20, 'MAC'),
-(21, 'Ruby'),
-(22, 'OCaml'),
-(23, 'CSS'),
-(24, 'Combinatorics'),
-(25, 'CS 064'),
-(26, 'CS 121'),
-(27, 'CS 032');
+INSERT INTO `tblProjects` (`pkID`, `team`, `projName`, `url`, `status`, `description`) VALUES
+(1, 'CS Crew', 'CS Crew Website 3.0', 'https://github.com/EJEHardenberg/WebsiteWeekend/commits/master.atom', 'Active', 'We are refactoring and recreating the CS Crews website '),
+(2, 'Collateral Dama', 'Green Bean', 'https://github.com/the-hobbes/HackVT/commits/master.atom', 'Complete', 'Hack VT Winning Competition'),
+(10, 'Justins', 'Digital Systems', 'https://github.com/justcadams/Digital-Design/commits/master.atom', 'Active', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_MemberLanguage`
+-- Table structure for table `tblPurpose`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_MemberLanguage` (
-  `fkLanguageID` int(10) unsigned NOT NULL,
-  `fkMemberID` varchar(10) NOT NULL,
-  PRIMARY KEY (`fkLanguageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Contains which languages members know';
+CREATE TABLE IF NOT EXISTS `tblPurpose` (
+  `pkId` int(10) NOT NULL AUTO_INCREMENT,
+  `purpose` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Text displayed on login website',
+  PRIMARY KEY (`pkId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='defines the list of purposes displayed on the login screen' AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `tblPurpose`
+--
+
+INSERT INTO `tblPurpose` (`pkId`, `purpose`) VALUES
+(1, 'Get Help'),
+(2, 'Study'),
+(3, 'Project Night'),
+(4, 'Provide Help'),
+(5, 'Meeting/Presentation'),
+(6, 'Personal Project');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_Members`
+-- Table structure for table `tblRoomUsage`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_Members` (
-  `pkMemberID` varchar(10) NOT NULL,
-  `FirstName` varchar(32) NOT NULL,
-  `LastName` varchar(20) NOT NULL,
-  `Grade` varchar(15) DEFAULT NULL COMMENT 'Class Standing',
-  `Bio` text,
-  `Projects` text,
-  `Website` varchar(255) DEFAULT NULL,
-  `Picture` varchar(100) DEFAULT NULL,
-  `Active` binary(1) NOT NULL,
-  PRIMARY KEY (`pkMemberID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='A Crew Member';
+CREATE TABLE IF NOT EXISTS `tblRoomUsage` (
+  `pkID` int(10) NOT NULL AUTO_INCREMENT,
+  `uvmID` varchar(8) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fkPurpose` int(10) NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `visitDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `classYear` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`pkID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Logs the usage of room 332' AUTO_INCREMENT=159 ;
 
 --
--- Dumping data for table `R332_Members`
+-- Dumping data for table `tblRoomUsage`
 --
 
-INSERT INTO `R332_Members` (`pkMemberID`, `FirstName`, `LastName`, `Grade`, `Bio`, `Projects`, `Website`, `Picture`, `Active`) VALUES
-('ejeldrid', 'Ethan', 'Eldridge', 'Senior', 'I''m interested in Software Development, server-side coding and elegant coding. I''m the UPE Chapter President and a member of the Crew Triumvirate', 'The CS Crew Website Rehaul\r\nWiimote Smartboard Project', 'http://www.uvm.edu/~ejeldrid', NULL, '1'),
-('gfritz', 'Garth', 'Fritz', 'Senior', NULL, 'Wiimote Smart Board', NULL, NULL, '1'),
-('wmacewan', 'Scott', 'MacEwan', 'Senior', NULL, NULL, NULL, NULL, '1'),
-('ahebib1', 'Ammar', 'Hebib', 'Senior', NULL, NULL, NULL, NULL, '1'),
-('scperkin', 'Sean', 'Perkins', 'Senior', NULL, NULL, NULL, NULL, '1'),
-('pkiripol', 'Paul', 'Kiripolsky', 'Sophomore', NULL, 'Robots!', NULL, NULL, '1'),
-('jdicker1', 'Josh', 'Dickerson', 'Sophomore', NULL, NULL, NULL, NULL, '1');
+INSERT INTO `tblRoomUsage` (`pkID`, `uvmID`, `fkPurpose`, `description`, `visitDate`, `classYear`) VALUES
+(16, 'ejeldrid', 2, 'I''m doing stuff', '2013-04-08 02:35:13', 'Senior'),
+(17, 'ejeldrid', 3, '', '2013-04-08 02:35:22', 'Senior'),
+(18, 'jdicker1', 4, '', '2013-04-08 02:35:30', 'Junior'),
+(19, 'ejeldrid', 1, '', '2013-04-08 02:35:35', 'Senior'),
+(20, 'ejeldrid', 1, '', '2013-04-08 02:35:37', 'Senior'),
+(21, 'ejeldrid', 1, '', '2013-04-08 02:35:39', 'Senior'),
+(22, 'ejeldrid', 1, '', '2013-04-08 02:35:40', 'Senior'),
+(23, 'ejeldrid', 1, '', '2013-04-08 02:35:42', 'Senior'),
+(24, 'jdicker1', 6, 'nuthin', '2013-04-08 18:15:05', 'Junior'),
+(25, 'gfritz', 6, 'IOUG conference on my computer', '2013-04-08 18:15:32', 'Senior'),
+(26, 'pvendevi', 6, 'class programming', '2013-04-08 18:18:25', 'Senior'),
+(27, 'ajlarson', 2, '', '2013-04-08 18:27:36', 'First Year'),
+(28, 'pkiripol', 2, '', '2013-04-08 18:50:59', 'Junior'),
+(29, 'dsteimke', 2, '', '2013-04-08 19:00:53', 'Senior'),
+(30, 'dleach', 2, '', '2013-04-08 19:56:53', 'Senior'),
+(31, 'nmai', 2, '', '2013-04-08 19:58:26', 'First Year'),
+(32, 'ahebib1', 2, '', '2013-04-08 20:01:09', 'Senior'),
+(33, 'jadams7', 1, '', '2013-04-08 20:01:22', 'Senior'),
+(34, 'jpdee', 1, 'Code fo determine the forces in a member of a structure.\r\n', '2013-04-08 20:02:17', 'Junior'),
+(35, 'nmai', 2, '', '2013-04-08 22:26:44', 'First Year'),
+(36, 'wmacewan', 2, '', '2013-04-09 00:34:27', 'Senior'),
+(37, 'nmai', 2, '', '2013-04-09 13:45:28', 'First Year'),
+(38, 'jdicker1', 2, '206 homework\r\n', '2013-04-09 13:57:59', 'Junior'),
+(39, 'wmacewan', 2, '', '2013-04-09 15:20:50', 'Senior'),
+(40, 'pvendevi', 2, 'Working on stuff', '2013-04-09 15:30:49', 'Senior'),
+(41, 'dwilding', 2, '', '2013-04-09 16:25:32', 'Senior'),
+(42, 'ejeldrid', 2, '', '2013-04-09 16:44:21', 'Senior'),
+(43, 'adunkija', 1, 'CS 21 Lab', '2013-04-09 16:47:16', 'Junior'),
+(44, 'jclemons', 1, 'matlab\r\n', '2013-04-09 16:58:51', 'Sophomore'),
+(45, 'cabishop', 1, 'cs 21', '2013-04-09 17:33:20', 'Sophomore'),
+(46, 'wmacewan', 2, '', '2013-04-09 19:26:36', 'Senior'),
+(47, 'gfritz', 2, 'data mining presentation', '2013-04-09 19:26:50', 'Senior'),
+(48, 'msulli17', 2, '', '2013-04-09 19:29:36', 'Senior'),
+(49, 'rcnorton', 2, '', '2013-04-09 20:09:31', 'Junior'),
+(50, 'nmai', 2, '', '2013-04-10 01:06:55', 'First Year'),
+(51, 'alebeau', 6, '', '2013-04-10 15:41:34', 'Sophomore'),
+(52, 'pbush', 6, '', '2013-04-10 15:41:55', 'Sophomore'),
+(53, 'nmai', 1, '', '2013-04-10 16:40:53', 'First Year'),
+(54, 'nmai', 2, '', '2013-04-10 20:03:42', 'First Year'),
+(55, 'wmacewan', 2, '', '2013-04-10 22:09:11', 'Senior'),
+(56, 'rcnorton', 2, '', '2013-04-10 22:15:56', 'Junior'),
+(57, 'pkiripol', 2, '', '2013-04-11 13:54:51', 'Junior'),
+(58, 'pvendevi', 2, '', '2013-04-11 15:47:22', 'Senior'),
+(59, 'wmacewan', 2, '', '2013-04-11 19:58:56', 'Senior'),
+(60, 'wmacewan', 4, '', '2013-04-11 20:09:00', 'Senior'),
+(61, 'fhazlehu', 2, '', '2013-04-11 20:14:41', 'First Year'),
+(62, 'gfritz', 2, '', '2013-04-11 21:09:46', 'Senior'),
+(63, 'dpsander', 3, '', '2013-04-11 22:09:29', 'Junior'),
+(64, 'gfritz', 3, 'cs crew website work', '2013-04-11 22:47:30', 'Senior'),
+(65, 'ejeldrid', 3, 'Project Night!', '2013-04-11 22:47:45', 'Senior'),
+(66, 'fhazlehu', 2, '', '2013-04-11 22:48:49', 'First Year'),
+(67, 'pmleblan', 3, '', '2013-04-11 22:57:20', 'Junior'),
+(68, 'nmai', 2, '', '2013-04-12 01:39:52', 'First Year'),
+(69, 'dpsander', 3, '', '2013-04-12 14:19:37', 'Junior'),
+(70, 'nmai', 2, '', '2013-04-12 14:22:01', 'First Year'),
+(71, 'dwilding', 2, '', '2013-04-12 14:31:03', 'Senior'),
+(72, 'nmai', 2, '', '2013-04-12 22:43:14', 'First Year'),
+(73, 'ejeldrid', 6, 'CS Crew Website', '2013-04-13 03:28:06', 'Senior'),
+(74, 'wmacewan', 6, 'Cs Crew website', '2013-04-13 03:28:38', 'Senior'),
+(75, 'jdicker1', 6, 'cscrew website', '2013-04-13 03:28:56', 'Junior'),
+(76, 'nmai', 2, '', '2013-04-13 15:43:04', 'First Year'),
+(77, 'gfritz', 4, 'learning coop cs drop in hour', '2013-04-14 16:06:47', 'Senior'),
+(78, 'ejeldrid', 6, 'CS Crew Website', '2013-04-18 01:44:19', 'Senior'),
+(79, 'gdragoon', 2, 'blah', '2013-04-18 14:16:59', 'Junior'),
+(80, 'wmacewan', 2, '', '2013-04-18 15:21:32', 'Senior'),
+(81, 'ahebib1', 4, 'cs 08', '2013-04-18 15:25:36', 'Senior'),
+(82, 'pvendevi', 2, 'workworkworkworkworkwork', '2013-04-18 15:33:35', 'Senior'),
+(83, 'ejeldrid', 2, '', '2013-04-18 17:08:24', 'Senior'),
+(84, 'pjglenno', 6, 'FIND MY CHARGER. FIND ITTTTTT\r\n', '2013-04-18 17:08:53', 'Senior'),
+(85, 'mksargen', 2, 'MATLAB', '2013-04-18 17:36:41', 'First Year'),
+(86, 'pmleblan', 3, '', '2013-04-18 19:17:51', 'Junior'),
+(87, 'pvendevi', 2, 'se final project', '2013-04-18 19:40:19', 'Senior'),
+(88, 'ejeldrid', 3, 'Working on CS Crew Website', '2013-04-18 22:47:02', 'Senior'),
+(89, 'dleach', 2, '', '2013-04-19 00:06:40', 'Senior'),
+(90, 'dpsander', 5, '', '2013-04-19 14:22:54', 'Junior'),
+(91, 'pkiripol', 2, '', '2013-04-19 15:38:04', 'Junior'),
+(92, 'dleach', 2, '', '2013-04-20 15:04:42', 'Senior'),
+(93, 'ejeldrid', 5, 'Software Engineering final Project', '2013-04-21 14:52:58', 'Senior'),
+(94, 'pvendevi', 2, 'rat cat !!!', '2013-04-21 15:58:50', 'Senior'),
+(95, 'gfritz', 4, 'drop-in cs hour for learning co-op', '2013-04-21 16:14:38', 'Senior'),
+(96, 'wmacewan', 2, '', '2013-04-22 01:21:58', 'Senior'),
+(97, 'ahebib1', 2, 'cs 206 project', '2013-04-22 01:22:22', 'Senior'),
+(98, 'pkiripol', 2, 'Ugh.', '2013-04-22 01:22:30', 'Junior'),
+(99, 'pmleblan', 3, 'debugging yo', '2013-04-22 01:23:22', 'Junior'),
+(100, 'jadams7', 2, 'EE 231 & EE184 & CS 395', '2013-04-22 01:24:12', 'Senior'),
+(101, 'wmacewan', 2, '', '2013-04-22 14:37:31', 'Senior'),
+(102, 'pvendevi', 2, '', '2013-04-22 15:30:27', 'Senior'),
+(103, 'gfritz', 2, 'cs 142 final project work', '2013-04-22 17:54:01', 'Senior'),
+(104, 'gfritz', 2, 'cs 142 final project work', '2013-04-22 20:01:32', 'Senior'),
+(105, 'pvendevi', 2, '', '2013-04-23 15:32:05', 'Senior'),
+(106, 'cdewitt', 6, '', '2013-04-23 15:38:12', 'Senior'),
+(107, 'ahebib1', 4, '', '2013-04-23 15:38:37', 'Senior'),
+(108, 'ejeldrid', 2, 'sitting around before algorithms', '2013-04-23 16:39:29', 'Senior'),
+(109, 'jclemons', 1, 'matlab', '2013-04-23 17:17:25', 'Sophomore'),
+(110, 'mftoth', 6, '206 ', '2013-04-23 17:26:35', 'Junior'),
+(111, 'pkiripol', 2, 'RIBITS!\r\n', '2013-04-23 18:28:38', 'Junior'),
+(112, 'ahebib1', 2, '', '2013-04-23 18:29:04', 'Senior'),
+(113, 'msulli17', 2, '', '2013-04-23 20:57:01', 'Senior'),
+(114, 'ejeldrid', 2, '', '2013-04-23 21:03:12', 'Senior'),
+(115, 'dpsander', 1, '', '2013-04-23 22:17:55', 'Junior'),
+(116, 'ejeldrid', 2, '', '2013-04-23 22:34:37', 'Senior'),
+(117, 'gfritz', 2, 'cs142 final site', '2013-04-23 22:35:15', 'Senior'),
+(118, 'amille34', 3, 'solidworks model\r\n', '2013-04-23 23:00:35', 'Sophomore'),
+(119, 'rjtemple', 2, 'CS 125/124', '2013-04-23 23:21:24', 'Sophomore'),
+(120, 'kjwoodwa', 2, '', '2013-04-23 23:45:02', 'Sophomore'),
+(121, 'mharri11', 2, 'Stuff (124)', '2013-04-23 23:56:59', 'Junior'),
+(122, 'rcary', 2, '124 related stuff', '2013-04-23 23:57:15', 'Junior'),
+(123, 'solson1', 2, 'cs124\r\n', '2013-04-23 23:57:40', 'Sophomore'),
+(124, 'mharri11', 2, 'Bioloy - I mean, CS', '2013-04-24 14:18:51', 'Junior'),
+(125, 'jaswasey', 2, '', '2013-04-24 16:33:32', 'Senior'),
+(126, 'ejeldrid', 2, '', '2013-04-24 16:48:05', 'Senior'),
+(127, 'ejeldrid', 2, '', '2013-04-24 18:41:53', 'Senior'),
+(128, 'cdewitt', 2, '', '2013-04-24 19:37:56', 'Senior'),
+(129, 'dleach', 2, '', '2013-04-24 20:18:15', 'Senior'),
+(130, 'ejeldrid', 6, 'Learning from Udacity', '2013-04-24 21:42:48', 'Senior'),
+(131, 'ahebib1', 2, 'cs 206', '2013-04-25 00:43:50', 'Senior'),
+(132, 'wmacewan', 2, '', '2013-04-25 00:55:35', 'Senior'),
+(133, 'ejeldrid', 5, 'Working with scott on 224 and 226', '2013-04-25 03:14:16', 'Senior'),
+(134, 'mftoth', 6, '206', '2013-04-25 03:20:03', 'Junior'),
+(135, 'ejeldrid', 2, '', '2013-04-25 16:34:34', 'Senior'),
+(136, 'cdewitt', 2, '', '2013-04-25 17:12:17', 'Senior'),
+(137, 'mharri11', 2, 'CS125', '2013-04-25 19:42:50', 'Junior'),
+(138, 'dpsander', 6, '', '2013-04-25 21:38:41', 'Junior'),
+(139, 'easher', 3, 'euler problem', '2013-04-25 22:51:10', 'Sophomore'),
+(140, 'jmaslow', 3, 'various web projects\r\n', '2013-04-25 22:51:35', 'Sophomore'),
+(141, 'wmacewan', 3, '', '2013-04-25 22:51:46', 'Senior'),
+(142, 'ejeldrid', 3, 'YAY!', '2013-04-25 22:52:26', 'Senior'),
+(143, 'jadams7', 3, 'Projects!', '2013-04-25 22:52:38', 'Senior'),
+(144, 'dwilding', 2, '', '2013-04-26 14:30:01', 'Senior'),
+(145, 'solson1', 2, 'cs125 turing machine', '2013-04-26 16:07:11', 'Sophomore'),
+(146, 'mharri11', 2, 'CS 124 125', '2013-04-26 16:44:25', 'Junior'),
+(147, 'kjwoodwa', 2, '', '2013-04-26 17:24:43', 'Sophomore'),
+(148, 'rjtemple', 2, 'CS 125/124', '2013-04-26 17:39:08', 'Sophomore'),
+(149, 'jpsheeha', 2, '', '2013-04-26 17:49:27', 'Sophomore'),
+(150, 'ejeldrid', 2, '', '2013-04-26 20:35:07', 'Senior'),
+(151, 'rcary', 2, 'CS124, 125, and 195', '2013-04-27 14:53:15', 'Junior'),
+(152, 'rjtemple', 2, 'CS 125/124/195', '2013-04-27 15:06:26', 'Sophomore'),
+(153, 'ejeldrid', 2, '', '2013-04-27 15:17:49', 'Senior'),
+(154, 'dleach', 2, '', '2013-04-27 20:43:07', 'Senior'),
+(155, 'ejeldrid', 2, '', '2013-04-28 17:08:12', 'Senior'),
+(156, 'jdicker1', 6, 'site', '2013-04-28 17:08:35', 'Junior'),
+(157, 'wmacewan', 6, '', '2013-04-28 18:03:55', 'Senior'),
+(158, 'dleach', 2, '', '2013-04-28 18:21:26', 'Senior');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_Purpose`
+-- Table structure for table `tblTutorials`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_Purpose` (
-  `pkPurposeID` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'integer key for purpose',
-  `Purpose` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT 'purpose string',
-  PRIMARY KEY (`pkPurposeID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=ucs2 COMMENT='used for login purpose and generating reports' AUTO_INCREMENT=9 ;
+CREATE TABLE IF NOT EXISTS `tblTutorials` (
+  `pkTutorialId` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldURL` varchar(400) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldTitle` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldCategory` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'No Category',
+  `fldPublished` binary(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pkTutorialId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `R332_Purpose`
+-- Dumping data for table `tblTutorials`
 --
 
-INSERT INTO `R332_Purpose` (`pkPurposeID`, `Purpose`) VALUES
-(1, 'Study'),
-(2, 'Help Hours'),
-(3, 'Get Help'),
-(4, 'Work on Project'),
-(5, 'CSCrew Project'),
-(6, 'Personal Project'),
-(7, 'Meeting'),
-(8, 'Other');
+INSERT INTO `tblTutorials` (`pkTutorialId`, `fldURL`, `fldTitle`, `fldCategory`, `fldPublished`) VALUES
+('1366337779', 'http%3A%2F%2Fwww.uvm.edu%2F%7Eejeldrid', 'Ethan Eldridges Website', 'Personals', '1'),
+('1366337799', 'www.google.com', 'Google', 'No Category', '1'),
+('1366346911', 'www.facebook.com', 'The god awful Facebook', 'No Category', '1'),
+('1366939445', 'www.vhfa.org', 'VHFA', 'Jobs', '0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `R332_Usage`
+-- Table structure for table `tblUserAccount`
 --
 
-CREATE TABLE IF NOT EXISTS `R332_Usage` (
-  `pkLogID` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'unique id for each login',
-  `fkPersonID` varchar(10) NOT NULL COMMENT 'uvm login',
-  `fkPurposeID` int(11) DEFAULT NULL COMMENT 'corresponds to R332_Purpose',
-  `StartTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'time logged in',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'why are you here',
-  `Class` varchar(3) NOT NULL DEFAULT '000' COMMENT 'cs course digits',
-  PRIMARY KEY (`pkLogID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Used for reports for sign ins and such' AUTO_INCREMENT=16 ;
+CREATE TABLE IF NOT EXISTS `tblUserAccount` (
+  `pkUserID` int(11) NOT NULL AUTO_INCREMENT,
+  `fldUsername` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldPassword` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldAuth` int(11) NOT NULL,
+  `fldEmail` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `fldLostPasswordHash` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`pkUserID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
--- Dumping data for table `R332_Usage`
+-- Dumping data for table `tblUserAccount`
 --
 
-INSERT INTO `R332_Usage` (`pkLogID`, `fkPersonID`, `fkPurposeID`, `StartTime`, `Description`, `Class`) VALUES
-(15, 'ejeldrid', 1, '2012-05-28 17:11:05', 'doing stuff!', '000'),
-(14, 'ejeldrid', 1, '0000-00-00 00:00:00', 'doing stuff!', '000');
+INSERT INTO `tblUserAccount` (`pkUserID`, `fldUsername`, `fldPassword`, `fldAuth`, `fldEmail`, `active`, `fldLostPasswordHash`) VALUES
+(13, 'test', '$2a$15$7t9OYT9qRGLQbhdlBaoMhOhPTgFhPdMpSlDW1MeGDksCJTcRtxKrm', 1, '', 1, ''),
+(14, 'Ethan', '$2a$15$Xt2Hnv1H9nEpNCvnOYJ2Y.tS8WvNEc6C1HbuJFJ0H4F.2RnxfVsZS', 3, 'ejeldrid@uvm.edu', 1, ''),
+(19, 'Garth', '$2a$15$q8XXelcdSLqRX8TTmwsgxeui6MoSZYgn4ph45H02i0mqJCeEvy4jC', 1, '', 1, ''),
+(20, 'Dillan', '$2a$15$px8/r4xxV7o/HHDNsAcIHeGXHg0dioQ3fMSBX8jyLBJGb2bCDbpoi', -1, '', 1, ''),
+(21, 'Danielle', '$2a$15$WD72DFOs3ew.UGNkuZutQu1oB7DA8iDuO0GxKgU2my61cDhuJmzFu', 1, '', 1, ''),
+(27, 'neat', '$2a$15$/Qh7TwZnJed5WJPVEdXQY.Bcn3jNKxtYFQLinSYmHqQQAOffp0cJ6', -1, '', 0, ''),
+(29, 'pheven', '$2a$15$jrkh3QtYS7MWLGdpf7no9uUBanTC8RwbbCbkAjSfF5XdZFQet13lK', 1, '', 0, ''),
+(30, 'gggggg', '$2a$15$azUlqW81rqQ0/HCeOs.ABu6Llx8MvGLeR9lL4x.AK6.kLcUMr9Bfe', 1, '', 0, ''),
+(31, 'homer', '$2a$15$wkUSa4iBWFNwXCCBrSZD4O6zaingpAw5lD/CgjNZKeRTOp.68TC8i', 1, '', 0, ''),
+(32, '', '$2a$15$ge3.R8SfGMluc4ea4NIliOb7moSSWKUeGhEYfj4ckfvcJOskI0BTu', 3, 'joshuajdickerson@gmail.com', 1, 'WmJpY6Jprbfz3chLYbWn'),
+(34, '', '$2a$15$1v5c9kDkcRVyZr74Azbj3eqXGREsY9WBtnm5cmx3c5ntYhuLChhtS', 3, 'wsmacewan101@gmail.com', 0, ''),
+(35, '', '$2a$15$XP.37azt8ZcNdCNvXLaUWePNijD9o070CBj4FNQyfYFjZ1e/saP22', 1, 'Ammar.Hebib@gmail.com', 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Social_Networks`
+-- Table structure for table `tblUserProfile`
 --
 
-CREATE TABLE IF NOT EXISTS `Social_Networks` (
-  `uvm_id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `twitter` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `facebook` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `tumblr` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `blogger` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `google` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `rss` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `pintrest` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `reddit` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `myspace` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `git` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `linkedin` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`uvm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `tblUserProfile` (
+  `fkUserID` int(11) NOT NULL,
+  `fldProfileImage` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldFirstName` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldLastName` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldPersonalURL` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldAboutMe` text NOT NULL,
+  `fldGitURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldTwitterURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldFacebookURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldTumblrURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldLinkedinURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldGoogleURL` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldClassStanding` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `fldMajor` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`fkUserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Social_Networks`
+-- Dumping data for table `tblUserProfile`
 --
 
-INSERT INTO `Social_Networks` (`uvm_id`, `twitter`, `facebook`, `tumblr`, `blogger`, `google`, `rss`, `pintrest`, `reddit`, `myspace`, `git`, `linkedin`) VALUES
-('jdicker1', 'JoshuaDickerson', '', '', '', '', '', 'null', 'null', 'null', 'JoshuaDickerson', ''),
-('', 'zzzzz', 'faceeee', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '');
+INSERT INTO `tblUserProfile` (`fkUserID`, `fldProfileImage`, `fldFirstName`, `fldLastName`, `fldPersonalURL`, `fldAboutMe`, `fldGitURL`, `fldTwitterURL`, `fldFacebookURL`, `fldTumblrURL`, `fldLinkedinURL`, `fldGoogleURL`, `fldClassStanding`, `fldMajor`) VALUES
+(13, '', 'test', 'test', '', '', '', '', '', '', '', '', '', ''),
+(14, '', 'Ethan', 'Eldridge', 'http://www.uvm.edu/~ejeldrid', 'Avid coder. Patient Scientist.', '', '', '', '', '', '', '', ''),
+(15, '', 'Scott', 'MacEwan', 'http:/', 'I am a Senior at UVM getting a BS in CS and a BA in Math. Currently I have an internship at Blue House Group a web design firm in Richmond Vermont.', 'smacewan101', '', '', '', '', '', '', ''),
+(16, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(17, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(18, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(19, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(20, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(21, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(22, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(23, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(24, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(25, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(26, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(27, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(28, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(29, 'user_id_29.jpg', 'Phelan', 'Vendeville', 'uvm.edu/~pvendevi', 'I am pretty ok I guess.', '', '', '', '', '', '', '', ''),
+(30, '', 'dfgsdgsdfg', 'vgyvfyvvgy', '', '', '', '', '', '', '', '', '', ''),
+(31, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(32, 'user_id_32.jpg', 'Josh', 'Dickerson', 'http://www.joshuadickerson.com', 'I am an Iraq combat veteran, web-developer, and former industrial generator technician. ', 'https://github.com/JoshuaDickerson/', 'https://twitter.com/JoshuaDickerson', 'https://www.facebook.com/joshua.dickerson.543', '', 'http://www.linkedin.com/profile/view?id=183647006', 'https://plus.google.com/u/0/105133887961507598097/posts', 'Senior', 'BS-CSIS'),
+(33, '', 'Amy', 'Hardenberg', 'www.uvm.edu/~ejeldrid', 'Ethan''s alt profile so that he can test things because he forget his password.', 'https://github.com/EJEHardenberg', 'https://twitter.com/EthanJEldridge', '', '', '', '', '', ''),
+(34, '', 'Scott', 'MacEwan', '', 'I rock', '', '', '', '', '', '', '', ''),
+(35, '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

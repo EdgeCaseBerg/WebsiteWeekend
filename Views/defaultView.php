@@ -79,11 +79,11 @@ function milToAMPM($hour){
   <div class="span3 rightSpan">
           <!-- // hours here -->
           <div class="row-fluid">
-            <div class="hours"> 
-              <table>
+            <div class="todaysHours"> 
+              <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th colspan="2">Todays Help Hours</th>
+                    <b>Todays Help Hours</b>
                   </tr>
                   <tr>
                     <th>Member</th><th>Hours</th>

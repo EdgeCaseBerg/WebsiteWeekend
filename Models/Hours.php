@@ -11,7 +11,17 @@ class Hours{
 
 	public function getTodaysHours(){
 		$dateArr = getdate();
-		$weekdayString = $dateArr['weekday']; // like frida
+		$weekdayString = substr($dateArr['weekday'],0,-3); //Trim off 'day'
+		$query = "SELECT fkUserID, fldFirstName, fldLastName, day, hour, endHour ";
+		$query .="FROM tblUserProfile tbp, tblHours tg, tblUserAccount tbu WHERE ";
+		$query .="tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ";
+		$query .="and th.day ='$weekdayString' ORDER BY hour;"
+		$dbWrapper = new InteractDB();
+		$dbWrapper->customMysqli($query);
+		$this->vars['hours'] =  $dbWrapper->returnedRows;
+		logThis($this->vars['hours']);
+		return $this->vars['hours'];
+
 	}
 	public function getAllHours(){
 		//Gets Hours without any expertise search 

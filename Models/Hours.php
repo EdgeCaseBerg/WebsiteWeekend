@@ -11,8 +11,7 @@ class Hours{
 
 	public function getTodaysHours(){
 		$dateArr = getdate();
-		// $weekdayString = substr($dateArr['weekday'],0,-3); //Trim off 'day'
-		$weekdayString = "Mon";
+		$weekdayString = substr($dateArr['weekday'],0,-3); //Trim off 'day'
 		$query = "SELECT fkUserID, fldFirstName, fldLastName, day, hour, endHour ";
 		$query .="FROM tblUserProfile tbp, tblHours th, tblUserAccount tbu WHERE ";
 		$query .="tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ";

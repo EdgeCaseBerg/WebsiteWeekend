@@ -1,4 +1,5 @@
 <?php
+$showForum = false;
 ?>
 <body>
 <div id="topBar">
@@ -51,7 +52,7 @@
         </a>
       </li>
     <? 
-  if ($_SESSION['user']->getUserAuth() > 0){ 
+  if ($_SESSION['user']->getUserAuth() > 0 && $showForum){ 
   echo   "<li>
         <a class='navLinks forumLink' href='".BASEDIR."Forum/?getPosts=yes'>
           <div class='utf8 left'><!--[if !IE]> -->&#10094;<!-- <![endif]--></div>

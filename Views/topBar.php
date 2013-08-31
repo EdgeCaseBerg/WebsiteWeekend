@@ -5,6 +5,8 @@ $showForum = false;
 <div id="topBar">
     <!-- this is where all of our top-level nav goes, along with logo and title --> 
   <a href=<? echo "'".BASEDIR."'";?>><img alt="logo" src="<? echo BASEDIR; ?>Views/images/logo.png" class="uvmLogo"></a>
+  <div class="socialIconsContainer">
+  </div>
     <!--  the navbar at the top/middle of the screen -->
     <!--  Currently set to use ajax loads, but will be replaced w/ -->
     <!--  PHP loads once URL resolution is built --> 

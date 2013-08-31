@@ -2,3 +2,6 @@
 Configuration/config.php
 Configuration/log.txt
 Configuration/log.txt~
+
+#Ignore htaccess as per issue #14 
+.htaccess

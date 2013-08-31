@@ -15,7 +15,7 @@ class Hours{
 		$query = "SELECT fkUserID, fldFirstName, fldLastName, day, hour, endHour ";
 		$query .="FROM tblUserProfile tbp, tblHours tg, tblUserAccount tbu WHERE ";
 		$query .="tbp.fkUserID = th.fkCrewID AND tbp.fkUserID = tbu.pkUserID AND tbu.active=1 ";
-		$query .="and th.day ='$weekdayString' ORDER BY hour;"
+		$query .="and th.day ='$weekdayString' ORDER BY hour;";
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customMysqli($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;

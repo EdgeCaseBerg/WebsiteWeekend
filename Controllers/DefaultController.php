@@ -74,6 +74,9 @@ class DefaultController extends AbstractController{
 									require_once "Models/DefaultModel.php";
 									$modelObj = new DefaultModel("defaultView");
 									$this->vars['news'] = $modelObj->getVars();
+									require_once "Models/Hours.php";
+									$hourObj = new Hours("defaultView");
+									$this->vars['hours'] = $hourObj->getTodaysHours();
 									break;
 							}
 						break;

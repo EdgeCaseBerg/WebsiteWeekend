@@ -11,7 +11,21 @@ include "topBar.php";
 // var_dump($this->vars);
 
 $showLinks = false;
+
+function milToAMPM($hour){
+  //Takes something like 00:15:30 and converts it to 3:00pm
+  $temp = explode(':', $hour);
+  $AMPM = 'am';
+  if(intval($temp[1]) > 11){
+    $AMPM = 'pm';
+    if(intval($temp[1]) > 12){
+      $temp[1] = intval($temp[1]) % 12; 
+    }
+  }
+  return $temp[1] . ':' . $temp[2] . $AMPM;
+}
 ?>
+
 
 
 <div class="row-fluid defaultViewNest">
@@ -87,7 +101,45 @@ $showLinks = false;
     echo '</div>';
       
 ?>
+
+<div class="row-fluid">
+  <div class="hours"> 
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Todays Help Hours</th>
+        </tr>
+        <tr>
+          <th>Member</th><th>Hours</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+<?
+  if(isset($this->vars['hours'])){
+    $i=0;
+    foreach ($this->vars['hours'] as $hours) {
+        echo '<tr class="'. ($i%2==0 ? 'alt' : '') .'">';
+
+            echo "<td>";
+                echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
+            echo "</td>";
+            echo "<td>";
+                echo milToAMPM($hours['hour']);
+                echo '-' . milToAMPM($hours['endHour']);
+            echo '</td>';              
+
+        echo '</tr>';
+        $i++;
+      }
+    }
+?>
+
+      </tbody>
+    </table>
+      
   </div>
+</div>
 
 <script type="text/javascript">
 // make the cells equal length

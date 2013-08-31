@@ -107,7 +107,7 @@ function milToAMPM($hour){
 	</div>
 
 	<?php
-		print_r($this->vars['hours'],true);
+		//print_r($this->vars['hours'],true);
 	?>
 
 </div>

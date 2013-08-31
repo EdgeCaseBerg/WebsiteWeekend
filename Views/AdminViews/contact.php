@@ -51,7 +51,7 @@
     	if(event.which == 13){
     		//Go and add it to the database
     		$.ajax({    type: "POST",  
-      					url:"/Admin/?contact=add",  
+      					url:"<?= BASEDIR ?>/Admin/?contact=add",  
       					data: "email="+$(this).val(),
       					success: function(data){
       						if(data.success){
@@ -79,7 +79,7 @@
     		var newEmail = $('.ajax input').val();
     		$.ajax({
     			type: "POST",
-    			url: "/Admin/?contact=edit",
+    			url: "<?= BASEDIR ?>/Admin/?contact=edit",
     			data: "id="+id+"&newEmail="+newEmail,
     			success: function(data){
     				if(!data.success){

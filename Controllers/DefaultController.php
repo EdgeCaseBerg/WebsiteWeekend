@@ -75,7 +75,7 @@ class DefaultController extends AbstractController{
 									require_once "Models/DefaultModel.php";
 									$modelObj = new DefaultModel("defaultView");
 									$this->vars['news'] = $modelObj->getVars();
-									$hourObj = new Hours("");
+									$hourObj = new Hours("defaultView");
 									$this->vars['hours'] = $hourObj->getTodaysHours();
 									
 									break;
@@ -87,7 +87,7 @@ class DefaultController extends AbstractController{
 		} else {
 			require_once "Models/DefaultModel.php";
 			$modelObj = new DefaultModel("defaultView");
-			$hourObj = new Hours();
+			$hourObj = new Hours("defaultView");
 			$this->vars['hours'] = $hourObj->getTodaysHours();
 			$this->vars['news'] = $modelObj->getVars();
 		}

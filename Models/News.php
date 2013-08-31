@@ -153,7 +153,7 @@
 				$dateDMY = explode('-', $dateParts[0]);
 				$date = $dateDMY[1]."/".$dateDMY[2]."/".$dateDMY[0];
 			}
-			error_log("Return: ". $date);
+			//error_log("Return: ". $date);
 			return $date;
 		}
 

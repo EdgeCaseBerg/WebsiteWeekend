@@ -55,9 +55,11 @@
       					data: "email="+$(this).val(),
       					success: function(data){
       						if(data.success){
-      							window.location = '/Admin/?contact=display';
+      							window.location
+= '<?= BASEDIR ?>/Admin/?contact=display';
       						}else{
       							alert('There was a problem adding the email');
+							alert(data);
       						}
       					}
       				});
@@ -101,11 +103,12 @@
     	if(confirm('Are you sure you want to delete this email?\nCannot be undone.')){
     		$.ajax({
     			type: "POST",
-    			url:"/Admin/?contact=delete",
+    			url:"<?= BASEDIR ?>/Admin/?contact=delete",
     			data: "id="+$(this).attr('rel'),
     			success: function(data){
     				if(data.success){
-      					window.location = '/Admin/?contact=display';
+      					window.location = '<?= BASEDIR
+?>/Admin/?contact=display';
       				}else{
       					alert('There was a problem deleting the email');
       				}

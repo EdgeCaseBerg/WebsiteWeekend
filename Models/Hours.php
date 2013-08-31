@@ -9,6 +9,10 @@ class Hours{
 		$this->view = $query;
 	}
 
+	public function getTodaysHours(){
+		$dateArr = getdate();
+		$weekdayString = $dateArr['weekday']; // like frida
+	}
 	public function getAllHours(){
 		//Gets Hours without any expertise search 
 		$query = "SELECT fkUserID, fldFirstName, fldLastName, day , hour,endHour ";

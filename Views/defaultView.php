@@ -10,18 +10,21 @@ include "topBar.php";
 // equal height, in javascript below
 // var_dump($this->vars);
 
+$showLinks = false;
 ?>
 
 
 <div class="row-fluid defaultViewNest">
   <div class="span1">
-    <ul>
-      <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
-      <li><span class="shiftArrow">&#8674;</span>Code</li>
-      <li><span class="shiftArrow">&#8674;</span>Books</li>
-      <li><span class="shiftArrow">&#8674;</span>Articles</li>
-      <li><span class="shiftArrow">&#8674;</span>GitHub</li>
-    </ul>
+    <? if($showLinks){ ?>
+      <ul>
+        <li><span class="shiftArrow">&#8674;</span><a href="<?= BASEDIR; ?>Tutorial/">Tutorials</a></li>
+        <li><span class="shiftArrow">&#8674;</span>Code</li>
+        <li><span class="shiftArrow">&#8674;</span>Books</li>
+        <li><span class="shiftArrow">&#8674;</span>Articles</li>
+        <li><span class="shiftArrow">&#8674;</span>GitHub</li>
+      </ul>
+      <? }?>
   </div>
   
   <div class="span8 centerSpan">

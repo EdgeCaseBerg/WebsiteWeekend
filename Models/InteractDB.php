@@ -185,14 +185,15 @@ class InteractDB{
 					// Construct the query
 					$query = 'UPDATE '.$tableName.' SET '.implode(', ', $whereClause).' WHERE '.$tableKeyName.' ="'.$tableKey.'";';
 					// Prepare the query
-					
+					logThis(query);
 					// var_dump($query);
 					$stmt = $connection->prepare($query);
-					// var_dump($stmt);
+					logThis($data);
 					// Execute the query
 					$stmt->execute($data);
 				}catch (Exception $e){
 					echo $e;
+					logThis($e);
 					$this->error = true;
 					$this->errorCondition = $e;
 				}
@@ -201,31 +202,89 @@ class InteractDB{
 	} // end insertStatement
 
 
-	public function customStatement($query){
+	public function customStatement($query, $array = false){
 		// shortcutting, to temporarily fix PDO issues
 		// not secure !!
-		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
-		mysqli_query($con, $query);
-		mysqli_close($con);
-
-		// $connection = $this->connection;
-
-		// if(!$this->error){
-		// 	try{
-		// 		// var_dump($query);
-		// 		$stmt = $connection->prepare($query);
-		// 		//logThis($stmt);
-		// 		// Execute the query
-		// 		$stmt->execute();
-		// 		//logThis($stmt);
-		// 		$this->returnedRows = $stmt->fetchAll();
-		// 	}catch (Exception $e){
-		// 		logThis($e);
-		// 		$this->error = true;
-		// 		$this->errorCondition = $e;
-		// 	}
-		// }
+		// $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+		// mysqli_query($con, $query);
+		// mysqli_close($con);
+		$connection = $this->connection;
+		if(!$array){
+			// LogThis("------------");
+			if(!$this->error){
+				try{
+					// var_dump($query);
+					$stmt = $connection->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+					logThis($stmt);
+					// Execute the query
+					$stmt->execute();
+					if(stripos($query, 'INSERT')===false && stripos($query, 'UPDATE')===false && stripos($query, 'DELETE')===false){
+						$this->returnedRows = $stmt->fetchAll();
+					}
+				}catch (Exception $e){
+					logThis($e);
+					$this->error = true;
+					$this->errorCondition = $e;
+				}
+			}
+		}else{
+			logThis($this->error);
+			if(!$this->error){
+				try{
+					// var_dump($query);
+					$stmt = $connection->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+					//logThis($stmt);
+					// Execute the query
+					$stmt->execute($array);
+					// logThis($stmt);
+					if(stripos($query, 'INSERT')===false && stripos($query, 'UPDATE')===false && strpos($query, 'DELETE')===false){
+						$this->returnedRows = $stmt->fetchAll();
+					}
+				}catch (Exception $e){
+					logThis($e);
+					$this->error = true;
+					$this->errorCondition = $e;
+				}
+			}
+		}
 	} // customStatement
+
+
+	public function customMysqli($query){
+		logThis($query);
+		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+		$result = mysqli_query($con, $query);
+		while($row = mysqli_fetch_array($result)){
+			array_push($this->returnedRows, $row);
+		}
+		mysqli_close($con);
+	}
+
+	// public function customStatement($query){
+	// 	// shortcutting, to temporarily fix PDO issues
+	// 	// not secure !!
+	// 	// $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+	// 	// mysqli_query($con, $query);
+	// 	// mysqli_close($con);
+
+	// 	$connection = $this->connection;
+
+	// 	if(!$this->error){
+	// 		try{
+	// 			// var_dump($query);
+	// 			$stmt = $connection->prepare($query);
+	// 			//logThis($stmt);
+	// 			// Execute the query
+	// 			$stmt->execute();
+	// 			//logThis($stmt);
+	// 			$this->returnedRows = $stmt->fetchAll();
+	// 		}catch (Exception $e){
+	// 			logThis($e);
+	// 			$this->error = true;
+	// 			$this->errorCondition = $e;
+	// 		}
+	// 	}
+	// } // customStatement
 
 	public function getError(){
 		if($this->error){

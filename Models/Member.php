@@ -13,41 +13,50 @@ class Member{
 	}
 
 	public function getMembers($start=0,$limit=10){
-		$query = "SELECT pkUserId as profLink, fldProfileImage as image,fldFirstName as fname,fldLastName as lname,fldPersonalURL as url, fldEmail as email,fldAboutMe as aboutme FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID AND ta.active=1 LIMIT $start , $limit;";		
+		$query = "SELECT pkUserId as profLink, fldProfileImage as image,fldFirstName as fname,fldLastName ";
+		$query .= "as lname,fldPersonalURL as url, fldEmail as email,fldAboutMe as aboutme FROM tblUserProfile ";
+		$query .= "tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID AND ta.active=1 LIMIT :start , :limit;";		
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(':start'=>$start, ':limit'=>$limit);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['info'] = $dbWrapper->returnedRows;
 		return $this->vars['info'];
 	}
 
 	public function getMembersAdmin($start=0,$limit=10){
-		$query = "SELECT pkUserID,fldUsername as username, fldFirstName as fname,fldLastName as lname, fldEmail as email, active, fldAuth as auth  FROM tblUserProfile tp, tblUserAccount ta WHERE tp.fkUserID=ta.pkUserID ORDER BY ISNULL(tp.fldFirstName), ISNULL(tp.fldLastName),username ASC LIMIT $start , $limit;";		
+		$query = "SELECT pkUserID,fldUsername as username, fldFirstName as fname,fldLastName as lname, fldEmail ";
+		$query .= "as email, active, fldAuth as auth  FROM tblUserProfile tp, tblUserAccount ta WHERE ";
+		$query .= "tp.fkUserID=ta.pkUserID ORDER BY ISNULL(tp.fldFirstName), ISNULL(tp.fldLastName),username ASC LIMIT :start , :limit;";		
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(':start'=>$start, ':limit'=>$limit);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['info'] = $dbWrapper->returnedRows;
 		return $this->vars['info'];
 	}
 
 	public function setMemberActive($id,$active=false){
-		$query = 'UPDATE tblUserAccount SET active ='.$active.' WHERE pkUserID = '. $id .';';
+		$query = 'UPDATE tblUserAccount SET active = :active WHERE pkUserID = :id;';
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(':active'=>$active, ':id'=>$id);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];	
 	}
 
 	public function setMemberAuth($id,$auth=0){
-		$query = 'UPDATE tblUserAccount SET fldAuth ='.$auth.' WHERE pkUserID = '. $id .';';
+		$query = 'UPDATE tblUserAccount SET fldAuth = :auth WHERE pkUserID = :id;';
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(':auth'=>$auth, ':id'=>$id);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];		
 	}
 
 	public function deleteMember($id){
-		$query = 'DELETE FROM tblUserAccount WHERE pkUserID = '. $id .';';
+		$query = 'DELETE FROM tblUserAccount WHERE pkUserID = :id;';
 		$dbWrapper = new InteractDB();
-		$dbWrapper->customStatement($query);
+		$arr = array(':id'=>$id);
+		$dbWrapper->customStatement($query, $arr);
 		$this->vars['success'] = $dbWrapper->returnedRows;
 		return $this->vars['success'];			
 	}

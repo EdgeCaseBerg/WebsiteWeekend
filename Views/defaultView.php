@@ -120,8 +120,6 @@ function milToAMPM($hour){
                 
             </div>
           </div>
-      </div>
-
     <div class="row newsBlock">
       <h2>News</h2>
 <?

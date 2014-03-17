@@ -1,0 +1,1 @@
+It was a packed room in Votey 332 last night as the CS-Crew delivered another pre-registration talk aimed at helping younger CS students get the classes they want with the professors they need. Pizza was had, questions were answered, and overall the night was a rousing success. 

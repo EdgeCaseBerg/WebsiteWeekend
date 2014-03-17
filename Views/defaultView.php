@@ -131,15 +131,17 @@ function milToAMPM($hour){
     if(isset($this->vars['news'])){
       foreach($this->vars['news'] as $newsPost){
         $post = file_get_contents('Views/Stories/Content/' . $newsPost->getPath() .'.php');
-          echo '<p class="newsItem">';
-          echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
-          if(strlen($post) > 160){
-            echo substr($post, 0,160).'&#8230;';
-          }else{
-            echo $post;
-          }
-          echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
-          echo "</p>";
+         if($post != false){
+	  	echo '<p class="newsItem">';
+          	echo '<span class="headline">'.$newsPost->getTitle().'</span><br />';
+          	if(strlen($post) > 160){
+            		echo substr($post, 0,160).'&#8230;';
+          	}else{
+            		echo $post;
+          	}
+          	echo '<span class="readMore"><a href="'.BASEDIR.'News/?singleStory='. $newsPost->getId() .'">Read More</a></span>';
+          	echo "</p>";
+	}
       } 
     }
     echo '</div>';

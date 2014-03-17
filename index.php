@@ -3,7 +3,7 @@
 require_once 'Models/User.php';
 require_once "Configuration/log.php";
 require_once "Views/lib/CleanIn.php";
-// logThis("testing");
+//logThis("testing");
 session_start();
 if(!isset($_SESSION['user'])){
 	$user = new UserModel;

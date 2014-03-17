@@ -4,7 +4,7 @@ if(isset($_SESSION['notifications'])){
 }
 ?>
 
-<form action="<? echo BASEDIR; ?>User/?doLogin=yes" method="post">
+<form action="<? echo HTTPSBASEDIR; ?>User/?doLogin=yes" method="post">
 	<ul>
 		<li><input type="text" name="fldUsername"></li>
 		<li><input type="text" name="fldPassword"></li>

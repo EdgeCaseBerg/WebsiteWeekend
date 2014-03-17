@@ -251,9 +251,11 @@ class InteractDB{
 
 
 	public function customMysqli($query){
-		// logThis($query);
+		logThis($query);
 		$con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
+		logThis($con);
 		$result = mysqli_query($con, $query);
+		logThis($result);
 		while($row = mysqli_fetch_array($result)){
 			array_push($this->returnedRows, $row);
 		}

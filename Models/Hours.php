@@ -30,17 +30,17 @@ class Hours{
 		$dbWrapper = new InteractDB();
 		$dbWrapper->customMysqli($query);
 		$this->vars['hours'] =  $dbWrapper->returnedRows;
-		logThis($this->vars['hours']);
+		//logThis($this->vars['hours']);
 		return $this->vars['hours'];
 	}
 
 	public function addHours($id,$hour,$day,$endHour){
 		$dbWrapper = new InteractDB();
-		$query = "INSERT INTO CSCREW_Website.tblHours (fkCrewID, day, hour, endHour) VALUES ";
-		$query .= "(?, ?, ?, ?);";
-		$arr = array($id, $day, $hour, $endHour);
-		$dbWrapper->customStatement($query, $arr);
-
+		$query = "INSERT INTO tblHours (fkCrewID, day, hour, endHour) VALUES ";
+		$query .= "($id, $day, $hour, $endHour);";
+		//$arr = array($id, $day, $hour, $endHour);
+		//$dbWrapper->customStatement($query, $arr);
+		$dbWrapper->customMysqli($query);
 	}
 
 	public function getActiveMembers(){

@@ -1,0 +1,2 @@
+This semester's student advising night will occur on Wednesday, October 30, 2013 at 7:00 pm in Votey 332. 
+Student advising night is a chance for all students to get first hand knowledge about classes and professors before enrollment for the spring semester begins. We will be closing the doors, kicking out the professors and lecturers, and giving you the raw and unfiltered truths about CS courses before you sign up. Come get some pizza and an earful with the CSCREW. 

@@ -39,11 +39,11 @@
 
 		// // the following trims the leading and following "/" off of the path
 		// Live server
-		// $dirTrim = str_replace("/~cscrew" ,"",$requestArr['path']);
-		// $dirTrim = str_replace("/" ,"",$dirTrim);
+		$dirTrim = str_replace("/~cscrew" ,"",$requestArr['path']);
+		$dirTrim = str_replace("/" ,"",$dirTrim);
 
 		// localhost
-		$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
+		//$dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);
 		
 		// $dirTrim = str_replace("~cscrew" ,"",$requestArr['path']);
 		// $dirTrim = str_replace(BASEDIR ,"",$requestArr['path']);

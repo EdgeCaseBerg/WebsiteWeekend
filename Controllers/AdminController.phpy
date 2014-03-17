@@ -239,6 +239,7 @@ class AdminController extends AbstractController{
 										
 									}
 									$newTime[] = $tmp[0] . substr($tmp[1],0,2);
+									
 								}
 
 

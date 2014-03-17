@@ -51,13 +51,15 @@
     	if(event.which == 13){
     		//Go and add it to the database
     		$.ajax({    type: "POST",  
-      					url:"/Admin/?contact=add",  
+      					url:"<?= BASEDIR ?>/Admin/?contact=add",  
       					data: "email="+$(this).val(),
       					success: function(data){
       						if(data.success){
-      							window.location = '/Admin/?contact=display';
+      							window.location
+= '<?= BASEDIR ?>/Admin/?contact=display';
       						}else{
       							alert('There was a problem adding the email');
+							alert(data);
       						}
       					}
       				});
@@ -79,7 +81,7 @@
     		var newEmail = $('.ajax input').val();
     		$.ajax({
     			type: "POST",
-    			url: "/Admin/?contact=edit",
+    			url: "<?= BASEDIR ?>/Admin/?contact=edit",
     			data: "id="+id+"&newEmail="+newEmail,
     			success: function(data){
     				if(!data.success){
@@ -101,11 +103,12 @@
     	if(confirm('Are you sure you want to delete this email?\nCannot be undone.')){
     		$.ajax({
     			type: "POST",
-    			url:"/Admin/?contact=delete",
+    			url:"<?= BASEDIR ?>/Admin/?contact=delete",
     			data: "id="+$(this).attr('rel'),
     			success: function(data){
     				if(data.success){
-      					window.location = '/Admin/?contact=display';
+      					window.location = '<?= BASEDIR
+?>/Admin/?contact=display';
       				}else{
       					alert('There was a problem deleting the email');
       				}

@@ -100,7 +100,7 @@ function milToAMPM($hour){
             if(isset($this->vars['hours'])){
               $i=0;
               foreach ($this->vars['hours'] as $hours) {
-                  echo "<tr class='". ($i%2==0 ? 'alt' : '') ."' onclick=\"navigateTo('User/?showUserProfile=".$hours['fkUserID']."')\">";
+                  echo "<tr class='". ($i%2==0 ? 'alt' : '') ."' onclick=\"navigateTo('".BASEDIR."/User/?showUserProfile=".$hours['fkUserID']."')\">";
                       echo "<td>";
                           echo $hours['fldFirstName'] . ' ' . $hours['fldLastName'] . '<br />';
                       echo "</td>";
